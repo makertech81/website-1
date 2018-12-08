@@ -85,11 +85,11 @@ interface ApplyPageState {
 }
 
 class ApplyPage extends React.Component<Props, ApplyPageState> {
-  cancelled: boolean;
+  unmounted: boolean;
 
   constructor(props: Props) {
     super(props);
-    this.cancelled = false;
+    this.unmounted = false;
     this.state = {
       loading: false,
       formData: null
@@ -97,29 +97,29 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
   }
 
   componentDidMount() {
-    console.log('yes!');
     this.setFormState();
   }
 
   componentWillUnmount() {
-    console.log('ahh!!')
+    this.unmounted = true;
   }
 
-  componentWillReceiveProps(prevProps: Props) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.user !== prevProps.user) {  
-      console.log('changed!');
-      console.log(this.props.user);
       this.setFormState();
     }
   }
 
   setFormState() {
     const { user } = this.props;
+    
     if ('uid' in user) {
-      this.setState({ loading: true, ...this.state });
+      this.setState({ loading: true });
     
       this.loadValues(user).then(formData => {
-        this.setState({ loading: false, formData: formData, ...this.state });
+        if (!this.cancelled) {
+          this.setState({ loading: false, formData: formData });
+        }
       })
     }
   }
@@ -140,10 +140,6 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     }
     return true;
   }
-
-  // handleChange = (event: FormEvent<HTMLInputElement>) => {
-    // this.setState({ name: event.currentTarget.value });
-  // };
 
   handleSubmit = (values: [string]) => {
     const { user } = this.props;
@@ -241,9 +237,13 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     );
   }
 }
-const mapStateToProps = (state: ReduxState) => ({
-  user: state.core.user
-});
+const mapStateToProps = (state: ReduxState) => {
+  console.log('mapped!');
+  console.log(state.core.user);
+  return {
+    user: state.core.user
+  };
+};
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators({ push }, dispatch);
