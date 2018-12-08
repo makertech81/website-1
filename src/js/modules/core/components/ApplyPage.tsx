@@ -110,24 +110,25 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     }
   }
 
-  setFormState() {
+  async setFormState() {
     const { user } = this.props;
-    
+
     if ('uid' in user) {
       this.setState({ loading: true });
-    
-      this.loadValues(user).then(formData => {
-        if (!this.cancelled) {
-          this.setState({ loading: false, formData: formData });
-        }
-      })
+      
+      const formData = await this.loadValues(user);
+
+      if (!this.cancelled) {
+        this.setState({ loading: false, formData: formData });
+      }      
     }
   }
 
   async loadValues(user: User): Promise<FormData> {
     const snapshot = await db.collection("users").doc(user.uid).get();
+    const formData = snapshot.data() as FormData;
+
     return new Promise<FormData>((resolve, reject) => {
-      const formData = snapshot.data() as FormData;
       resolve(formData);
     });
   }
