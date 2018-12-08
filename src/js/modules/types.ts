@@ -2,8 +2,6 @@ import {User} from "firebase";
 
 export interface ReduxState {
   core: CoreState
-  formData: FormData;
-  loading: boolean;
 }
 export interface CoreState {
   viewportWidth: number

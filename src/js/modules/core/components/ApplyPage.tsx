@@ -115,7 +115,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
 
     if ('uid' in user) {
       this.setState({ loading: true });
-      
+
       const formData = await this.loadValues(user);
 
       if (!this.cancelled) {
@@ -238,13 +238,9 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     );
   }
 }
-const mapStateToProps = (state: ReduxState) => {
-  console.log('mapped!');
-  console.log(state.core.user);
-  return {
-    user: state.core.user
-  };
-};
+const mapStateToProps = (state: ReduxState) => ({
+  user: state.core.user
+});
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators({ push }, dispatch);
