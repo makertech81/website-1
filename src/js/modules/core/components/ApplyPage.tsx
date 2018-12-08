@@ -85,20 +85,43 @@ interface ApplyPageState {
 }
 
 class ApplyPage extends React.Component<Props, ApplyPageState> {
+  cancelled: boolean;
+
   constructor(props: Props) {
     super(props);
+    this.cancelled = false;
     this.state = {
       loading: false,
       formData: null
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    console.log('yes!');
+    this.setFormState();
+  }
+
+  componentWillUnmount() {
+    console.log('ahh!!')
+  }
+
+  componentWillReceiveProps(prevProps: Props) {
+    if (this.props.user !== prevProps.user) {  
+      console.log('changed!');
+      console.log(this.props.user);
+      this.setFormState();
+    }
+  }
+
+  setFormState() {
     const { user } = this.props;
-    this.setState({ loading: true, ...this.state });
+    if ('uid' in user) {
+      this.setState({ loading: true, ...this.state });
     
-    const formData = await this.loadValues(user);
-    this.setState({ loading: false, formData: formData});
+      this.loadValues(user).then(formData => {
+        this.setState({ loading: false, formData: formData, ...this.state });
+      })
+    }
   }
 
   async loadValues(user: User): Promise<FormData> {
