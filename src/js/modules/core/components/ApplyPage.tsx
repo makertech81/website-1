@@ -10,6 +10,7 @@ import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 
+
 const styles = (theme: Theme): Styles => ({
   ApplyPage: {
     display: "flex",
@@ -69,26 +70,55 @@ interface Props {
   push: (route: string) => any;
 }
 
-class ApplyPage extends React.Component<Props> {
+interface FormData {
+  firstName: string;
+  lastName: string;
+}
+
+interface ApplyPageState {
+  formData: FormData | null;
+  loading: boolean;
+}
+
+class ApplyPage extends React.Component<Props, ApplyPageState> {
   constructor(props: Props) {
     super(props);
+    this.state = {
+      loading: false,
+      formData: null
+    };
   }
 
+  componentDidMount() {
+    this.setState({ loading: true, ...this.state });
+    const formData = this.loadValues();
+    this.setState({ loading: false, formData: formData});
+  }
+
+  loadValues(): FormData {
+    return {
+        firstName: 'HotDog',
+        lastName: 'Man'
+      };
+  }
+
+  // https://reactjs.org/docs/react-component.html#shouldcomponentupdate
+  // We should make this cleaner?
   shouldComponentUpdate(nextProps: Props, nextState: object): boolean {
     if (!nextProps.user) {
+      console.log(nextProps);
       nextProps.push("/login");
     }
     return true;
   }
 
-  handleChange = (event: FormEvent<HTMLInputElement>) => {
-    this.setState({ name: event.currentTarget.value });
-  };
+  // handleChange = (event: FormEvent<HTMLInputElement>) => {
+    // this.setState({ name: event.currentTarget.value });
+  // };
 
   handleSubmit = (values: [string]) => {
     const { user } = this.props;
-    db
-      .collection("users")
+    db.collection("users")
       .doc(user.uid)
       .set(values)
       .then(res => console.log(res))
@@ -97,91 +127,90 @@ class ApplyPage extends React.Component<Props> {
 
   render() {
     let { classes } = this.props;
+    let { loading } = this.state;
+
+    console.log(this.state);
+    console.log('3');
+
     return (
       <div className={classes.ApplyPage}>
         <h1 className={classes.header}> Apply </h1>
-        <Form
+        {!loading && <Form
           onSubmit={this.handleSubmit}
+          initialValues={this.state.formData}
           render={({ handleSubmit, pristine, invalid }) => (
-            <div className={classes.form}>
-              <form onSubmit={handleSubmit}>
-                <div className={classes.inputs}>
-                  <label>
-                    First Name:
-                    <Field
-                      className={classes.input}
-                      name="firstName"
-                      component="input"
-                      placeholder="Rose"
-                    />
-                  </label>
-                  <label>
-                    Last Name:
-                    <Field
-                      className={classes.input}
-                      name="lastName"
-                      component="input"
-                      placeholder="Kolodny"
-                    />
-                  </label>
-                  <label>
-                    Date of Birth:
-                    <Field
-                      id="date"
-                      name="birthDate"
-                      label="Date Of Birth"
-                      type="date"
-                      className={classes.input}
-                      component="input"
-                    />
-                  </label>
-                  <label>
-                    Phone Number:
-                    <Field
-                      name="phoneNumber"
-                      label="Phone Number"
-                      className={classes.input}
-                      component="input"
-                      type="tel"
-                      placeholder="1-800-867-5309"
-                    />
-                  </label>
-                  <label>
-                    School:
-                    <Field
-                      className={classes.input}
-                      name="school"
-                      label="School"
-                      component="input"
-                      placeholder="South Harmon Institute of Technology"
-                    />
-                  </label>
-                  <label>
-                    Gender:
-                    <Field
-                      name="gender"
-                      component="select"
-                      className={classes.input}
+              <div className={classes.form}>
+                <form onSubmit={handleSubmit}>
+                  <div className={classes.inputs}>
+                    <label>
+                      First Name:
+                      <Field className={classes.input}
+                        name="firstName"
+                        component="input"
+                        placeholder="Rose"
+                      />
+                    </label>
+                    <label>
+                      Last Name:
+                      <Field className={classes.input}
+                        name="lastName"
+                        component="input"
+                        placeholder="Kolodny"
+                      />
+                    </label>
+                    <label>
+                      Date of Birth:
+                      <Field className={classes.input}
+                        id="date"
+                        name="birthDate"
+                        label="Date Of Birth"
+                        type="date"
+                        component="input"
+                      />
+                    </label>
+                    <label>
+                      Phone Number:
+                      <Field className={classes.input}
+                        name="phoneNumber"
+                        label="Phone Number"
+                        component="input"
+                        type="tel"
+                        placeholder="1-800-867-5309"
+                      />
+                    </label>
+                    <label>
+                      School:
+                      <Field className={classes.input}
+                        name="school"
+                        label="School"
+                        component="input"
+                        placeholder="South Harmon Institute of Technology"
+                      />
+                    </label>
+                    <label>
+                      Gender:
+                      <Field className={classes.input}
+                        name="gender"
+                        component="select"
+                      >
+                        <option value="male"> Male </option>
+                        <option value="female"> Female </option>
+                        <option value="non-binary"> Non-binary </option>
+                        <option value="prefer-not"> Prefer not to say </option>
+                        <option value="other"> Other </option>
+                      </Field>
+                    </label>
+                    <button className={classes.submit}
+                      type="submit"
+                      disabled={pristine || invalid}
                     >
-                      <option value="male"> Male </option>
-                      <option value="female"> Female </option>
-                      <option value="non-binary"> Non-binary </option>
-                      <option value="prefer-not"> Prefer not to say </option>
-                      <option value="other"> Other </option>
-                    </Field>
-                  </label>
-                  <button
-                    className={classes.submit}
-                    type="submit"
-                    disabled={pristine || invalid}
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
-            </div>
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
           )}
-        />
+        /> }
       </div>
     );
   }
