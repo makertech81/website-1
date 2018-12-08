@@ -2,13 +2,13 @@ import * as React from "react";
 import { Styles } from "react-jss";
 import { ReduxState, Theme } from "../../types";
 import injectSheet from "react-jss/lib/injectSheet";
-import { FormEvent } from "react";
+import { push } from "connected-react-router";
 import { Form, Field } from "react-final-form";
-import { db } from "../../../firebase";
-import { User } from "firebase";
 import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
+import { User } from "firebase";
+
+import { db } from "../../../firebase";
 
 
 const styles = (theme: Theme): Styles => ({
@@ -73,6 +73,10 @@ interface Props {
 interface FormData {
   firstName: string;
   lastName: string;
+  birthDate: string;
+  phoneNumber: string;
+  school: string;
+  gender: string;
 }
 
 interface ApplyPageState {
@@ -89,24 +93,26 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    const { user } = this.props;
     this.setState({ loading: true, ...this.state });
-    const formData = this.loadValues();
+    
+    const formData = await this.loadValues(user);
     this.setState({ loading: false, formData: formData});
   }
 
-  loadValues(): FormData {
-    return {
-        firstName: 'HotDog',
-        lastName: 'Man'
-      };
+  async loadValues(user: User): Promise<FormData> {
+    const snapshot = await db.collection("users").doc(user.uid).get();
+    return new Promise<FormData>((resolve, reject) => {
+      const formData = snapshot.data() as FormData;
+      resolve(formData);
+    });
   }
 
   // https://reactjs.org/docs/react-component.html#shouldcomponentupdate
   // We should make this cleaner?
   shouldComponentUpdate(nextProps: Props, nextState: object): boolean {
     if (!nextProps.user) {
-      console.log(nextProps);
       nextProps.push("/login");
     }
     return true;
@@ -128,9 +134,6 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
   render() {
     let { classes } = this.props;
     let { loading } = this.state;
-
-    console.log(this.state);
-    console.log('3');
 
     return (
       <div className={classes.ApplyPage}>
