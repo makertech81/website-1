@@ -81,7 +81,7 @@ interface FormData {
 
 interface ApplyPageState {
   formData: FormData | null;
-  loading: boolean;
+  isLoading: boolean;
 }
 
 class ApplyPage extends React.Component<Props, ApplyPageState> {
@@ -91,7 +91,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     super(props);
     this.unmounted = false;
     this.state = {
-      loading: false,
+      isLoading: false,
       formData: null
     };
   }
@@ -114,12 +114,12 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     const { user } = this.props;
 
     if ('uid' in user) {
-      this.setState({ loading: true });
+      this.setState({ isLoading: true });
 
       const formData = await this.loadValues(user);
 
       if (!this.cancelled) {
-        this.setState({ loading: false, formData: formData });
+        this.setState({ isLoading: false, formData: formData });
       }      
     }
   }
@@ -128,9 +128,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     const snapshot = await db.collection("users").doc(user.uid).get();
     const formData = snapshot.data() as FormData;
 
-    return new Promise<FormData>((resolve, reject) => {
-      resolve(formData);
-    });
+    return formData;
   }
 
   // https://reactjs.org/docs/react-component.html#shouldcomponentupdate
@@ -153,12 +151,12 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
 
   render() {
     let { classes } = this.props;
-    let { loading } = this.state;
+    let { isLoading } = this.state;
 
     return (
       <div className={classes.ApplyPage}>
         <h1 className={classes.header}> Apply </h1>
-        {!loading && <Form
+        {!isLoading && <Form
           onSubmit={this.handleSubmit}
           initialValues={this.state.formData}
           render={({ handleSubmit, pristine, invalid }) => (
