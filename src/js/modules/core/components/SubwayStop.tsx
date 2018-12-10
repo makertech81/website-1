@@ -11,6 +11,7 @@ const styles: Styles = {
     transition: "transform 1s",
     width: "20px",
     height: "20px",
+    border: "1px solid gray",
     //@ts-ignore
     left: props =>
       `${(props.stopIndex + 1) * (100 / STOPS_COUNT) - props.offset}vw`,
