@@ -10,6 +10,7 @@ import Section from "./Section";
 // @ts-ignore
 import { Scrollama, Step } from "react-scrollama";
 import { trackColors } from "../../ThemeInjector";
+import { getRandomInteger } from "../../utils";
 
 const styles = (theme: Theme): Styles => ({
   HomePage: {
@@ -88,7 +89,7 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
   constructor(props: HomePageProps) {
     super(props);
     this.state = {
-      activeBlocks: -1
+      activeBlocks: -1,
     };
   }
 
@@ -118,15 +119,15 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
 
   render() {
     let { classes } = this.props;
-
+    const { activeBlocks } = this.state;
     return (
       <div className={classes.HomePage}>
         <ApplyButton />
         <div className={classes.lines}>
-          <SubwayLine delay="-2s" color={trackColors.green} />
-          <SubwayLine delay="-1.6s" color={trackColors.red} />
-          <SubwayLine delay="-1.2s" color={trackColors.blue} />
-          <SubwayLine delay="-2.4s" color={trackColors.orange} />
+          <SubwayLine color={trackColors.green} />
+          <SubwayLine color={trackColors.red} />
+          <SubwayLine color={trackColors.blue} />
+          <SubwayLine color={trackColors.orange} />
         </div>
         <div className={classes.hiddenTrip}>
           <Waypoint onEnter={this.handleTopEnter} />
@@ -139,7 +140,7 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
             <Step data={0} key={0}>
               <div className={classes.aboutSection}>
                 <Section
-                  activeBlocks={this.state.activeBlocks}
+                  activeBlocks={activeBlocks}
                   infoBlock={{
                     id: 0,
                     date: "January 1st",
@@ -154,7 +155,7 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
             <Step data={1} key={1}>
               <div className={classes.activitiesSection}>
                 <Section
-                  activeBlocks={this.state.activeBlocks}
+                  activeBlocks={activeBlocks}
                   infoBlock={{
                     id: 1,
                     date: "January 14th",
@@ -174,7 +175,7 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
             <Step data={2}>
               <div className={classes.tracksSection}>
                 <Section
-                  activeBlocks={this.state.activeBlocks}
+                  activeBlocks={activeBlocks}
                   infoBlock={{
                     id: 2,
                     date: "February 15th",
