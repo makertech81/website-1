@@ -12,11 +12,6 @@ try {
   /* hot reloading, no issue  */
 }
 
-import VersionInfo  from "./versionInfo";
-
-
-console.log("appVersion ->", VersionInfo.VERSION);
-
 ReactDOM.render(
   <AppContainer>
     <RoutingApp />
