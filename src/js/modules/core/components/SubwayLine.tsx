@@ -20,7 +20,7 @@ const styles: Styles = {
     height: "15px",
     // @ts-ignore
     width: props => `${props.lineStep * (100 / STOPS_COUNT) + props.lineOffset}vw`,
-    transition: "width 1.5s",
+    transition: "width 1s",
     margin: "10px 0px 10px 0px",
     borderRadius: "10%",
     // @ts-ignore
@@ -91,16 +91,16 @@ class SubwayLineWrapper extends Component<Props, State> {
   async animate() {
     while (this.isMounted) {
       while (this.state.lineStep < STOPS_COUNT) {
-        await delay(1000 + getRandomInteger(1000));
+        await delay(500 + getRandomInteger(1000));
         this.setState({ lineStep: this.state.lineStep + 1 });
-        await delay(1500);
+        await delay(750);
         this.setState({ currentStop: this.state.currentStop + 1 });
       }
-      await delay(2000);
+      await delay(1000);
       while (this.state.lineStep > 0) {
-        await delay(1500);
+        await delay(750);
         this.setState({ currentStop: this.state.currentStop - 1 });
-        await delay(1000 + getRandomInteger(1000));
+        await delay(500 + getRandomInteger(1000));
         this.setState({ lineStep: this.state.lineStep - 1 });
       }
     }
