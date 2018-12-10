@@ -7,17 +7,17 @@ const styles: Styles = {
   SubwayStop: {
     backgroundColor: "white",
     position: "absolute",
-    borderRadius: "10px",
+    borderRadius: "50%",
     transition: "transform 1s",
-    width: "20px",
-    height: "20px",
-    border: "1px solid gray",
+    width: "25px",
+    height: "25px",
+    border: "0.5px solid #d9d9d9",
     //@ts-ignore
     left: props =>
       `${(props.stopIndex + 1) * (100 / STOPS_COUNT) - props.offset}vw`,
     //@ts-ignore
     transform: props =>
-      props.stopIndex < props.currentStop ? "scale(1, 1)" : "scale(0, 0)"
+      props.stopIndex < props.currentStop ? "scale(1, 1) translateY(-6px)" : "scale(0, 0) translateY(-6px)"
   }
 };
 
