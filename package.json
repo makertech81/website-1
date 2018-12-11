@@ -6,7 +6,8 @@
   "main": "app.js",
   "scripts": {
     "start": "gulp build && node app",
-    "dev": "concurrently \"node app --dev\" \"webpack --watch \""
+    "dev": "concurrently \"node app --dev\" \"webpack --watch \"",
+    "type-check": "tsc"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",

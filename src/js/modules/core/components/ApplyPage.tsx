@@ -1,6 +1,4 @@
 import * as React from "react";
-import { FormEvent } from "react";
-import { Styles } from "react-jss";
 import injectSheet from "react-jss/lib/injectSheet";
 import { push } from "connected-react-router";
 import { Form, Field } from "react-final-form";
@@ -11,8 +9,7 @@ import { User } from "firebase";
 import { ReduxState, Theme } from "../../types";
 import { db } from "../../../firebase";
 
-
-const styles = (theme: Theme): Styles => ({
+const styles = (theme: Theme): object => ({
   ApplyPage: {
     display: "flex",
     width: "80%",
@@ -55,6 +52,9 @@ const styles = (theme: Theme): Styles => ({
       backgroundColor: theme.highlightColorHover
     }
   },
+  loadingText: {
+    fontSize: "1.3em"
+  },
   save: {
     width: "100px",
     padding: "5px",
@@ -82,6 +82,7 @@ interface FormData {
 
 interface ApplyPageState {
   formData: FormData | null;
+  isSubmitting: boolean;
   isLoading: boolean;
 }
 
@@ -93,7 +94,8 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     this.unmounted = false;
     this.state = {
       isLoading: false,
-      formData: null
+      isSubmitting: false,
+      formData: undefined
     };
   }
 
@@ -106,7 +108,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (this.props.user !== prevProps.user) {  
+    if (this.props.user !== prevProps.user) {
       this.setFormState();
     }
   }
@@ -114,19 +116,22 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
   async setFormState() {
     const { user } = this.props;
 
-    if ('uid' in user) {
+    if ("uid" in user) {
       this.setState({ isLoading: true });
 
       const formData = await this.loadValues(user);
 
-      if (!this.cancelled) {
+      if (!this.unmounted) {
         this.setState({ isLoading: false, formData: formData });
-      }      
+      }
     }
   }
 
   async loadValues(user: User): Promise<FormData> {
-    const snapshot = await db.collection("users").doc(user.uid).get();
+    const snapshot = await db
+      .collection("users")
+      .doc(user.uid)
+      .get();
     const formData = snapshot.data() as FormData;
 
     return formData;
@@ -141,32 +146,37 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     return true;
   }
 
-  handleSubmit = (values: [string]) => {
+  handleSubmit = (values) => {
     const { user } = this.props;
+    this.setState({ isSubmitting: true });
     db.collection("users")
       .doc(user.uid)
       .set(values)
-      .then(res => console.log(res))
+      .then(() => this.setState({ isSubmitting: false }))
       .catch(err => console.error(err));
   };
 
   render() {
     let { classes } = this.props;
-    let { isLoading } = this.state;
+    let { isLoading, isSubmitting } = this.state;
 
     return (
       <div className={classes.ApplyPage}>
         <h1 className={classes.header}> Apply </h1>
-        {!isLoading && <Form
-          onSubmit={this.handleSubmit}
-          initialValues={this.state.formData}
-          render={({ handleSubmit, pristine, invalid }) => (
+        {isLoading ? (
+          <div className={classes.loadingText}> Loading form... </div>
+        ) : (
+          <Form
+            onSubmit={this.handleSubmit}
+            initialValues={this.state.formData}
+            render={({ handleSubmit, pristine, invalid }) => (
               <div className={classes.form}>
                 <form onSubmit={handleSubmit}>
                   <div className={classes.inputs}>
                     <label>
                       First Name:
-                      <Field className={classes.input}
+                      <Field
+                        className={classes.input}
                         name="firstName"
                         component="input"
                         placeholder="Rose"
@@ -174,7 +184,8 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                     </label>
                     <label>
                       Last Name:
-                      <Field className={classes.input}
+                      <Field
+                        className={classes.input}
                         name="lastName"
                         component="input"
                         placeholder="Kolodny"
@@ -182,7 +193,8 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                     </label>
                     <label>
                       Date of Birth:
-                      <Field className={classes.input}
+                      <Field
+                        className={classes.input}
                         id="date"
                         name="birthDate"
                         label="Date Of Birth"
@@ -192,7 +204,8 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                     </label>
                     <label>
                       Phone Number:
-                      <Field className={classes.input}
+                      <Field
+                        className={classes.input}
                         name="phoneNumber"
                         label="Phone Number"
                         component="input"
@@ -202,7 +215,8 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                     </label>
                     <label>
                       School:
-                      <Field className={classes.input}
+                      <Field
+                        className={classes.input}
                         name="school"
                         label="School"
                         component="input"
@@ -211,7 +225,8 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                     </label>
                     <label>
                       Gender:
-                      <Field className={classes.input}
+                      <Field
+                        className={classes.input}
                         name="gender"
                         component="select"
                       >
@@ -222,17 +237,19 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                         <option value="other"> Other </option>
                       </Field>
                     </label>
-                    <button className={classes.submit}
+                    <button
+                      className={classes.submit}
                       type="submit"
-                      disabled={pristine || invalid}
+                      disabled={pristine || invalid || isSubmitting}
                     >
                       Submit
                     </button>
                   </div>
                 </form>
               </div>
-          )}
-        /> }
+            )}
+          />
+        )}
       </div>
     );
   }
@@ -246,5 +263,8 @@ const mapDispatchToProps = (dispatch: any) =>
 
 export default compose(
   injectSheet(styles),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(ApplyPage);
