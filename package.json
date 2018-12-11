@@ -6,8 +6,13 @@
   "main": "app.js",
   "scripts": {
     "start": "gulp build && node app",
+<<<<<<< HEAD
     "dev": "concurrently \"node app --dev\" \"webpack --watch --config webpack.dev.js \"",
     "build": "webpack --config webpack.prod.js"
+=======
+    "dev": "concurrently \"node app --dev\" \"webpack --watch \"",
+    "type-check": "tsc"
+>>>>>>> Minor changes. Fixed some type errors, turned this.cancelled -> this.unmounted
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
