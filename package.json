@@ -6,7 +6,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "concurrently \"node app --dev\" \"webpack --watch --config webpack.dev.js \"",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
     "type-check": "tsc"
   },
   "devDependencies": {
