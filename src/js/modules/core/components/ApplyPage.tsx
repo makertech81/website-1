@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { User } from "firebase";
 
 import { db } from "../../../firebase";
+import LoadingIcon from "./LoadingIcon";
 
 const styles = (theme: Theme): object => ({
   ApplyPage: {
@@ -44,6 +45,7 @@ const styles = (theme: Theme): object => ({
   submit: {
     width: "150px",
     padding: "5px",
+    marginLeft: "40px",
     backgroundColor: theme.highlightColor,
     fontSize: "1em",
     border: "none",
@@ -52,8 +54,8 @@ const styles = (theme: Theme): object => ({
       backgroundColor: theme.highlightColorHover
     }
   },
-  loadingText: {
-    fontSize: "1.3em"
+  submitArea: {
+    display: "flex"
   },
   save: {
     width: "100px",
@@ -164,7 +166,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
       <div className={classes.ApplyPage}>
         <h1 className={classes.header}> Apply </h1>
         {isLoading ? (
-          <div className={classes.loadingText}> Loading form... </div>
+          <LoadingIcon/>
         ) : (
           <Form
             onSubmit={this.handleSubmit}
@@ -237,13 +239,16 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                         <option value="other"> Other </option>
                       </Field>
                     </label>
-                    <button
+                    <div className={classes.submitArea}>
+                      {isSubmitting && <LoadingIcon width="30px" height="30px"/>}
+                      <button
                       className={classes.submit}
                       type="submit"
                       disabled={pristine || invalid || isSubmitting}
                     >
                       Submit
                     </button>
+                    </div>
                   </div>
                 </form>
               </div>

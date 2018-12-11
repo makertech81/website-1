@@ -4,12 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReact } from "@fortawesome/free-brands-svg-icons/faReact";
 import { Theme } from "../../types";
 import { faAws } from "@fortawesome/free-brands-svg-icons/faAws";
+import LoadingIcon from "./LoadingIcon";
 
 const styles = (theme: Theme): Styles => ({
   AboutPage: {
     fontSize: "2em",
-    backgroundColor: theme.secondBackground,
-    color: theme.secondFont,
+    backgroundColor: theme.formBackground,
+    color: theme.fontColor,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -22,7 +23,8 @@ const styles = (theme: Theme): Styles => ({
     justifyContent: "space-around"
   },
   text: {
-    maxWidth: "500px"
+    maxWidth: "500px",
+    fontSize: "1.5rem"
   }
 });
 
