@@ -20,7 +20,7 @@ const styles: SubwayStopStyles<JssRules> = {
     backgroundColor: "white",
     position: "absolute",
     borderRadius: "50%",
-    transition: "transform 1s",
+    transition: "transform 0.75s",
     width: "25px",
     height: "25px",
     border: "0.5px solid #d9d9d9",
