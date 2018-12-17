@@ -6,64 +6,9 @@ import { Form, Field } from "react-final-form";
 import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
 import { User } from "firebase";
+import { schools } from "./schools";
 
 import { db } from "../../../firebase";
-
-const styles = (theme: Theme): object => ({
-  ApplyPage: {
-    display: "flex",
-    width: "80%",
-    height: "100%",
-    maxWidth: "800px",
-    flexDirection: "column",
-    padding: "20px",
-    alignItems: "center",
-    backgroundColor: theme.formBackground
-  },
-  header: {
-    padding: "10px"
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    width: "100%",
-    lineHeight: "1.3em",
-    fontSize: "1.5em"
-  },
-  inputs: {
-    display: "flex",
-    lineHeight: "3em",
-    flexDirection: "column"
-  },
-  input: {
-    marginLeft: "5px",
-    padding: "5px",
-    fontSize: "1em"
-  },
-  submit: {
-    width: "150px",
-    padding: "5px",
-    backgroundColor: theme.highlightColor,
-    fontSize: "1em",
-    border: "none",
-    color: theme.secondFont,
-    "&:disabled": {
-      backgroundColor: theme.highlightColorHover
-    }
-  },
-  loadingText: {
-    fontSize: "1.3em"
-  },
-  save: {
-    width: "100px",
-    padding: "5px",
-    backgroundColor: theme.submitButton,
-    fontSize: "1em",
-    border: "none",
-    color: theme.secondFont
-  }
-});
 
 interface Props {
   classes: { [s: string]: string };
@@ -90,6 +35,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
   unmounted: boolean;
 
   constructor(props: Props) {
+    console.log(schools);
     super(props);
     this.unmounted = false;
     this.state = {
@@ -254,12 +200,69 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     );
   }
 }
+
 const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user
 });
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators({ push }, dispatch);
+
+const styles = (theme: Theme): object => ({
+  ApplyPage: {
+    display: "flex",
+    width: "80%",
+    height: "100%",
+    maxWidth: "800px",
+    flexDirection: "column",
+    padding: "20px",
+    alignItems: "center",
+    backgroundColor: theme.formBackground
+  },
+  header: {
+    padding: "10px"
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    width: "100%",
+    lineHeight: "1.3em",
+    fontSize: "1.5em"
+  },
+  inputs: {
+    display: "flex",
+    lineHeight: "3em",
+    flexDirection: "column"
+  },
+  input: {
+    marginLeft: "5px",
+    padding: "5px",
+    fontSize: "1em"
+  },
+  submit: {
+    width: "150px",
+    padding: "5px",
+    backgroundColor: theme.highlightColor,
+    fontSize: "1em",
+    border: "none",
+    color: theme.secondFont,
+    "&:disabled": {
+      backgroundColor: theme.highlightColorHover
+    }
+  },
+  loadingText: {
+    fontSize: "1.3em"
+  },
+  save: {
+    width: "100px",
+    padding: "5px",
+    backgroundColor: theme.submitButton,
+    fontSize: "1em",
+    border: "none",
+    color: theme.secondFont
+  }
+});
 
 export default compose(
   injectSheet(styles),
