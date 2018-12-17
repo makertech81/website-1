@@ -1,7 +1,7 @@
 import * as React from "react";
 import injectSheet, { Styles } from "react-jss";
-import { Theme } from "../../types";
-import SubwayLine from "./SubwayLine";
+import { JssRules, Theme } from "../../types";
+import AnimatedSubwayLine from "./AnimatedSubwayLine"
 import ApplyButton from "./ApplyButton";
 import TrackInfo from "./TrackInfo";
 import Waypoint from "react-waypoint";
@@ -10,9 +10,36 @@ import Section from "./Section";
 // @ts-ignore
 import { Scrollama, Step } from "react-scrollama";
 import { trackColors } from "../../ThemeInjector";
-import { getRandomInteger } from "../../utils";
 
-const styles = (theme: Theme): Styles => ({
+interface HomePageStyles<T> extends Styles {
+  HomePage: T,
+  aboutSection: T,
+  activitiesSection: T,
+  tracksSection: T,
+  lines: T,
+  quote: T,
+  info: T,
+  timeline: T,
+  quoteAuthor: T,
+  hiddenTrip: T
+}
+
+interface Props {
+  classes: HomePageStyles<string>
+  viewportWidth: number;
+}
+interface State {
+  activeBlocks: number;
+}
+
+
+interface StepData {
+  element: HTMLElement;
+  data: number;
+  direction: string;
+}
+
+const styles = (theme: Theme): HomePageStyles<JssRules> => ({
   HomePage: {
     display: "flex",
     flexDirection: "column",
@@ -26,7 +53,7 @@ const styles = (theme: Theme): Styles => ({
   activitiesSection: {
     background: `linear-gradient(${theme.secondBackground}, ${
       theme.thirdBackground
-    })`,
+      })`,
     color: theme.secondFont
   },
   tracksSection: {
@@ -71,22 +98,8 @@ const styles = (theme: Theme): Styles => ({
   }
 });
 
-interface HomePageProps {
-  classes: { [s: string]: string };
-  viewportWidth: number;
-}
-interface HomePageState {
-  activeBlocks: number;
-}
-
-interface StepData {
-  element: HTMLElement;
-  data: number;
-  direction: string;
-}
-
-class HomePage extends React.Component<HomePageProps, HomePageState> {
-  constructor(props: HomePageProps) {
+class HomePage extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       activeBlocks: -1,
@@ -124,10 +137,10 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
       <div className={classes.HomePage}>
         <ApplyButton />
         <div className={classes.lines}>
-          <SubwayLine color={trackColors.green} />
-          <SubwayLine color={trackColors.red} />
-          <SubwayLine color={trackColors.blue} />
-          <SubwayLine color={trackColors.orange} />
+          <AnimatedSubwayLine color={trackColors.green} />
+          <AnimatedSubwayLine color={trackColors.red} />
+          <AnimatedSubwayLine color={trackColors.blue} />
+          <AnimatedSubwayLine color={trackColors.orange} />
         </div>
         <div className={classes.hiddenTrip}>
           <Waypoint onEnter={this.handleTopEnter} />
