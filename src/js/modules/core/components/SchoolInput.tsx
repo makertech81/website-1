@@ -9,10 +9,11 @@ const isUpper = (str) => str === str.toUpperCase()
 const doesStringMatch = (item, value) => {
   if (value !== '') {
     if (isUpper(value)) {
-      const firstLetters = item.split(" ").map(word => word[0]);
+      const capLetters = item.split(" ").map(word => word[0]).filter(isUpper);
+      const chars = [...value];
 
-      for (let char of [...value]) {
-        if (!firstLetters.includes(char)) {
+      for (let i = 0; i < chars.length; i++) {
+        if (capLetters[i] !== chars[i]) {
           return false;
         }
       }
@@ -30,6 +31,23 @@ const doesStringMatch = (item, value) => {
 
 const SchoolInput: React.SFC<Props> = (props) => {
   const { schools, input } = props;
+  const menuStyle = {
+    borderRadius: '3px',
+    boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+    background: 'rgba(255, 255, 255, 0.9)',
+    padding: '2px 0',
+    fontSize: '90%',
+    top:  '35px', // height of your input
+    left: 0,
+    position: 'absolute',
+    overflow: 'auto',
+    width: '100%',
+    zIndex: 1000
+  };
+  const wrapperStyle = {
+    display: 'inline-block',
+    position: 'relative'
+  };
 
   return (
     <Autocomplete
@@ -44,6 +62,8 @@ const SchoolInput: React.SFC<Props> = (props) => {
       }
       onChange={ (val) => input.onChange(val) }
       onSelect={ (val) => input.onChange(val) }
+      menuStyle={menuStyle}
+      wrapperStyle={wrapperStyle}
     />
   );    
 };

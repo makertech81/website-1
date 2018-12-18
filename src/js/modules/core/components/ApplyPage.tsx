@@ -214,7 +214,6 @@ const styles = (theme: Theme): object => ({
   ApplyPage: {
     display: "flex",
     width: "80%",
-    height: "100%",
     maxWidth: "800px",
     flexDirection: "column",
     padding: "20px",
@@ -238,9 +237,11 @@ const styles = (theme: Theme): object => ({
     flexDirection: "column"
   },
   input: {
+    fontFamily: theme.fontFamily,
     marginLeft: "5px",
     padding: "5px",
-    fontSize: "1em"
+    fontSize: "1em",
+    position: "relative"
   },
   submit: {
     width: "150px",
