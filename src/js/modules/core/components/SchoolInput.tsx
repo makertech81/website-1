@@ -32,13 +32,15 @@ const doesStringMatch = (item, value) => {
   }
 }
 
+// TODO: make input a new component, shared w/ apply page
 const schoolInputStyles = (theme: Theme): Styles => ({
   input: {
     fontFamily: theme.fontFamily,
     marginLeft: "5px",
     padding: "5px",
     fontSize: "1em",
-    position: "relative"
+    position: "relative",
+    width: "400px"
   }
 });
 
@@ -62,8 +64,6 @@ const SchoolInput: React.SFC<Props> = (props) => {
     display: 'inline-block',
     position: 'relative'
   };
-
-  console.log(props);
 
   return (
     <Autocomplete
