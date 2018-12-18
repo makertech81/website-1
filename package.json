@@ -68,6 +68,7 @@
     "firebase": "^5.5.4",
     "material-ui": "^0.20.2",
     "prettier": "^1.15.3",
+    "react-autocomplete": "^1.8.1",
     "react-final-form": "^3.6.7",
     "react-scrollama": "^0.4.0",
     "react-waypoint": "^8.1.0",

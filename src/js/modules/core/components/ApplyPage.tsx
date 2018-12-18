@@ -5,10 +5,13 @@ import { push } from "connected-react-router";
 import { Form, Field } from "react-final-form";
 import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
-import { User } from "firebase";
-import { schools } from "./schools";
 
+import Autocomplete from "react-autocomplete";
+import { User } from "firebase";
+
+import { schools } from "./schools";
 import { db } from "../../../firebase";
+
 
 interface Props {
   classes: { [s: string]: string };
@@ -31,11 +34,76 @@ interface ApplyPageState {
   isLoading: boolean;
 }
 
+interface InputState<T> {
+  value: T;
+}
+
+
+const getSuggestions = value => {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
+
+  return inputLength === 0 ? [] : languages.filter(lang =>
+    lang.name.toLowerCase().slice(0, inputLength) === inputValue
+  );
+};
+
+const isUpper = (str) => str === str.toUpperCase()
+
+class SchoolInput extends React.Component<Props, InputState<string>> {
+  schools: Array<string>;
+
+  constructor(props: Props) {
+    super(props);
+    this.schools = props.schools;
+    this.state = { value: '' };
+  }
+
+  doesStringMatch(item, value) {
+    if (value !== '') {
+      if (isUpper(value)) {
+        const firstLetters = item.split(" ").map(word => word[0]);
+
+        for (let char of [...value]) {
+          if (!firstLetters.includes(char)) {
+            return false;
+          }
+        }
+
+        return true;
+      }
+      else {
+        return item.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+      }
+    }
+    else {
+      return false;
+    }
+  }
+
+  render() {
+    return (
+      <Autocomplete
+        getItemValue={(item) => item}
+        items={ this.schools }
+        shouldItemRender={ this.doesStringMatch }
+        renderItem={(item, isHighlighted) =>
+          <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+            { item }
+          </div>
+        }
+        value={ this.state.value }
+        onChange={(e) => this.setState({ value: e.target.value })}
+        onSelect={(value) => this.setState({ value })}
+      />
+    );    
+  }
+};
+
 class ApplyPage extends React.Component<Props, ApplyPageState> {
   unmounted: boolean;
 
   constructor(props: Props) {
-    console.log(schools);
     super(props);
     this.unmounted = false;
     this.state = {
@@ -161,12 +229,8 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                     </label>
                     <label>
                       School:
-                      <Field
-                        className={classes.input}
-                        name="school"
-                        label="School"
-                        component="input"
-                        placeholder="South Harmon Institute of Technology"
+                      <SchoolInput 
+                        schools={schools}
                       />
                     </label>
                     <label>
