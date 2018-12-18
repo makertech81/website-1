@@ -83,7 +83,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
       .doc(user.uid)
       .get();
     const formData = snapshot.data() as FormData;
-
+    console.log(formData);
     return formData;
   }
 
@@ -165,7 +165,9 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                     </label>
                     <label>
                       School:
-                      <SchoolInput 
+                      <Field
+                        name="school"
+                        component={SchoolInput}
                         schools={schools}
                       />
                     </label>

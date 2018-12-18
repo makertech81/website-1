@@ -9,11 +9,14 @@ const isUpper = (str) => str === str.toUpperCase()
 
 export default class SchoolInput extends React.Component<Props, InputState<string>> {
   schools: Array<string>;
+  props: Props;
 
   constructor(props: Props) {
     super(props);
     this.schools = props.schools;
     this.state = { value: '' };
+    this.props = props;
+    console.log(this.props);
   }
 
   doesStringMatch(item, value) {
@@ -39,8 +42,11 @@ export default class SchoolInput extends React.Component<Props, InputState<strin
   }
 
   render() {
+    const { input } = this.props;
+
     return (
       <Autocomplete
+        {...input}
         getItemValue={(item) => item}
         items={ this.schools }
         shouldItemRender={ this.doesStringMatch }
@@ -49,9 +55,10 @@ export default class SchoolInput extends React.Component<Props, InputState<strin
             { item }
           </div>
         }
-        value={ this.state.value }
-        onChange={(e) => this.setState({ value: e.target.value })}
-        onSelect={(value) => this.setState({ value })}
+        // value={ this.state.value }
+        onChange={ (val) => input.onChange(val) }
+        onSelect={ (val) => input.onChange(val) }
+        // onSelect={(value) => this.setState({ value })}
       />
     );    
   }
