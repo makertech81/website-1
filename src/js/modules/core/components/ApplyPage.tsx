@@ -13,7 +13,6 @@ import { schools } from "./schools";
 import { db } from "../../../firebase";
 import SchoolInput from "./SchoolInput";
 
-
 interface Props {
   classes: { [s: string]: string };
   user: User;
@@ -34,7 +33,6 @@ interface ApplyPageState {
   isSubmitting: boolean;
   isLoading: boolean;
 }
-
 
 class ApplyPage extends React.Component<Props, ApplyPageState> {
   unmounted: boolean;
@@ -83,7 +81,6 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
       .doc(user.uid)
       .get();
     const formData = snapshot.data() as FormData;
-    console.log(formData);
     return formData;
   }
 
@@ -96,7 +93,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     return true;
   }
 
-  handleSubmit = (values) => {
+  handleSubmit = values => {
     const { user } = this.props;
     this.setState({ isSubmitting: true });
     db.collection("users")

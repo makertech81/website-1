@@ -88,5 +88,8 @@ const mapDispatchToProps = (dispatch: any) => ({
 export default compose(
   withRouter,
   injectSheet(styles),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(MainApp);
