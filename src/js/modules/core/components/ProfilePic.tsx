@@ -78,6 +78,8 @@ class ProfilePic extends React.Component<Props, State> {
         <img
           onClick={this.handleClick}
           src={photoURL}
+          // Yeah yeah yeah inline styles. But I wasn't about to make a new
+          // component for this shit
           style={{ filter: isHovering ? "brightness(75%)" : "none" }}
           className={classes.roundImg}
         />
