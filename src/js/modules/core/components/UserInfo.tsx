@@ -23,6 +23,7 @@ const styles = (theme: Theme): UserInfoStyles => ({
     flexDirection: "row",
     fontSize: "0.8rem",
     color: theme.secondFont,
+    alignItems: "center",
     padding: "10px 10px 10px 20px",
     position: "fixed",
     top: "0",
@@ -41,9 +42,12 @@ const styles = (theme: Theme): UserInfoStyles => ({
 });
 
 const UserInfo: React.SFC<Props> = ({ classes, user }) => {
+  const greeting = user.displayName
+    ? `Welcome ${user.displayName}!`
+    : "Welcome!";
   return (
     <div className={classes.UserInfo}>
-      <h2 className={classes.greeting}> Welcome {user.displayName}! </h2>
+      <h2 className={classes.greeting}> {greeting} </h2>
       <Avatar user={user} />
     </div>
   );
