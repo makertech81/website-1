@@ -34,6 +34,68 @@ interface ApplyPageState {
   isLoading: boolean;
 }
 
+const styles = (theme: Theme): object => ({
+  ApplyPage: {
+    display: "flex",
+    width: "80%",
+    maxWidth: "800px",
+    flexDirection: "column",
+    padding: "20px",
+    alignItems: "center",
+    backgroundColor: theme.formBackground
+  },
+  header: {
+    padding: "10px"
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    width: "100%",
+    lineHeight: "1.3em",
+    fontSize: "1.5em"
+  },
+  inputs: {
+    display: "flex",
+    lineHeight: "3em",
+    flexDirection: "column"
+  },
+  input: {
+    fontFamily: theme.fontFamily,
+    marginLeft: "5px",
+    padding: theme.inputPadding,
+    minHeight: "36px",
+    fontSize: "1em",
+    position: "relative",
+    width: "400px"
+  },
+  submit: {
+    width: "150px",
+    padding: "5px",
+    backgroundColor: theme.highlightColor,
+    fontSize: "1em",
+    border: "none",
+    color: theme.secondFont,
+    "&:disabled": {
+      backgroundColor: theme.highlightColorHover
+    }
+  },
+  loadingText: {
+    fontSize: "1.3em"
+  },
+  save: {
+    width: "100px",
+    padding: "5px",
+    backgroundColor: theme.submitButton,
+    fontSize: "1em",
+    border: "none",
+    color: theme.secondFont
+  },
+  autocompleteItem: {
+    padding: theme.inputPadding
+  }
+});
+
 class ApplyPage extends React.Component<Props, ApplyPageState> {
   unmounted: boolean;
 
@@ -166,6 +228,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                         name="school"
                         component={SchoolInput}
                         schools={schools}
+                        classes={classes}
                       />
                     </label>
                     <label>
@@ -206,63 +269,6 @@ const mapStateToProps = (state: ReduxState) => ({
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators({ push }, dispatch);
-
-const styles = (theme: Theme): object => ({
-  ApplyPage: {
-    display: "flex",
-    width: "80%",
-    maxWidth: "800px",
-    flexDirection: "column",
-    padding: "20px",
-    alignItems: "center",
-    backgroundColor: theme.formBackground
-  },
-  header: {
-    padding: "10px"
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    width: "100%",
-    lineHeight: "1.3em",
-    fontSize: "1.5em"
-  },
-  inputs: {
-    display: "flex",
-    lineHeight: "3em",
-    flexDirection: "column"
-  },
-  input: {
-    fontFamily: theme.fontFamily,
-    marginLeft: "5px",
-    padding: "5px",
-    fontSize: "1em",
-    position: "relative"
-  },
-  submit: {
-    width: "150px",
-    padding: "5px",
-    backgroundColor: theme.highlightColor,
-    fontSize: "1em",
-    border: "none",
-    color: theme.secondFont,
-    "&:disabled": {
-      backgroundColor: theme.highlightColorHover
-    }
-  },
-  loadingText: {
-    fontSize: "1.3em"
-  },
-  save: {
-    width: "100px",
-    padding: "5px",
-    backgroundColor: theme.submitButton,
-    fontSize: "1em",
-    border: "none",
-    color: theme.secondFont
-  }
-});
 
 export default compose(
   injectSheet(styles),

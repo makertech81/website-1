@@ -39,18 +39,6 @@ const doesStringMatch = (item, value) => {
   }
 };
 
-// TODO: make input a new component, shared w/ apply page
-const schoolInputStyles = (theme: Theme): Styles => ({
-  input: {
-    fontFamily: theme.fontFamily,
-    marginLeft: "5px",
-    padding: "5px",
-    fontSize: "1em",
-    position: "relative",
-    width: "400px"
-  }
-});
-
 const SchoolInput: React.SFC<Props> = props => {
   const { schools, input, classes } = props;
   const menuStyle = {
@@ -80,7 +68,7 @@ const SchoolInput: React.SFC<Props> = props => {
       items={schools}
       shouldItemRender={doesStringMatch}
       renderItem={(item, isHighlighted) => (
-        <div style={{ background: isHighlighted ? "lightgray" : "white" }}>
+        <div style={{ background: isHighlighted ? "lightgray" : "white" }} className={classes.autocompleteItem}>
           {item}
         </div>
       )}
@@ -92,5 +80,4 @@ const SchoolInput: React.SFC<Props> = props => {
   );
 };
 
-// adds `classes` to props
-export default injectSheet(schoolInputStyles)(SchoolInput);
+export default SchoolInput;

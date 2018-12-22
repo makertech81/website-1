@@ -29,6 +29,7 @@ const theme: Theme = {
   submitButton: "#46a9b7",
   submitButtonHover: "#4497a5",
   fontFamily: "mr-eaves-xl-modern, sans-serif",
+  inputPadding: "7px 10px",
   ...trackColors
 };
 
