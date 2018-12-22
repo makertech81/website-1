@@ -35,8 +35,7 @@ interface Props {
 const Button: React.SFC<Props> = ({ classes, children, ...props }) => {
   return (
     <button {...props} className={classes.button}>
-      {" "}
-      {children}{" "}
+      {children}
     </button>
   );
 };

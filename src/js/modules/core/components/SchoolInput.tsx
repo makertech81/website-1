@@ -8,6 +8,25 @@ interface InputState<T> {
   value: T;
 }
 
+const menuStyle = {
+  borderRadius: "3px",
+  boxShadow: "0 2px 12px rgba(0, 0, 0, 0.1)",
+  background: "rgba(255, 255, 255, 0.9)",
+  padding: "2px 0",
+  fontSize: "90%",
+  top: "50px", // height of your input
+  left: 0,
+  position: "absolute",
+  overflow: "auto",
+  width: "100%",
+  zIndex: 1000
+};
+
+const wrapperStyle = {
+  display: "inline-block",
+  position: "relative"
+};
+
 const isUpper = str => str === str.toUpperCase();
 
 // given an autocomplete item and a input value, should we display the autocomplete
@@ -39,26 +58,9 @@ const doesStringMatch = (item, value) => {
   }
 };
 
+// School input with autocomplete form of schools
 const SchoolInput: React.SFC<Props> = props => {
   const { schools, input, classes } = props;
-  const menuStyle = {
-    borderRadius: "3px",
-    boxShadow: "0 2px 12px rgba(0, 0, 0, 0.1)",
-    background: "rgba(255, 255, 255, 0.9)",
-    padding: "2px 0",
-    fontSize: "90%",
-    top: "50px", // height of your input
-    left: 0,
-    position: "absolute",
-    overflow: "auto",
-    width: "100%",
-    zIndex: 1000
-  };
-
-  const wrapperStyle = {
-    display: "inline-block",
-    position: "relative"
-  };
 
   return (
     <Autocomplete
