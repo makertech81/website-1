@@ -20,6 +20,9 @@ import {
   UPDATE_PASSWORD_REJECTED,
   UPDATE_PASSWORD_PENDING,
   RESET_PASSWORD_PENDING
+  UPDATE_PASSWORD_REJECTED,
+  UPLOAD_PROFILE_PICTURE_FULFILLED,
+  UPLOAD_PROFILE_PICTURE_REJECTED
 } from "./coreActions";
 
 // getWindowWidth & getWindowHeight was
@@ -187,6 +190,15 @@ const reducer = (state = { ...initialState }, action) => {
       return {
         ...state,
         notifications: newNotifications
+    case UPLOAD_PROFILE_PICTURE_REJECTED:
+      return {
+        ...state,
+        errors: { ...state.errors, fileError: action.payload }
+      };
+    case UPLOAD_PROFILE_PICTURE_FULFILLED:
+      return {
+        ...state,
+        user: { ...state.user, photoURL: action.payload }
       };
     default:
       break;

@@ -71,7 +71,7 @@ class ProfilePage extends React.Component<Props, State> {
         <h1 className={classes.name}>
           {user.displayName || defaults.displayName}
         </h1>
-        <ProfilePic photoURL={user.photoURL || defaults.photoURL}/>
+        <ProfilePic photoURL={user.photoURL || defaults.photoURL} uid={user.uid}/>
         <Button onClick={this.togglePasswordForm}>Change Password</Button>
         {this.state.isPasswordFormVisible && <PasswordForm />}
       </div>

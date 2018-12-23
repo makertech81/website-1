@@ -3,18 +3,26 @@ import { Styles } from "react-jss";
 import { JssRules, Theme } from "../../types";
 import injectSheet from "react-jss/lib/injectSheet";
 import HoverOverlay from "./HoverOverlay";
+import { delay } from "../../utils";
+import { bindActionCreators, compose } from "redux";
+import { uploadProfilePic } from "../coreActions";
+import { connect } from "react-redux";
 
 interface ProfilePicStyles<T> extends Styles {
   fileInput: T;
   ProfilePic: T;
   roundImg: T;
 }
+
 interface Props {
   classes: ProfilePicStyles<string>;
+  uid: string;
+  uploadProfilePic: (file: File, uid: string) => any;
 }
 
 interface State {
   isHovering: boolean;
+  isClicked: boolean;
 }
 
 const styles = (theme: Theme): ProfilePicStyles<JssRules> => ({
@@ -33,7 +41,8 @@ const styles = (theme: Theme): ProfilePicStyles<JssRules> => ({
     position: "absolute",
     top: "0",
     right: "-105px",
-    transition: "filter 0.3s"
+    transition: "filter 0.3s",
+    objectFit: "cover"
   }
 });
 
@@ -44,17 +53,25 @@ class ProfilePic extends React.Component<Props, State> {
     super(props);
     this.fileUploader = React.createRef();
     this.state = {
-      isHovering: false
+      isHovering: false,
+      isClicked: false
     };
   }
 
   handleClick = () => {
+    // Gotta love how I have to do this by hand. Basically
+    // gives a short little "click" via local state and
+    // a simple style prop.
+    this.setState({ isClicked: true }, () => {
+      delay(75).then(() => this.setState({ isClicked: false }));
+    });
     this.fileUploader.current.click();
   };
 
   handleUpload = () => {
-    console.log("UPLOADING");
-    console.log(this.fileUploader.current.files);
+    const { uid, uploadProfilePic } = this.props;
+    const file = this.fileUploader.current.files[0];
+    uploadProfilePic(file, uid);
   };
 
   handleMouseEnter = () => {
@@ -67,11 +84,12 @@ class ProfilePic extends React.Component<Props, State> {
 
   render() {
     let { classes, photoURL } = this.props;
-    const { isHovering } = this.state;
+    const { isHovering, isClicked } = this.state;
 
     return (
       <div
         className={classes.ProfilePic}
+        style={{ filter: isClicked ? "brightness(75%)" : "none" }}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
@@ -95,4 +113,13 @@ class ProfilePic extends React.Component<Props, State> {
   }
 }
 
-export default injectSheet(styles)(ProfilePic);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ uploadProfilePic }, dispatch);
+
+export default compose(
+  connect(
+    undefined,
+    mapDispatchToProps
+  ),
+  injectSheet(styles)
+)(ProfilePic);
