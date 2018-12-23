@@ -22,7 +22,7 @@ const styles = (theme: Theme): Styles => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "100px 0"
+    padding: "0"
   }
 });
 
