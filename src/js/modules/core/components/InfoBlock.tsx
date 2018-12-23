@@ -43,11 +43,8 @@ interface Props {
 const InfoBlock: React.SFC<Props> = ({ classes, date, text }) => {
   return (
     <div className={classes.infoBlock}>
-      <div>
-        {" "}
-        <b> {date} </b>{" "}
-      </div>
-      <div className={classes.text}> {text} </div>
+    <b> {date} </b>
+    <div className={classes.text}> {text} </div>
     </div>
   );
 };
