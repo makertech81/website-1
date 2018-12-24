@@ -4,6 +4,7 @@ import { Styles } from "react-jss";
 import Avatar from "./Avatar";
 import injectSheet from "react-jss/lib/injectSheet";
 import { Theme } from "../../types";
+import { Link } from "react-router-dom";
 
 interface Props {
   classes: { [s: string]: string };
@@ -48,7 +49,9 @@ const UserInfo: React.SFC<Props> = ({ classes, user }) => {
   return (
     <div className={classes.UserInfo}>
       <h2 className={classes.greeting}> {greeting} </h2>
-      <Avatar user={user} />
+      <Link to="my_profile">
+        <Avatar user={user} />
+      </Link>
     </div>
   );
 };
