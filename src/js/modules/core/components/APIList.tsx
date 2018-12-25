@@ -1,49 +1,50 @@
 import * as React from "react";
 import injectSheet from "react-jss/lib/injectSheet";
 import { Styles } from "react-jss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReact } from "@fortawesome/free-brands-svg-icons/faReact";
-import { Theme, JssRules } from "../../types";
-import { faAws } from "@fortawesome/free-brands-svg-icons/faAws";
+import { JssRules } from "../../types";
 
 interface APIListStyles<T> extends Styles {
-  APIList: T
+  APIList: T;
 }
 
+interface Props {
+  classes: APIListStyles<string>
+}
 const styles: APIListStyles<JssRules> = {
-  APIList:{ 
-    display: "flex", 
-    width: "100px", 
-    justifyContent: "space-around", 
+  APIList: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
     maxWidth: "500px"
   }
 };
-  
-  class APIList extends React.Component<JssRules> {
-    render (){
-      return(
-      <div>
-        <h1> API List </h1>
+
+const APIList: React.SFC<Props> = ({ classes }) => {
+    return (
+      <div className={classes.APIList}>
+        <h2> APIs </h2>
         <div>
           <p>
-            HackNYU has several APIs available from NYU. You can take a look at them below:
+            NYU offers several APIs. Take a look at
+            them below:
           </p>
-         <ul>
-             <li>Class Roster/Albert</li>
-             <li>Bus Locations</li>
-             <li>Course Catalog</li>
-             <li>Public Safety</li>
-             <li>Engage</li>
-             <li>Third-party APIs: Data.gov, NYC Public Data, GitHub REST API</li>
-             <li>Events</li>
-             <li>Faculty Bibliography</li>
-             <li>Library Share Space</li>
-             <li>Academic Calendar</li>
-        </ul>
+          <ul>
+            <li>Class Roster/Albert</li>
+            <li>Bus Locations</li>
+            <li>Course Catalog</li>
+            <li>Public Safety</li>
+            <li>Engage</li>
+            <li>
+              Third-party APIs: Data.gov, NYC Public Data, GitHub API
+            </li>
+            <li>Events</li>
+            <li>Faculty Bibliography</li>
+            <li>Library Share Space</li>
+            <li>Academic Calendar</li>
+          </ul>
         </div>
       </div>
-      )
-    }
-  }
-  
-  export default injectSheet(styles)(APIList);
+    );
+}
+
+export default injectSheet(styles)(APIList);
