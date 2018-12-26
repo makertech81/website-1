@@ -43,14 +43,16 @@ export const loadInitialState = location => dispatch => {
         payload: user
       });
     } else {
-      dispatch({
-        type: DELETE_USER
-      });
       // If not in the routes that are unrestricted,
-      // redirect to login
+      // redirect to login. I'm filtering by unrestricted
+      // because I'd prefer to accidentally redirect to login
+      // versus accidentally showing restricted pages
       if (!UNRESTRICTED_ROUTES.has(location.pathname)) {
         dispatch(push("/login"));
       }
+      dispatch({
+        type: DELETE_USER
+      });
     }
   });
 };
