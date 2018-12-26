@@ -1,6 +1,6 @@
 import { auth, provider } from "../../firebase";
 import { push } from "connected-react-router";
-import { delay } from "../utils";
+import { UNRESTRICTED_ROUTES } from "../constants";
 export const REFRESH_WINDOW_DIMENSIONS = "core/REFRESH_WINDOW_DIMENSIONS";
 
 export const LOGIN_PENDING = "core/LOGIN_PENDING";
@@ -35,6 +35,25 @@ export const refreshWindowDimensions = () => ({
   payload: {}
 });
 
+export const loadInitialState = location => dispatch => {
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      dispatch({
+        type: ADD_USER,
+        payload: user
+      });
+    } else {
+      dispatch({
+        type: DELETE_USER
+      });
+      // If not in the routes that are unrestricted,
+      // redirect to login
+      if (!UNRESTRICTED_ROUTES.has(location.pathname)) {
+        dispatch(push("/login"));
+      }
+    }
+  });
+};
 export const logout = () => dispatch => {
   auth
     .signOut()

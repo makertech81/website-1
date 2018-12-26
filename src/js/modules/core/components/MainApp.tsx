@@ -6,12 +6,12 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { ReduxState, Theme } from "../../types";
 // @ts-ignore
-import { addUser, deleteUser, refreshWindowDimensions } from "../coreActions";
+import { loadInitialState, refreshWindowDimensions } from "../coreActions";
 import Header from "./Header";
 import { User } from "firebase";
 import UserInfo from "./UserInfo";
-import { auth } from "../../../firebase";
 import Alerts from "./Alerts";
+import LoadingIcon from "./LoadingIcon";
 
 
 interface MainAppStyles<T> extends Styles {
@@ -21,7 +21,6 @@ interface MainAppStyles<T> extends Styles {
 interface Props {
   classes: MainAppStyles<string>;
   children: ReactNode;
-  error: string;
   location: Location;
   user: User;
   addUser: (u: User) => any;
@@ -48,13 +47,7 @@ const styles = (theme: Theme): MainAppStyles<object> => ({
 class MainApp extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        props.addUser(user);
-      } else {
-        props.deleteUser();
-      }
-    });
+    props.loadInitialState(props.location)
   }
 
   onResizeWindow = () => {
@@ -67,27 +60,28 @@ class MainApp extends React.Component<Props> {
     window.removeEventListener("resize", this.onResizeWindow);
   }
   render() {
-    let { classes, error, children, user } = this.props;
-    return (
+    let { classes, children, user, isLoading } = this.props;
+    return (<div className={classes.MainApp}>  <LoadingIcon /> </div> );
+    /*return (
       <div className={classes.MainApp}>
         <Alerts />
         <Header />
         {user && <UserInfo user={user} />}
-        {error && <h2 className={classes.error}> {error} </h2>}
         {children}
       </div>
-    );
+    );*/
   }
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  error: state.core.appError,
-  user: state.core.user
+  user: state.core.user,
+  isLoading: state.core.isLoading
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  addUser: (user: User) => dispatch(addUser(user)),
-  deleteUser: () => dispatch(deleteUser()),
+  loadInitialState: (location: Location) => {
+    dispatch(loadInitialState(location));
+  },
   onResizeWindow: () => {
     dispatch(refreshWindowDimensions());
   }
