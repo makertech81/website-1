@@ -22,7 +22,7 @@ const styles: SubwayIconStyles<JssRules> = {
     width: props => props.radius * 2,
     height: props => props.radius * 2,
     borderRadius: "80px",
-    fontSize: "0.62em",
+    fontSize: "1.2em",
     color: "white",
     display: "flex",
     alignItems: "center",
