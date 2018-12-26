@@ -56,12 +56,6 @@ class ProfilePage extends React.Component<Props, State> {
       isPasswordFormVisible: false
     };
   }
-  shouldComponentUpdate(nextProps: Props, nextState: object): boolean {
-    if (!nextProps.user) {
-      nextProps.push("/login");
-    }
-    return true;
-  }
 
   togglePasswordForm = () => {
     const { isPasswordFormVisible } = this.state;
@@ -69,14 +63,6 @@ class ProfilePage extends React.Component<Props, State> {
   };
   render() {
     let { user, classes } = this.props;
-    // Just in case this page renders even after a user signs out
-    if (!user) {
-      return (
-        <div className={classes.ProfilePage}>
-          Please <Link to="/login"> log in </Link> to see your profile page
-        </div>
-      );
-    }
     return (
       <div className={classes.ProfilePage}>
         <h1 className={classes.name}> {user.displayName} </h1>
