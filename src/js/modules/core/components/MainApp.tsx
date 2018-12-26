@@ -13,9 +13,10 @@ import UserInfo from "./UserInfo";
 import Alerts from "./Alerts";
 import LoadingIcon from "./LoadingIcon";
 
-
 interface MainAppStyles<T> extends Styles {
-  MainApp: T
+  MainApp: T;
+  loadingScreen: T;
+  loadingIcon: T;
 }
 
 interface Props {
@@ -28,7 +29,6 @@ interface Props {
   onResizeWindow: () => any;
 }
 
-
 const styles = (theme: Theme): MainAppStyles<object> => ({
   MainApp: {
     backgroundColor: theme.backgroundColor,
@@ -40,14 +40,32 @@ const styles = (theme: Theme): MainAppStyles<object> => ({
     flexDirection: "column",
     alignItems: "center",
     padding: "0"
+  },
+  loadingScreen: {
+    fontFamily: theme.fontFamily,
+    fontSize: "1.2em",
+    fontVariant: "small-caps",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    height: "80vh"
+  },
+  loadingIcon: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "white",
+    padding: "50px",
+    backgroundColor: theme.highlightColor
   }
 });
-
 
 class MainApp extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    props.loadInitialState(props.location)
+    props.loadInitialState(props.location);
   }
 
   onResizeWindow = () => {
@@ -61,15 +79,24 @@ class MainApp extends React.Component<Props> {
   }
   render() {
     let { classes, children, user, isLoading } = this.props;
-    return (<div className={classes.MainApp}>  <LoadingIcon /> </div> );
-    /*return (
+    if (isLoading) {
+      return (
+        <div className={classes.loadingScreen}>
+          <div className={classes.loadingIcon}>
+          <h2> Loading... </h2>
+          <LoadingIcon width="100px" height="100px" padding="0 20px 0 0"/>
+          </div>
+        </div>
+      );
+    }
+    return (
       <div className={classes.MainApp}>
         <Alerts />
         <Header />
         {user && <UserInfo user={user} />}
         {children}
       </div>
-    );*/
+    );
   }
 }
 

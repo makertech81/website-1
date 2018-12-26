@@ -38,6 +38,7 @@ export interface Theme {
   errorBackground: string;
   notificationBackground: string;
   notificationBorder: string;
+  fontFamily: string;
   red: string;
   green: string;
   blue: string;
