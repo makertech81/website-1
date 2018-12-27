@@ -11,7 +11,7 @@ import Timeline from "./Timeline";
 interface HomePageStyles<T> extends Styles {
   HomePage: T;
   aboutSection: T;
-  activitiesSection: T;
+  timelineSection: T;
   tracksSection: T;
   lines: T;
   info: T;
@@ -43,14 +43,14 @@ const styles = (theme: Theme): HomePageStyles<JssRules> => ({
     backgroundColor: theme.secondBackground,
     color: theme.secondFont
   },
-  activitiesSection: {
+  timelineSection: {
     background: `linear-gradient(${theme.secondBackground}, ${
       theme.thirdBackground
     })`,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    minHeight: "200px"
+    minHeight: "400px"
   },
   tracksSection: {
     backgroundColor: theme.thirdBackground,
@@ -96,7 +96,7 @@ class HomePage extends React.Component<Props, State> {
           <div className={classes.aboutSection}>
             <AboutSection />
           </div>
-          <div className={classes.activitiesSection}>
+          <div className={classes.timelineSection}>
             <Timeline/>
           </div>
           <div className={classes.tracksSection}>

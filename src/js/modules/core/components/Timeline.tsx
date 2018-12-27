@@ -48,21 +48,21 @@ const Timeline: React.SFC<Props> = ({ classes }) => {
         <TimelineDescription left="0vw" top="60px">
           <b>Jan 18:</b> Registration
         </TimelineDescription>
-        <TimelineDescription left="25vw" top="-40px">
-          <b>Feb 2:</b> Get admissions Results
+        <TimelineDescription left="25vw" top="-45px">
+          <b>Feb 2:</b> Get admissions results
         </TimelineDescription>
         <TimelineDescription left="55vw" top="60px">
           <b>Feb 15:</b> Hackathon begins!
         </TimelineDescription>
-        <TimelineDescription left="calc(77vw - 50px)" top="-40px">
+        <TimelineDescription left="calc(77vw - 50px)" top="-45px">
           <b>Feb 17:</b> Hackathon ends
         </TimelineDescription>
       </div>
       <div className={classes.trackContainer}>
-        <TimelineStop color="black" left="-8px" top="-8px" />
-        <TimelineStop color="white" left="29vw" top="-8px" />
-        <TimelineStop color="white" left="59vw" top="-8px" />
-        <TimelineStop color="black" left="80vw" top="-8px" />
+        <TimelineStop color="white" left="-8px" top="-7px" />
+        <TimelineStop color="black" left="29vw" top="-7px" />
+        <TimelineStop color="black" left="59vw" top="-7px" />
+        <TimelineStop color="white" left="80vw" top="-7px" />
         <TimelineTrack color={trackColors.blue} width="30vw" />
         <TimelineTrack color={trackColors.red} width="30vw" />
         <TimelineTrack color={trackColors.orange} width="20vw" />

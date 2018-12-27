@@ -22,10 +22,12 @@ const styles: TimelineDescriptionStyles<JssRules> = {
     flexDirection: "column",
     top: props => props.top,
     maxWidth: "50px",
+    fontSize: "1.2em",
     left: props => props.left
   },
   '@media (max-width: 800px)': {
     maxWidth: "45px",
+    fontSize: "1em",
   }
 };
 
