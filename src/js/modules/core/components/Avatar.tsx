@@ -23,12 +23,8 @@ interface Props {
 
 // Earth Water Fire Air
 const Avatar: React.SFC<Props> = ({ classes, user }) => {
-<<<<<<< HEAD
   const url = user.photoURL || "/img/blank-profile.png";
   return <img className={classes.Avatar} src={url} />;
-=======
-  return <img className={classes.Avatar} src={user.photoURL || "img/profile_pic.png"} />;
->>>>>>> Added a profile pic to ProfilePage. Surprisingly annoying to get the hover styles correct
 };
 
 export default injectSheet(styles)(Avatar);
