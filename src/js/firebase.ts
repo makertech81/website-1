@@ -23,5 +23,4 @@ firestore.settings(settings);
 export const provider = new firebase.auth.GoogleAuthProvider();
 export const auth = firebase.auth();
 export const db = firestore;
-console.log(firebase);
 export const storage = firebase.storage();
