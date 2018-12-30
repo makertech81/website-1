@@ -23,6 +23,7 @@ export interface CoreState {
 
 export interface Theme {
   backgroundColor: string;
+  secondBackgroundHighlight: string;
   secondBackground: string;
   thirdBackground: string;
   fontColor: string;
@@ -38,7 +39,9 @@ export interface Theme {
   errorBackground: string;
   notificationBackground: string;
   notificationBorder: string;
+  overlayColor: string;
   fontFamily: string;
+  inputPadding: string;
   red: string;
   green: string;
   blue: string;

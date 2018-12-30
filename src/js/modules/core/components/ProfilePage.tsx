@@ -5,20 +5,18 @@ import { User } from "firebase";
 import { bindActionCreators, compose } from "redux";
 import { push } from "connected-react-router";
 import { connect } from "react-redux";
-import { Theme } from "../../types";
+import { JssRules, Theme } from "../../types";
 import Button from "./Button";
 import PasswordForm from "./UpdatePasswordForm";
-import { Link } from "react-router-dom";
+import ProfilePic from "./ProfilePic";
 
-interface ProfilePageStyles extends Styles {
-  ProfilePage: object;
-  profilePic: object;
-  roundImg: object;
-  name: object;
+interface ProfilePageStyles<T> extends Styles {
+  ProfilePage: T;
+  name: T;
 }
 
 interface Props {
-  classes: { [s: string]: string };
+  classes: ProfilePageStyles<string>;
   user: User;
 }
 
@@ -26,7 +24,7 @@ interface State {
   isPasswordFormVisible: boolean;
 }
 
-const styles = (theme: Theme): ProfilePageStyles => ({
+const styles = (theme: Theme): ProfilePageStyles<JssRules> => ({
   ProfilePage: {
     width: "80vw",
     height: "100vh",
@@ -38,14 +36,6 @@ const styles = (theme: Theme): ProfilePageStyles => ({
   },
   name: {
     paddingBottom: "5%"
-  },
-  profilePic: {
-    display: "flex",
-    maxWidth: "200px",
-    paddingBottom: "5%"
-  },
-  roundImg: {
-    borderRadius: "50%"
   }
 });
 
@@ -55,21 +45,23 @@ class ProfilePage extends React.Component<Props, State> {
     this.state = {
       isPasswordFormVisible: false
     };
+    this.fileUploader = React.createRef();
   }
 
   togglePasswordForm = () => {
     const { isPasswordFormVisible } = this.state;
     this.setState({ isPasswordFormVisible: !isPasswordFormVisible });
   };
+
   render() {
     let { user, classes } = this.props;
+
     return (
       <div className={classes.ProfilePage}>
-        <h1 className={classes.name}> {user.displayName} </h1>
-        <div className={classes.profilePic}>
-          <img src={user.photoURL} className={classes.roundImg} />
-        </div>
-
+        <h1 className={classes.name}>
+          {user.displayName || defaults.displayName}
+        </h1>
+        <ProfilePic photoURL={user.photoURL || defaults.photoURL} uid={user.uid}/>
         <Button onClick={this.togglePasswordForm}>Change Password</Button>
         {this.state.isPasswordFormVisible && <PasswordForm />}
       </div>
