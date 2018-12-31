@@ -4,7 +4,7 @@ import injectSheet, { Styles } from "react-jss";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { ReduxState, Theme } from "../../types";
+import { LoadingStates, ReduxState, Theme } from "../../types";
 // @ts-ignore
 import { loadInitialState, refreshWindowDimensions } from "../coreActions";
 import Header from "./Header";
@@ -12,6 +12,7 @@ import { User } from "firebase";
 import UserInfo from "./UserInfo";
 import Alerts from "./Alerts";
 import LoadingIcon from "./LoadingIcon";
+import ErrorPage from "./ErrorPage";
 
 interface MainAppStyles<T> extends Styles {
   MainApp: T;
@@ -27,6 +28,7 @@ interface Props {
   addUser: (u: User) => any;
   deleteUser: () => any;
   onResizeWindow: () => any;
+  loadingState: LoadingStates
 }
 
 const styles = (theme: Theme): MainAppStyles<object> => ({
@@ -38,7 +40,8 @@ const styles = (theme: Theme): MainAppStyles<object> => ({
     width: "100vw",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    padding: "0"
   },
   loadingScreen: {
     fontFamily: theme.fontFamily,
@@ -76,9 +79,16 @@ class MainApp extends React.Component<Props> {
   componentWillUnmount() {
     window.removeEventListener("resize", this.onResizeWindow);
   }
+  componentDidUpdate() {
+    const { loadingState, loadInitialState, location } = this.props;
+    if (loadingState === LoadingStates.Loading) {
+      loadInitialState(location);
+    }
+  }
+
   render() {
-    let { classes, children, user, isLoading } = this.props;
-    if (isLoading) {
+    let { classes, children, user, loadingState } = this.props;
+    if (loadingState === LoadingStates.Loading) {
       return (
         <div className={classes.loadingScreen}>
           <div className={classes.loadingIcon}>
@@ -88,6 +98,12 @@ class MainApp extends React.Component<Props> {
         </div>
       );
     }
+    if (loadingState === LoadingStates.Failed) {
+      return (
+        <ErrorPage/>
+      );
+    }
+
     return (
       <div className={classes.MainApp}>
         <Alerts />
@@ -101,7 +117,7 @@ class MainApp extends React.Component<Props> {
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user,
-  isLoading: state.core.isLoading
+  loadingState: state.core.loadingState
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

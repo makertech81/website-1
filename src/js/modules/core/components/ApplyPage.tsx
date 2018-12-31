@@ -15,12 +15,12 @@ import Checkbox from "./Checkbox";
 import Input from "./Input";
 import Select from "./Select";
 import UploadResumeButton from "./UploadResumeButton";
-import { db } from "../../../firebase";
 
 interface Props {
   classes: ApplyPageStyles<string>;
   user: User;
   push: (route: string) => any;
+  formData: FormData;
   submitApp: (values: FormData, isComplete: boolean) => any;
 }
 
@@ -186,54 +186,6 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
 });
 
 class ApplyPage extends React.Component<Props, ApplyPageState> {
-  unmounted: boolean;
-
-  constructor(props: Props) {
-    super(props);
-    this.unmounted = false;
-    this.state = {
-      isLoading: true,
-      formData: undefined
-    };
-  }
-
-  componentDidMount() {
-    this.setFormState();
-  }
-
-  componentWillUnmount() {
-    this.unmounted = true;
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (this.props.user !== prevProps.user) {
-      this.setFormState();
-    }
-  }
-
-  setFormState = async () => {
-    const { user } = this.props;
-
-    if ("uid" in user) {
-      this.setState({ isLoading: true });
-
-      const formData = await this.loadValues(user);
-
-      if (!this.unmounted) {
-        this.setState({ isLoading: false, formData: formData });
-      }
-    }
-  };
-
-  loadValues = async (user: User): Promise<FormData> => {
-    const snapshot = await db
-      .collection("users")
-      .doc(user.uid)
-      .get();
-    // should probably add some type guard here; there was an bug w/ the FormData type earlier
-    const formData = snapshot.data() as FormData;
-    return formData;
-  };
 
   // Checks if values are all filled and puts an empty string if they aren't
   // (so firebase doesn't complain)
@@ -272,16 +224,11 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
   };
 
   render() {
-    let { classes, isSubmitting, user } = this.props;
-    let { isLoading, formData } = this.state;
+    let { classes, isSubmitting, user, formData } = this.props;
 
     return (
       <div className={classes.ApplyPage}>
-        <h1 className={classes.header}>APPLY</h1>
-        <hr className={classes.underline}></hr>
-        {isLoading ? (
-          <div className={classes.loadingText}> Loading form... </div>
-        ) : (
+        <h1 className={classes.header}> Apply </h1>
           <Form
             onSubmit={this.handleSubmit}
             validate={this.validateForm}
@@ -591,7 +538,6 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
               </div>
             )}
           />
-        )}
       </div>
     );
   }
@@ -599,6 +545,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user,
+  formData: state.core.applyForm.formData,
   isSubmitting: state.core.applyForm.isSubmitting
 });
 

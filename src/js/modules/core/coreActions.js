@@ -1,4 +1,4 @@
-import { db, auth, provider, storage } from "../../firebase";
+import { db, auth, provider, storage, functions } from "../../firebase";
 import { push } from "connected-react-router";
 
 import { UNRESTRICTED_ROUTES } from "../constants";
@@ -37,8 +37,15 @@ export const UPLOAD_RESUME_PENDING = "core/UPLOAD_RESUME_PENDING";
 export const UPLOAD_RESUME_FULFILLED = "core/UPLOAD_RESUME_FULFILLED";
 export const UPLOAD_RESUME_REJECTED = "core/UPLOAD_RESUME_REJECTED";
 
+export const GET_FORM_DATA_FULFILLED = "core/GET_FORM_DATA_FULFILLED";
+export const GET_FORM_DATA_REJECTED = "core/GET_FORM_DATA_REJECTED";
+
 export const ADD_USER = "core/ADD_USER";
 export const DELETE_USER = "core/DELETE_USER";
+
+export const LOADING_FULFILLED = "core/LOADING_FULFILLED";
+export const LOADING_REJECTED = "core/LOADING_REJECTED";
+
 export const UPLOAD_PROFILE_PICTURE_PENDING =
   "core/UPLOAD_PROFILE_PICTURE_PENDING";
 
@@ -60,6 +67,27 @@ export const loadInitialState = location => dispatch => {
         type: ADD_USER,
         payload: user
       });
+      db.collection("users")
+        .doc(user.uid)
+        .get()
+        .then(doc => {
+          dispatch({
+            type: GET_FORM_DATA_FULFILLED,
+            payload: doc.data()
+          });
+          dispatch({
+            type: LOADING_FULFILLED
+          });
+        })
+        .catch(err => {
+          dispatch({
+            type: GET_FORM_DATA_REJECTED,
+            payload: err
+          });
+          dispatch({
+            type: LOADING_REJECTED
+          });
+        });
     } else {
       // If not in the routes that are unrestricted,
       // redirect to login. I'm filtering by unrestricted
@@ -70,6 +98,9 @@ export const loadInitialState = location => dispatch => {
       }
       dispatch({
         type: DELETE_USER
+      });
+      dispatch({
+        type: LOADING_FULFILLED
       });
     }
   });
@@ -110,6 +141,7 @@ export const uploadResume = (uid, file) => dispatch => {
     .catch(err => dispatch({ type: UPLOAD_RESUME_REJECTED, payload: err }));
 };
 
+const sendConfirmationEmail = functions.httpsCallable("sendConfirmationEmail");
 // incomplete is a list of all incompleted form items
 export const submitApp = (appValues, incomplete) => dispatch => {
   let isComplete = incomplete.length === 0;
@@ -150,6 +182,7 @@ export const submitApp = (appValues, incomplete) => dispatch => {
     .collection("users")
     .doc(uid)
     .set(appValues)
+    .then(() => sendConfirmationEmail({}))
     .then(() =>
       dispatch({
         type: SUBMIT_APP_FULFILLED,

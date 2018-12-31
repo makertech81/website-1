@@ -13,12 +13,18 @@ export interface Errors {
   updatePasswordError: string;
 }
 
+export enum LoadingStates {
+  Loading,
+  Loaded,
+  Failed
+}
+
 export interface CoreState {
   viewportWidth: number;
   viewportHeight: number;
   user: User;
   errors: Errors;
-  isLoading: boolean;
+  loadingState: LoadingStates;
 }
 
 export interface Theme {
@@ -61,4 +67,3 @@ export type JssValue =
 export type JssFunction<Props> = (props: Props) => JssValue;
 
 export type JssRules = { [s: string]: JssValue | JssFunction | JssRules };
-

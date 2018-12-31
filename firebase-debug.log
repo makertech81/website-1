@@ -1,0 +1,26 @@
+[debug] [2018-12-31T05:43:46.702Z] ----------------------------------------------------------------------
+[debug] [2018-12-31T05:43:46.704Z] Command:       /usr/local/Cellar/node/10.11.0/bin/node /Users/nicholas/.npm-packages/bin/firebase serve
+[debug] [2018-12-31T05:43:46.704Z] CLI Version:   6.2.2
+[debug] [2018-12-31T05:43:46.704Z] Platform:      darwin
+[debug] [2018-12-31T05:43:46.704Z] Node Version:  v10.11.0
+[debug] [2018-12-31T05:43:46.705Z] Time:          Mon Dec 31 2018 00:43:46 GMT-0500 (Eastern Standard Time)
+[debug] [2018-12-31T05:43:46.705Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-12-31T05:43:46.714Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-12-31T05:43:46.714Z] > authorizing via signed-in user
+[debug] [2018-12-31T05:43:46.714Z] [iam] checking project hacknyu-3e0c8 for permissions ["firebase.projects.get"]
+[debug] [2018-12-31T05:43:46.716Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/hacknyu-3e0c8:testIamPermissions  
+
+[debug] [2018-12-31T05:43:47.034Z] <<< HTTP RESPONSE 200
+[debug] [2018-12-31T05:43:47.035Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/hacknyu-3e0c8  
+ 
+[debug] [2018-12-31T05:43:47.316Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/nicholas/cs_projects/hacknyu-2019'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-12-31T05:43:47.671Z] Fetching environment
+[debug] [2018-12-31T05:43:47.673Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/482443126384:getServerAppConfig  
+ 
+[debug] [2018-12-31T05:43:47.673Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/482443126384/clients/_:getWebAppConfig  
+ 
