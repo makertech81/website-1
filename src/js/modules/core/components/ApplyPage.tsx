@@ -21,6 +21,7 @@ interface Props {
   user: User;
   push: (route: string) => any;
   formData: FormData;
+  submitTimestamp: string;
   submitApp: (values: FormData, isComplete: boolean) => any;
 }
 
@@ -207,11 +208,24 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     return { incomplete, values };
   };
 
-  handleSubmit = (values, form) => {
+  /*
+  Okay future me, here's what you need to do:
+   - Deactivate save if form is complete or if form is previously submitted
+     (i.e. has timestamp)
+   - Probably separate the cleaning up of the form data from the
+     completion check
+   - Make it so email only happens once and not every time you submit
+  */
+  handleSave = (values) => {
     const { incomplete, values: newValues } = this.isFormComplete(values);
     // This will reinit the form to submitted values (fixing pristine issue)
-    this.props.submitApp(newValues, incomplete)
-      .then(() => form.initialize(values));
+    this.props.saveApp(newValues, incomplete)
+  };
+
+  handleSubmit = (values) => {
+    const { incomplete, values: newValues } = this.isFormComplete(values);
+    // This will reinit the form to submitted values (fixing pristine issue)
+    this.props.submitApp(newValues)
   };
 
   validateForm = (values: FormData): object => {
@@ -224,7 +238,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
   };
 
   render() {
-    let { classes, isSubmitting, user, formData } = this.props;
+    let { classes, isSubmitting, user, formData, submitTimestamp } = this.props;
 
     return (
       <div className={classes.ApplyPage}>
@@ -515,18 +529,19 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                         type="checkbox"
                       />
                     </label>
+                    {!submitTimestamp &&
                     <FormSpy
                       render={({ form }) => (
                         <button
                           className={classes.submit}
-                          onClick={() => this.handleSubmit(form.getState().values, form)}
+                          onClick={() => this.handleSave(form.getState().values, form)}
                           disabled={pristine || isSubmitting}
                         >
                           Save
                         </button>
                       )}
-                    />
-                    <Button
+                    />}
+                    <button
                       className={classes.submit}
                       type="submit"
                       disabled={pristine || invalid || isSubmitting}
@@ -546,6 +561,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
 const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user,
   formData: state.core.applyForm.formData,
+  submitTimestamp: state.core.applyForm.submitTimestamp,
   isSubmitting: state.core.applyForm.isSubmitting
 });
 

@@ -145,11 +145,25 @@ export const uploadResume = (uid, file) => dispatch => {
     .catch(err => dispatch({ type: UPLOAD_RESUME_REJECTED, payload: err }));
 };
 
-const sendConfirmationEmail = functions.httpsCallable("sendConfirmationEmail");
-// incomplete is a list of all incompleted form items
-export const submitApp = (appValues, incomplete) => dispatch => {
-  let isComplete = incomplete.length === 0;
+export const saveApp = (appValues, incomplete) => dispatch => {
+  // this a bit of a hack, but it works great! splits the incomplete field names (which are camel case) to human friendly strs
+  const readify = list =>
+    list
+      .map(val =>
+        val
+          .split(/(?=[A-Z])/)
+          .join(" ")
+          .toLowerCase()
+      )
+      .join(", ");
 
+  const msg =
+    "Application saved but NOT complete. Missing: " + readify(incomplete);
+};
+
+const sendConfirmationEmail = functions.httpsCallable("sendConfirmationEmail");
+
+export const submitApp = appValues => dispatch => {
   if (!auth.currentUser) {
     dispatch({
       type: SUBMIT_APP_REJECTED,
@@ -158,27 +172,13 @@ export const submitApp = (appValues, incomplete) => dispatch => {
     dispatch(push("/login"));
     return;
   }
-  let msg;
   const currentTime = new Date();
-  if (isComplete) {
-    appValues.submittedDate = currentTime.toISOString();
-    msg = `Application submitted at ${currentTime.toLocaleString()}. Feel free to resubmit at any time.`;
-  } else {
-    // this a bit of a hack, but it works great! splits the incomplete field names (which are camel case) to human friendly strs
-    const readify = list =>
-      list
-        .map(val =>
-          val
-            .split(/(?=[A-Z])/)
-            .join(" ")
-            .toLowerCase()
-        )
-        .join(", ");
 
-    msg = "Application saved but NOT complete. Missing: " + readify(incomplete);
-  }
+  const msg = `Application submitted at ${currentTime.toLocaleString()}. \
+  Feel free to resubmit at any time.`;
 
   const uid = auth.currentUser.uid;
+
   dispatch({
     type: SUBMIT_APP_PENDING
   });
@@ -187,7 +187,10 @@ export const submitApp = (appValues, incomplete) => dispatch => {
   return db
     .collection("users")
     .doc(`${uid}/formData/${uid}`)
-    .set(appValues)
+    .set({
+      submitTimestamp: currentTime,
+      formData: { [uid]: { ...appValues } }
+    })
     .then(() => sendConfirmationEmail({}))
     .then(() =>
       dispatch({
