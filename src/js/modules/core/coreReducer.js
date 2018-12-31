@@ -214,9 +214,15 @@ const reducer = (state = { ...initialState }, action) => {
         updatePasswordForm: { isSubmitting: false }
       };
     case GET_FORM_DATA_FULFILLED:
+      const { formData, resumeTimestamp, submitTimestamp } = action.payload;
       return {
         ...state,
-        applyForm: { ...state.applyForm, formData: action.payload }
+        applyForm: {
+          ...state.applyForm,
+          formData,
+          resumeTimestamp,
+          submitTimestamp
+        }
       };
     case GET_FORM_DATA_REJECTED:
       return {

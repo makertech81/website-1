@@ -60,6 +60,30 @@ export const refreshWindowDimensions = () => ({
   payload: {}
 });
 
+const getUserData = user => dispatch => {
+  db.collection("users")
+    .doc(user.uid)
+    .get()
+    .then(doc => {
+      dispatch({
+        type: GET_FORM_DATA_FULFILLED,
+        payload: doc.data()
+      });
+      dispatch({
+        type: LOADING_FULFILLED
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_FORM_DATA_REJECTED,
+        payload: err
+      });
+      dispatch({
+        type: LOADING_REJECTED
+      });
+    });
+};
+
 export const loadInitialState = location => dispatch => {
   auth.onAuthStateChanged(user => {
     if (user) {
@@ -67,27 +91,7 @@ export const loadInitialState = location => dispatch => {
         type: ADD_USER,
         payload: user
       });
-      db.collection("users")
-        .doc(user.uid)
-        .get()
-        .then(doc => {
-          dispatch({
-            type: GET_FORM_DATA_FULFILLED,
-            payload: doc.data()
-          });
-          dispatch({
-            type: LOADING_FULFILLED
-          });
-        })
-        .catch(err => {
-          dispatch({
-            type: GET_FORM_DATA_REJECTED,
-            payload: err
-          });
-          dispatch({
-            type: LOADING_REJECTED
-          });
-        });
+      dispatch(getUserData(user));
     } else {
       // If not in the routes that are unrestricted,
       // redirect to login. I'm filtering by unrestricted
@@ -178,9 +182,11 @@ export const submitApp = (appValues, incomplete) => dispatch => {
   dispatch({
     type: SUBMIT_APP_PENDING
   });
+  // Firebase has some funky data layout rules so we
+  // gotta give this another id and the UID will suffice
   return db
     .collection("users")
-    .doc(uid)
+    .doc(`${uid}/formData/${uid}`)
     .set(appValues)
     .then(() => sendConfirmationEmail({}))
     .then(() =>
@@ -235,6 +241,9 @@ export const loginWithPassword = ({ password, email }) => dispatch => {
         type: LOGIN_FULFILLED,
         payload: user
       });
+      return dispatch(getUserData(user));
+    })
+    .then(() => {
       dispatch(push("/apply"));
     })
     .catch(err => {
