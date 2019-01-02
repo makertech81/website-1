@@ -103,12 +103,32 @@ const reducer = (state = { ...initialState }, action) => {
         applyForm: { isSubmitting: true }
       };
     case SUBMIT_APP_FULFILLED:
+      const { message, submitTimestamp, ...formData } = action.payload;
+      if (submitTimestamp) {
+        return {
+          ...state,
+          applyForm: {
+            isSubmitting: false,
+            formData,
+            submitTimestamp,
+            ...state.applyForm
+          },
+          notifications: {
+            ...state.notifications,
+            apply: message
+          }
+        };
+      }
       return {
         ...state,
-        applyForm: { isSubmitting: false },
+        applyForm: {
+          isSubmitting: false,
+          formData,
+          ...state.applyForm
+        },
         notifications: {
           ...state.notifications,
-          apply: action.payload
+          apply: message
         }
       };
     case SUBMIT_APP_REJECTED:
@@ -215,7 +235,11 @@ const reducer = (state = { ...initialState }, action) => {
       };
     case GET_FORM_DATA_FULFILLED:
       if (action.payload) {
-        const { resumeTimestamp, submitTimestamp, ...formData } = action.payload;
+        const {
+          resumeTimestamp,
+          submitTimestamp,
+          ...formData
+        } = action.payload;
         return {
           ...state,
           applyForm: {

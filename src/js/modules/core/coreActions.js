@@ -158,7 +158,7 @@ export const submitApp = (appValues, incompleteFields) => dispatch => {
 
   const uid = auth.currentUser.uid;
   const currentTime = new Date();
-  let msg, data;
+  let message, data;
   // If form is complete
   if (incompleteFields.length !== 0) {
     // this a bit of a hack, but it works great! splits the incomplete field names (which are camel case) to human friendly strs
@@ -167,13 +167,13 @@ export const submitApp = (appValues, incompleteFields) => dispatch => {
       .map(val => val.name)
       .join(", ");
     data = appValues;
-    msg = "Application saved but NOT complete. Missing: " + readify(incompleteFields);
+    message = "Application saved but NOT complete. Missing: " + readify(incompleteFields);
   } else {
     data = {
       submitTimestamp:  currentTime,
       ...appValues
     };
-    msg = `Application submitted at ${currentTime.toLocaleString()}. \
+    message = `Application submitted at ${currentTime.toLocaleString()}. \
   Feel free to resubmit at any time.`;
   }
 
@@ -189,7 +189,7 @@ export const submitApp = (appValues, incompleteFields) => dispatch => {
     .then(() =>
       dispatch({
         type: SUBMIT_APP_FULFILLED,
-        payload: msg
+        payload: { message, ...data }
       })
     )
     .catch(err =>

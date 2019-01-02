@@ -38,4 +38,3 @@ export const sendConfirmationEmail = functions.firestore
       .then(() => console.log("SENT!"))
       .catch(err => console.error(err));
   });
-

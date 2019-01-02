@@ -65,7 +65,6 @@ interface FormData {
   timesParticipated: string;
   track: string;
   tshirtSize: string;
-  // dietaryRestrictions: string;
 
   isVeggie: boolean;
   isVegan: boolean;
@@ -97,7 +96,6 @@ const requiredFields = {
   isFirstTime: "First time participating",
   track: "Preferred Track",
   tshirtSize: "T-shirt size",
-  dietaryRestrictions: "Dietary Restrictions",
   gender: "Gender",
   codeOfConduct: "Code of Conduct",
   privacyPolicy: "Private Policy"
@@ -108,6 +106,7 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
     display: "flex",
     width: "100%",
     maxWidth: theme.containerWidth,
+    transition: "width 2s",
     flexDirection: "column",
     alignItems: "center",
     backgroundColor: theme.formBackground,
