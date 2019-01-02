@@ -32,12 +32,13 @@ interface ApplyPageStyles<T> extends Styles {
   inputs: T;
   inputLabel: T;
   submit: T;
+  checkbox: T;
   loadingText: T;
   save: T;
-  checkbox: T;
   autocompleteItem: T;
   mlhPolicy: T;
-  multipleCheckbox: T;
+  underline: T;
+  genderOptions: T;
   termsAndConditions: T;
 }
 
@@ -122,9 +123,10 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
     display: "flex",
     width: "100%",
     flexDirection: "column",
-    alignItems: "flex-start",
+    alignItems: "center",
     lineHeight: "1.3em",
-    fontSize: "1.5em"
+    fontSize: "1.5em",
+    padding: "40px"
   },
   inputs: {
     display: "flex",
@@ -178,12 +180,6 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
   termsAndConditions: {
     padding: "15px"
   },
-  genderOptions: {
-    padding: "40px"
-  },
-  termsAndConditions: {
-    padding: "15px"
-  }
 });
 
 interface IncompleteField {
@@ -210,14 +206,6 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
     return incompleteFields;
   };
 
-  /*
-  Okay future me, here's what you need to do:
-   - Deactivate save if form is complete or if form is previously submitted
-     (i.e. has timestamp)
-   - Probably separate the cleaning up of the form data from the
-     completion check
-   - Make it so email only happens once and not every time you submit
-  */
   handleSave = (values, incompleteFields) => {
     this.props.submitApp(values, incompleteFields);
   };
