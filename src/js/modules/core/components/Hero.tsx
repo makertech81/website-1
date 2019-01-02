@@ -10,6 +10,7 @@ interface Props {
   classes: { [s: string]: string };
   user: User;
 }
+
 const styles = (theme: Theme): Styles => ({
   Hero: {
     maxWidth: theme.containerWidth,

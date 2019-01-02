@@ -1,19 +1,20 @@
 import * as React from "react";
 import injectSheet, { Styles } from "react-jss/lib/injectSheet";
-import { JssRules, Theme } from "../../types";
+import { InjectedProps, JssRules, Theme } from "../../types";
 
-interface AboutSectionStyles<T> extends Styles {
+interface AboutSectionStyles<T> {
   AboutSection: T;
   content: T;
   intro: T;
   title: T;
-  fancyRectangle: T;
+  underline: T;
 }
 
-interface Props {
-  classes: { [s: string]: string };
+interface Props extends InjectedProps<AboutSectionStyles, Theme>{
+
 }
-const styles = (theme: Theme): AboutSectionStyles<JssRules> => ({
+
+const styles = (theme: Theme): AboutSectionStyles<JssRules<Props>> => ({
   AboutSection: {
     display: "flex",
     alignItems: "center",
@@ -29,7 +30,7 @@ const styles = (theme: Theme): AboutSectionStyles<JssRules> => ({
     margin: "5%",
     width: "80vw",
     maxWidth: "750px",
-    backgroundColor: theme.secondBackgroundHighlight,
+    backgroundColor: theme.secondBackground,
     color: theme.secondFont,
     alignItems: "center",
     justifyContent: "center",
@@ -66,4 +67,4 @@ const AboutSection: React.SFC<Props> = ({ classes }) => {
   );
 };
 
-export default injectSheet(styles)(AboutSection);
+export default injectSheet(styles)<AboutSectionStyles<JssRules<Props>>, Theme, Props>(AboutSection);

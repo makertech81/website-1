@@ -55,10 +55,8 @@ const styles = (theme: Theme): NavbarStyles => ({
 });
 
 interface Props {
-  classes: { [s: string]: string };
+  classes: HeaderStyles<string>
   user: User;
-  error: string;
-  viewportWidth: number;
   logout: () => any;
 }
 
@@ -98,8 +96,6 @@ const Navbar: React.SFC<Props> = ({ classes, user, logout }) => {
 
 const mapStateToProps = (state: any) => ({
   user: state.core.user,
-  error: state.core.error,
-  viewportWidth: state.core.viewportWidth
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

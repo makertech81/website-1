@@ -1,4 +1,5 @@
 import { User } from "firebase";
+import { CSSProperties } from "react-jss";
 // Misc types
 
 export interface ReduxState {
@@ -67,3 +68,9 @@ export type JssValue =
 export type JssFunction<Props> = (props: Props) => JssValue;
 
 export type JssRules = { [s: string]: JssValue | JssFunction | JssRules };
+
+export type InjectedProps<Styles, Theme> = {
+  classes: { [key in keyof Styles]: string };
+  theme?: Theme;
+  sheet?: StyleSheet;
+};
