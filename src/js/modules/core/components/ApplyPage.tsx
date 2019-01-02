@@ -37,6 +37,7 @@ interface ApplyPageStyles<T> extends Styles {
   autocompleteItem: T;
   mlhPolicy: T;
   underline: T;
+  multipleCheckboxes: T;
   genderOptions: T;
   termsAndConditions: T;
 }
@@ -116,6 +117,9 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
   },
   header: {
     padding: "10px"
+  },
+  multipleCheckboxes: {
+    margin: "40px 0 40px 0"
   },
   form: {
     display: "flex",
@@ -256,7 +260,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                     <option value="prefer-not"> Prefer not to say </option>
                     <option value="other"> Other </option>
                   </Field>
-                  <fieldset className={classes.multipleCheckbox}>
+                  <fieldset className={classes.multipleCheckboxes}>
                     <legend className={classes.inputLabel}>
                       (Optional) What races/ethnicities do you most closely
                       identify with? Check all that apply.
@@ -290,7 +294,7 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                     resumeTimestamp={formData && formData.resumeTimestamp}
                   />
 
-                  <fieldset className={classes.multipleCheckbox}>
+                  <fieldset className={classes.multipleCheckboxes}>
                     <legend className={classes.inputLabel}>
                       Any dietary restrictions? Check all that apply.
                     </legend>
