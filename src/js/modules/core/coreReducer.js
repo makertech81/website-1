@@ -215,7 +215,7 @@ const reducer = (state = { ...initialState }, action) => {
       };
     case GET_FORM_DATA_FULFILLED:
       if (action.payload) {
-        const { formData, resumeTimestamp, submitTimestamp } = action.payload;
+        const { resumeTimestamp, submitTimestamp, ...formData } = action.payload;
         return {
           ...state,
           applyForm: {

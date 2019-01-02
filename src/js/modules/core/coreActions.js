@@ -1,4 +1,4 @@
-import { db, auth, provider, storage, functions } from "../../firebase";
+import { db, auth, provider, storage } from "../../firebase";
 import { push } from "connected-react-router";
 
 import { UNRESTRICTED_ROUTES } from "../constants";
@@ -61,6 +61,7 @@ export const refreshWindowDimensions = () => ({
 });
 
 const getUserData = user => dispatch => {
+  console.log(user);
   db.collection("users")
     .doc(user.uid)
     .get()
@@ -145,25 +146,7 @@ export const uploadResume = (uid, file) => dispatch => {
     .catch(err => dispatch({ type: UPLOAD_RESUME_REJECTED, payload: err }));
 };
 
-export const saveApp = (appValues, incomplete) => dispatch => {
-  // this a bit of a hack, but it works great! splits the incomplete field names (which are camel case) to human friendly strs
-  const readify = list =>
-    list
-      .map(val =>
-        val
-          .split(/(?=[A-Z])/)
-          .join(" ")
-          .toLowerCase()
-      )
-      .join(", ");
-
-  const msg =
-    "Application saved but NOT complete. Missing: " + readify(incomplete);
-};
-
-const sendConfirmationEmail = functions.httpsCallable("sendConfirmationEmail");
-
-export const submitApp = appValues => dispatch => {
+export const submitApp = (appValues, incompleteFields) => dispatch => {
   if (!auth.currentUser) {
     dispatch({
       type: SUBMIT_APP_REJECTED,
@@ -172,12 +155,27 @@ export const submitApp = appValues => dispatch => {
     dispatch(push("/login"));
     return;
   }
-  const currentTime = new Date();
-
-  const msg = `Application submitted at ${currentTime.toLocaleString()}. \
-  Feel free to resubmit at any time.`;
 
   const uid = auth.currentUser.uid;
+  const currentTime = new Date();
+  let msg, data;
+  // If form is complete
+  if (incompleteFields.length !== 0) {
+    // this a bit of a hack, but it works great! splits the incomplete field names (which are camel case) to human friendly strs
+    const readify = list =>
+      list
+      .map(val => val.name)
+      .join(", ");
+    data = appValues;
+    msg = "Application saved but NOT complete. Missing: " + readify(incompleteFields);
+  } else {
+    data = {
+      submitTimestamp:  currentTime,
+      ...appValues
+    };
+    msg = `Application submitted at ${currentTime.toLocaleString()}. \
+  Feel free to resubmit at any time.`;
+  }
 
   dispatch({
     type: SUBMIT_APP_PENDING
@@ -186,12 +184,8 @@ export const submitApp = appValues => dispatch => {
   // gotta give this another id and the UID will suffice
   return db
     .collection("users")
-    .doc(`${uid}/formData/${uid}`)
-    .set({
-      submitTimestamp: currentTime,
-      formData: { [uid]: { ...appValues } }
-    })
-    .then(() => sendConfirmationEmail({}))
+    .doc(uid)
+    .set(data)
     .then(() =>
       dispatch({
         type: SUBMIT_APP_FULFILLED,
