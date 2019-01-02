@@ -34,7 +34,6 @@ interface ApplyPageStyles<T> extends Styles {
   submit: T;
   checkbox: T;
   loadingText: T;
-  save: T;
   autocompleteItem: T;
   mlhPolicy: T;
   underline: T;
@@ -138,14 +137,10 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
   },
   submit: {
     width: "fit-content",
-    padding: "5px",
-    backgroundColor: theme.highlightColor,
-    fontSize: "1em",
+    padding: "13px",
+    fontSize: "1.3rem",
     border: "none",
-    color: theme.fontColor,
-    "&:disabled": {
-      backgroundColor: theme.highlightColorHover
-    }
+    maxWidth: "250px"
   },
   checkbox: {
     width: "20px",
@@ -153,14 +148,6 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
   },
   loadingText: {
     fontSize: "1.3em"
-  },
-  save: {
-    width: "100px",
-    padding: "5px",
-    backgroundColor: theme.submitButton,
-    fontSize: "1em",
-    border: "none",
-    color: theme.secondFont
   },
   autocompleteItem: {
     padding: theme.inputPadding
@@ -521,25 +508,25 @@ class ApplyPage extends React.Component<Props, ApplyPageState> {
                       const incompleteFields = this.getIncompleteFields(fields);
                       if (!submitTimestamp && incompleteFields.length !== 0) {
                         return (
-                          <button
+                          <Button
                             className={classes.submit}
                             onClick={() =>
                               this.handleSave(fields, incompleteFields)
                             }
                             disabled={pristine || isSubmitting}
                           >
-                            Save
-                          </button>
+                            SAVE
+                          </Button>
                         );
                       } else {
                         return (
-                          <button
+                          <Button
                             className={classes.submit}
                             type="submit"
                             disabled={pristine || invalid || isSubmitting}
                           >
-                            Submit
-                          </button>
+                            SUBMIT
+                          </Button>
                         );
                       }
                     }}

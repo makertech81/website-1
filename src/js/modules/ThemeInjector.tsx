@@ -18,10 +18,10 @@ export const trackColors = {
 
 const theme: Theme = {
   backgroundColor: "#57068c",
-  secondBackground: "#fefefe",
+  secondBackground: "#f7f7f7",
   thirdBackground: "#57068c",
   fontColor: "#fefefe",
-  secondFont: "#1b1b1b",
+  secondFont: "#202020",
   secondFontHover: "#f0f0f0", 
   highlightColor: "#fefefe",
   highlightColorHover: "#eeeeee",

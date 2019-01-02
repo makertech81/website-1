@@ -61,7 +61,6 @@ export const refreshWindowDimensions = () => ({
 });
 
 const getUserData = user => dispatch => {
-  console.log(user);
   db.collection("users")
     .doc(user.uid)
     .get()

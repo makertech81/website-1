@@ -18,6 +18,7 @@ interface MainAppStyles<T> extends Styles {
   MainApp: T;
   loadingScreen: T;
   loadingIcon: T;
+  loadingText: T;
 }
 
 interface Props {
@@ -58,9 +59,11 @@ const styles = (theme: Theme): MainAppStyles<object> => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    color: "white",
+    color: theme.fontColor,
     padding: "50px",
-    backgroundColor: theme.highlightColor
+  },
+  loadingText: {
+    paddingBottom: "30px"
   }
 });
 
@@ -91,10 +94,7 @@ class MainApp extends React.Component<Props> {
     if (loadingState === LoadingStates.Loading) {
       return (
         <div className={classes.loadingScreen}>
-          <div className={classes.loadingIcon}>
-          <h2> Loading... </h2>
           <LoadingIcon width="100px" height="100px" padding="0 20px 0 0"/>
-          </div>
         </div>
       );
     }
