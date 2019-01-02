@@ -108,10 +108,10 @@ const reducer = (state = { ...initialState }, action) => {
         return {
           ...state,
           applyForm: {
+            ...state.applyForm,
             isSubmitting: false,
             formData,
             submitTimestamp,
-            ...state.applyForm
           },
           notifications: {
             ...state.notifications,
@@ -122,9 +122,9 @@ const reducer = (state = { ...initialState }, action) => {
       return {
         ...state,
         applyForm: {
+          ...state.applyForm,
           isSubmitting: false,
           formData,
-          ...state.applyForm
         },
         notifications: {
           ...state.notifications,

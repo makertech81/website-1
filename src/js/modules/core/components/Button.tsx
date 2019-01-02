@@ -28,7 +28,7 @@ const styles = (theme: Theme): ButtonStyles<JssRules> => ({
       backgroundColor: theme.submitButtonHover
     },
     '&:disabled': {
-      backgroundColor: theme.submitButtonHover
+      backgroundColor: theme.submitButtonDeactivated
     }
   }
 });
