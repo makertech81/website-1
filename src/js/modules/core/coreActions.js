@@ -179,8 +179,6 @@ export const submitApp = (appValues, incompleteFields) => dispatch => {
   dispatch({
     type: SUBMIT_APP_PENDING
   });
-  // Firebase has some funky data layout rules so we
-  // gotta give this another id and the UID will suffice
   return db
     .collection("users")
     .doc(uid)
