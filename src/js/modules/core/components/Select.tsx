@@ -37,6 +37,7 @@ interface SelectStyles<T> extends Styles {
   textField: T;
   Select: T;
   inputArea: T;
+  "@media (max-width: 800px)": T;
 }
 
 const styles = (theme: Theme): SelectStyles<JssRules> => ({
@@ -63,12 +64,25 @@ const styles = (theme: Theme): SelectStyles<JssRules> => ({
   Select: {
     display: "flex",
     flexDirection: "column",
+    alignItems: "flex-start",
     fontSize: "1.3rem",
     padding: "15px"
   },
   inputArea: {
     display: "flex",
     alignItems: "center"
+  },
+  "@media (max-width: 800px)": {
+    Select: {
+      width: "70vw"
+    },
+    inputArea: {
+      flexDirection: "column",
+      alignItems: "flex-start"
+    },
+    textField: {
+      width: "80vw"
+    }
   }
 });
 

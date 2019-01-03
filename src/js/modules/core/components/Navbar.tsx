@@ -48,6 +48,9 @@ const styles = (theme: Theme): NavbarStyles => ({
       flexDirection: "column",
       minHeight: "200px"
     },
+    links: {
+      paddingLeft: "40px"
+    },
     link: {
       fontSize: "1em",
     }

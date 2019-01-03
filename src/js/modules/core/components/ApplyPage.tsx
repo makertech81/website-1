@@ -39,6 +39,7 @@ interface ApplyPageStyles<T> extends Styles {
   multipleCheckboxes: T;
   genderOptions: T;
   termsAndConditions: T;
+  "@media (max-width: 800px)": T;
 }
 
 interface FormData {
@@ -132,7 +133,7 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
     alignItems: "center",
     lineHeight: "1.3em",
     fontSize: "1.5em",
-    padding: "40px"
+    padding: "40px 0 40px 0"
   },
   inputs: {
     display: "flex",
@@ -170,6 +171,14 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
   termsAndConditions: {
     padding: "15px"
   },
+  "@media (max-width: 800px)": {
+    ApplyPage: {
+      width: "100vw"
+    },
+    multipleCheckboxes: {
+      width: "80vw"
+    }
+  }
 });
 
 interface IncompleteField {
