@@ -6,12 +6,14 @@ import TrackInfo from "./TrackInfo";
 import AboutSection from "./AboutSection";
 import Timeline from "./Timeline";
 import AnimatedSubwayLines from "./AnimatedSubwayLines";
+import FAQ from "./FAQ";
 
 interface HomePageStyles<T> extends Styles {
   HomePage: T;
   aboutSection: T;
   timelineSection: T;
   tracksSection: T;
+  faqSection: T;
   info: T;
   timeline: T;
 }
@@ -54,6 +56,10 @@ const styles = (theme: Theme): HomePageStyles<JssRules> => ({
     backgroundColor: theme.secondBackground,
     color: theme.secondFont
   },
+  faqSection: {
+    backgroundColor: theme.backgroundColor,
+    color: theme.fontColor
+  },
   info: {
     display: "flex",
     flexDirection: "column"
@@ -83,6 +89,9 @@ class HomePage extends React.Component<Props, State> {
           </div>
           <div className={classes.tracksSection}>
             <TrackInfo />
+          </div>
+          <div className={classes.faqSection}>
+            <FAQ />
           </div>
         </div>
       </div>
