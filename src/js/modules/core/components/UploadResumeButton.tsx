@@ -12,6 +12,7 @@ interface UploadButtonStyles<T> extends Styles {
   hiddenInput: T;
   label: T;
   uploadedTime: T;
+  "@media (max-width: 800px)": T;
 }
 
 interface Props {
@@ -37,6 +38,11 @@ const styles: UploadButtonStyles<JssRules> = {
   },
   uploadedTime: {
     paddingLeft: "10px"
+  },
+  "@media (max-width: 800px)": {
+    UploadResumeButton: {
+      flexDirection: "column"
+    }
   }
 };
 

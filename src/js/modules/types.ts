@@ -55,6 +55,7 @@ export interface Theme {
   orange: string;
   containerWidth: string;
   containerSmallWidth: string;
+  containerMobileWidth: string;
 }
 export type JssValue =
   | string

@@ -52,7 +52,7 @@ const styles = (theme: Theme): NavbarStyles => ({
       paddingLeft: "40px"
     },
     link: {
-      fontSize: "1em",
+      fontSize: "1.1em",
     }
   }
 });

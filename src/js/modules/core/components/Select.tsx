@@ -74,14 +74,14 @@ const styles = (theme: Theme): SelectStyles<JssRules> => ({
   },
   "@media (max-width: 800px)": {
     Select: {
-      width: "70vw"
+      width: "60vw"
     },
     inputArea: {
       flexDirection: "column",
       alignItems: "flex-start"
     },
     textField: {
-      width: "80vw"
+      width: "50vw"
     }
   }
 });

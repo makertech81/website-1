@@ -39,6 +39,7 @@ const theme: Theme = {
   notificationBorder: "#000000",
   containerWidth: "62.5em",
   containerSmallWidth: "28em",
+  containerMobileWidth: "20em",
   overlayColor: "#696969",
   ...trackColors
 };

@@ -71,7 +71,7 @@ const styles = (theme: Theme): InputStyles<JssRules> => ({
   },
   "@media (max-width: 800px)": {
     Input: {
-      width: "70vw"
+      width: "60vw"
     },
     inputArea: {
       flexDirection: "column"
