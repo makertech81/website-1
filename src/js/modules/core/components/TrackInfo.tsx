@@ -20,9 +20,11 @@ import {
   faDollarSign,
   faPiggyBank,
   faHeart,
-  faHandshake
+  faHandshake,
 } from "@fortawesome/free-solid-svg-icons";
-import { faEthereum } from "@fortawesome/free-brands-svg-icons";
+import {
+  faEthereum
+} from "@fortawesome/free-brands-svg-icons";
 
 interface TrackInfoStyles<T> extends Styles {
   TrackInfo: T;
@@ -55,6 +57,9 @@ const styles = (theme: Theme): TrackInfoStyles<JssRules> => ({
   description: {
     maxWidth: "800px"
   },
+  info: {
+    fontSize: "1.4rem"
+  },
   bullet: {
     fontSize: "1.4rem",
     display: "flex",
@@ -85,6 +90,12 @@ const TrackInfo: React.SFC<Props> = ({ classes }) => {
   return (
     <div className={classes.TrackInfo}>
       <h1 className={classes.header}> TRACKS </h1>
+      <p className={classes.info}>
+        Every year, HackNYU chooses several "tracks" for social good for problems for hackers to develop their projects around. 
+        HackNYU 2019 is proud to present our four tracks to hack in: Health and Well Being; Sustainability; Education; Financial Development.
+        Note that these descriptions are only to help you brainstorm! You can create whatever you want, as long as it falls into one of these
+        tracks. Ask an organizer if you aren't sure!
+      </p>
       <div className={classes.tracks}>
         <Track
           id={0}
@@ -128,6 +139,7 @@ const TrackInfo: React.SFC<Props> = ({ classes }) => {
             mentally.
           </div>
         </Track>
+
         <Track
           id={1}
           key={1}
@@ -169,6 +181,7 @@ const TrackInfo: React.SFC<Props> = ({ classes }) => {
             Raise awareness about important environmental issues.
           </div>
         </Track>
+
         <Track
           id={2}
           key={2}
@@ -213,6 +226,7 @@ const TrackInfo: React.SFC<Props> = ({ classes }) => {
             </div>
           </div>
         </Track>
+
         <Track
           id={3}
           key={3}
@@ -251,6 +265,7 @@ const TrackInfo: React.SFC<Props> = ({ classes }) => {
               </div>
               Combine finance and engineering to build new products.
             </div>
+
             <div className={classes.bullet}>
               <div className={classes.icon}>
                 <FontAwesomeIcon icon={faHandshake} />
