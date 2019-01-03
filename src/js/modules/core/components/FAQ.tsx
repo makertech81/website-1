@@ -12,15 +12,15 @@ interface FAQStyles<T> extends Styles {
 
 const styles = (theme: Theme): FAQStyles<JssRules> => ({
   FAQ: {
+    backgroundColor: theme.backgroundColor,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     padding: "5%",
-    borderRadius: "5% 5% 0 0"
   },
   questions: {
     display: "grid",
-    gridTemplateColumns: "auto auto auto auto",
+    gridTemplateColumns: "25% 25% 25% 25%",
     gridTemplateRows: "auto auto"
   },
   question: {
@@ -105,11 +105,11 @@ const FAQ = ({ classes }) => {
           </p>
         </div>
         <div className={classes.question}>
-          <h2> Where is it?</h2>
+          <h2> What about teams? </h2>
           <p>
-            HackNYU is held at three locations simultaneously: NYU Tandon School
-            of Engineering in Brooklyn, New York, NYU Shanghai in (you guessed
-            it) Shanghai and NYU Abu Dhabi in Abu Dhabi.
+            Teams are limited to 4 people. You do NOT have to come with a team
+            to the hackathon. There will be a place where hackers can form teams
+            and brainstorm ideas.
           </p>
         </div>
       </div>

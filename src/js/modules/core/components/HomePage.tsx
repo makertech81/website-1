@@ -14,6 +14,7 @@ interface HomePageStyles<T> extends Styles {
   timelineSection: T;
   tracksSection: T;
   faqSection: T;
+  curvedTop: T;
   info: T;
   timeline: T;
 }
@@ -57,8 +58,17 @@ const styles = (theme: Theme): HomePageStyles<JssRules> => ({
     color: theme.secondFont
   },
   faqSection: {
-    backgroundColor: theme.backgroundColor,
+    position: "relative",
+    backgroundColor: theme.secondBackground,
     color: theme.fontColor
+  },
+  curvedTop: {
+    borderRadius: "50%",
+    backgroundColor: theme.backgroundColor,
+    width: "100vw",
+    height: "60px",
+    position: "absolute",
+    top: "50%"
   },
   info: {
     display: "flex",
@@ -91,6 +101,7 @@ class HomePage extends React.Component<Props, State> {
             <TrackInfo />
           </div>
           <div className={classes.faqSection}>
+            <div className={classes.curvedTop} />
             <FAQ />
           </div>
         </div>
