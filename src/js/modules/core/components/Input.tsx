@@ -76,6 +76,11 @@ const styles = (theme: Theme): InputStyles<JssRules> => ({
     inputArea: {
       flexDirection: "column"
     },
+  },
+  [`@media(max-width: ${theme.largeBreakpoint})`]: {
+    Input: {
+      width: "12em"
+    }
   }
 });
 

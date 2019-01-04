@@ -42,6 +42,16 @@ const styles = (theme: Theme): AboutPageStyles<JssRules> => ({
     paddingBottom: "0.2em",
     textTransform: "uppercase"
   },
+  [`@media(max-width: ${theme.largeBreakpoint})`]: {
+    AboutPage: {
+      width: theme.containerLargeWidth
+    }
+  },
+  [`@media(max-width: ${theme.mediumBreakpoint})`]: {
+    AboutPage: {
+      width: theme.containerMediumWidth
+    }
+  },
 });
 
 interface Props {

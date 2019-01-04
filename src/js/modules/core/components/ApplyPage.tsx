@@ -171,6 +171,11 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
   termsAndConditions: {
     padding: "15px"
   },
+  [`@media(max-width: ${theme.largeBreakpoint})`]: {
+    ApplyPage: {
+      width: theme.containerLargeWidth
+    }
+  },
   [`@media(max-width: ${theme.mediumBreakpoint})`]: {
     ApplyPage: {
       width: theme.containerMediumWidth
@@ -186,7 +191,7 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
     inputs: {
       alignItems: "center"
     }
-  }
+  },
 });
 
 interface IncompleteField {

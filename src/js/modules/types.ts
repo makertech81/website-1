@@ -54,11 +54,13 @@ export interface Theme {
   blue: string;
   orange: string;
   containerWidth: string;
+  containerMobileWidth: string;
   containerSmallWidth: string;
   containerMediumWidth: string;
-  containerMobileWidth: string;
+  containerLargeWidth: string;
   smallBreakpoint: string;
   mediumBreakpoint: string;
+  largeBreakpoint: string;
 }
 export type JssValue =
   | string
