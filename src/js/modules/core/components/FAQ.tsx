@@ -8,6 +8,7 @@ interface FAQStyles<T> extends Styles {
   FAQ: T;
   questions: T;
   question: T;
+  "@media (max-width: 800px)": T;
 }
 
 const styles = (theme: Theme): FAQStyles<JssRules> => ({
@@ -16,7 +17,7 @@ const styles = (theme: Theme): FAQStyles<JssRules> => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "5%",
+    padding: "5%"
   },
   questions: {
     display: "grid",
@@ -28,6 +29,12 @@ const styles = (theme: Theme): FAQStyles<JssRules> => ({
     padding: "20px",
     fontSize: "1.1em",
     lineHeight: "1.2em"
+  },
+  "@media (max-width: 800px)": {
+    questions: {
+      display: "flex",
+      flexDirection: "column"
+    }
   }
 });
 
@@ -36,6 +43,12 @@ const FAQ = ({ classes }) => {
     <div className={classes.FAQ}>
       <h1> Questions </h1>
       <Underline />
+      <p>
+        {/*I considered adding a mailto link, but do people actually like those?
+          they just open my system mail client for me, which sucks.
+         */}
+        For any additional questions, please email ask.hack@nyu.edu!
+      </p>
       <div className={classes.questions}>
         <div className={classes.question}>
           <h2> Do I need prior experience?</h2>

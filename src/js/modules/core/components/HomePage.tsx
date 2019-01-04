@@ -58,17 +58,12 @@ const styles = (theme: Theme): HomePageStyles<JssRules> => ({
     color: theme.secondFont
   },
   faqSection: {
-    position: "relative",
     backgroundColor: theme.secondBackground,
     color: theme.fontColor
   },
   curvedTop: {
-    borderRadius: "50%",
-    backgroundColor: theme.backgroundColor,
     width: "100vw",
-    height: "60px",
-    position: "absolute",
-    top: "50%"
+    transform: "translateY(0.75vh)"
   },
   info: {
     display: "flex",
@@ -101,7 +96,7 @@ class HomePage extends React.Component<Props, State> {
             <TrackInfo />
           </div>
           <div className={classes.faqSection}>
-            <div className={classes.curvedTop} />
+            <img className={classes.curvedTop} src="/img/semicircle.svg" />
             <FAQ />
           </div>
         </div>
