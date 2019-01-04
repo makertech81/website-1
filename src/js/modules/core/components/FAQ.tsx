@@ -87,7 +87,7 @@ const FAQ = ({ classes }) => {
         <div className={classes.question}>
           <h2> How will projects be judged?</h2>
           <p>
-            Each of the five tracks will have their own judges and prizes.
+            Each of the four tracks will have their own judges and prizes.
             Judges will select three winning teams from each track. You can only
             submit your project to one track, so choose wisely!
           </p>
