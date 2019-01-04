@@ -100,7 +100,6 @@ const requiredFields = {
   isFirstTime: "First time participating",
   track: "Preferred Track",
   tshirtSize: "T-shirt size",
-  gender: "Gender",
   codeOfConduct: "Code of Conduct",
   privacyPolicy: "Private Policy",
   emergencyContactName: "Emergency contact name",

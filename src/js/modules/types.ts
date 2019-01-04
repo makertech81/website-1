@@ -1,5 +1,4 @@
 import { User } from "firebase";
-import { CSSProperties } from "react-jss";
 // Misc types
 
 export interface ReduxState {
@@ -26,6 +25,7 @@ export interface CoreState {
   user: User;
   errors: Errors;
   loadingState: LoadingStates;
+  updatePasswordForm: object;
 }
 
 export interface Theme {
@@ -56,21 +56,3 @@ export interface Theme {
   containerWidth: string;
   containerSmallWidth: string;
 }
-export type JssValue =
-  | string
-  | number
-  | Array<string | number | Array<string | number> | "!important">
-  | null
-  | false;
-
-// Basically calculated props. Returns a JssValue (which I stole from the
-// JSS typings, idk why JSS doesn't export it)
-export type JssFunction<Props> = (props: Props) => JssValue;
-
-export type JssRules = { [s: string]: JssValue | JssFunction | JssRules };
-
-export type InjectedProps<Styles, Theme> = {
-  classes: { [key in keyof Styles]: string };
-  theme?: Theme;
-  sheet?: StyleSheet;
-};

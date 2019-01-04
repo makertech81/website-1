@@ -1,23 +1,24 @@
 import * as React from "react";
 import injectSheet, { Styles } from "react-jss/lib/injectSheet";
-import { JssRules, Theme } from "../../types";
+import { JssRules, ReduxState, Theme } from "../../types";
 import { Field, Form } from "react-final-form";
 import Button from "./Button";
 import { connect } from "react-redux";
-import { bindActionCreators, compose } from "redux";
+import { bindActionCreators, compose, Dispatch } from "redux";
 import { emailRegex } from "../../constants";
 // @ts-ignore
 import { register } from "../coreActions";
 import Input from "./Input";
 import { Link } from "react-router-dom";
+import { StyleSheet, WithStyles } from "react-jss";
 
-interface RegisterPageStyles<T> extends Styles {
-  RegisterPage: T;
-  loginLink: T;
-  form: T;
-};
+interface Props {
+  classes: { [s: string]: string };
+  register: ({ email, password }: FormValues) => any;
+  isSubmitting: boolean;
+}
 
-const styles = (theme: Theme): RegisterPageStyles<JssRules> => ({
+const styles = (theme: Theme): StyleSheet<Props> => ({
   RegisterPage: {
     display: "flex",
     flexDirection: "column",
@@ -47,11 +48,8 @@ const styles = (theme: Theme): RegisterPageStyles<JssRules> => ({
   }
 });
 
-interface Props {
-  classes: { [s: string]: string };
-  register: ({ email, password }: FormValues) => any;
-  isSubmitting: boolean;
-}
+type StyledProps = WithStyles<keyof typeof styles> & Props;
+
 
 interface FormValues {
   email?: string;
@@ -59,7 +57,7 @@ interface FormValues {
   passwordConfirmation?: string;
 }
 
-const RegisterPage: React.SFC<Props> = ({
+const RegisterPage: React.SFC<StyledProps> = ({
   classes,
   register,
   isSubmitting
@@ -70,7 +68,7 @@ const RegisterPage: React.SFC<Props> = ({
   return (
     <div className={classes.RegisterPage}>
       <h1> REGISTER </h1>
-      <hr className={classes.underline}></hr>
+      <hr className={classes.underline} />
       <Form
         onSubmit={handleSubmit}
         validate={values => {
@@ -163,13 +161,12 @@ const RegisterPage: React.SFC<Props> = ({
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: ReduxState) => ({
   isSubmitting: state.core.registerForm.isSubmitting
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ register }, dispatch);
-
 
 export default compose(
   injectSheet(styles),
@@ -177,4 +174,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(RegisterPage);
+)<Props>(RegisterPage);
