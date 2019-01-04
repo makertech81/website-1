@@ -93,7 +93,7 @@ const styles = (theme: Theme): SelectStyles<JssRules> => ({
       alignItems: "flex-start"
     },
     textField: {
-      width: "50vw"
+      width: "8em"
     }
   }
 });

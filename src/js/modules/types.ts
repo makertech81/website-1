@@ -53,7 +53,7 @@ export interface Theme {
   green: string;
   blue: string;
   orange: string;
-  containerWidth: string;
+  containerMaxWidth: string;
   containerMobileWidth: string;
   containerSmallWidth: string;
   containerMediumWidth: string;

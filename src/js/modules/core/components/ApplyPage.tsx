@@ -112,7 +112,7 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
   ApplyPage: {
     display: "flex",
     width: "100%",
-    maxWidth: theme.containerWidth,
+    maxWidth: theme.containerMaxWidth,
     flexDirection: "column",
     alignItems: "center",
     backgroundColor: theme.formBackground,

@@ -69,6 +69,11 @@ const styles = (theme: Theme): InputStyles<JssRules> => ({
   inputArea: {
     display: "flex"
   },
+  [`@media(max-width: ${theme.largeBreakpoint})`]: {
+    Input: {
+      width: "12em"
+    }
+  },
   [`@media(max-width: ${theme.mediumBreakpoint})`]: {
     Input: {
       width: "10em"
@@ -77,11 +82,6 @@ const styles = (theme: Theme): InputStyles<JssRules> => ({
       flexDirection: "column"
     },
   },
-  [`@media(max-width: ${theme.largeBreakpoint})`]: {
-    Input: {
-      width: "12em"
-    }
-  }
 });
 
 const Input: React.SFC<Props> = ({ component, classes, meta, input, label, ...props }) => {

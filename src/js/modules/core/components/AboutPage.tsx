@@ -21,7 +21,7 @@ const styles = (theme: Theme): AboutPageStyles<JssRules> => ({
     flexDirection: "column",
     alignItems: "center",
     height: "100%",
-    maxWidth: theme.containerWidth,
+    maxWidth: theme.containerMaxWidth,
     borderRadius: "0.5em"
   },
   icons: {
