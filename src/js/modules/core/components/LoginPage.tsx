@@ -17,7 +17,7 @@ interface LoginPageStyles<T> extends Styles {
   registerLink: T;
   resetPasswordLink: T;
   underline: T;
-  "@media (max-width: 800px)": T;
+  [s: string]: T;
 }
 
 interface Props {
@@ -67,7 +67,7 @@ const styles = (theme: Theme): LoginPageStyles<JssRules> => ({
     border: "2px solid #6fb1f5",
     width: "2em"
   },
-  "@media (max-width: 800px)": {
+  [`@media(max-width: ${theme.mediumBreakpoint})`]: {
     LoginPage: {
       minWidth: "0px"
     }

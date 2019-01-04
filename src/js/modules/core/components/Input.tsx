@@ -36,7 +36,7 @@ interface InputStyles<T> extends Styles {
   textField: T;
   Input: T;
   inputArea: T;
-  "@media (max-width: 800px)": T;
+  [s: string]: T;
 }
 
 const styles = (theme: Theme): InputStyles<JssRules> => ({
@@ -69,9 +69,9 @@ const styles = (theme: Theme): InputStyles<JssRules> => ({
   inputArea: {
     display: "flex"
   },
-  "@media (max-width: 800px)": {
+  [`@media(max-width: ${theme.mediumBreakpoint})`]: {
     Input: {
-      width: "60vw"
+      width: "10em"
     },
     inputArea: {
       flexDirection: "column"

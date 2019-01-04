@@ -39,7 +39,7 @@ interface ApplyPageStyles<T> extends Styles {
   multipleCheckboxes: T;
   genderOptions: T;
   termsAndConditions: T;
-  "@media (max-width: 800px)": T;
+  [`@media(max-width: ${theme.mediumBreakpoint})`]: T;
 }
 
 interface FormData {
@@ -171,7 +171,12 @@ const styles = (theme: Theme): ApplyPageStyles<JssRules> => ({
   termsAndConditions: {
     padding: "15px"
   },
-  "@media (max-width: 800px)": {
+  [`@media(max-width: ${theme.mediumBreakpoint})`]: {
+    ApplyPage: {
+      width: theme.containerMediumWidth
+    }
+  },
+  [`@media(max-width: ${theme.smallBreakpoint})`]: {
     ApplyPage: {
       width: theme.containerMobileWidth
     },
