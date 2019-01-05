@@ -42,8 +42,9 @@ interface Props {
 
 const styles = (theme: Theme): TrackInfoStyles<JssRules> => ({
   TrackInfo: {
+    width: "80vw",
+    marginBottom: "5%",
     backgroundColor: theme.secondBackground,
-    margin: "0 8% 5% 11%"
   },
   header: {
     fontSize: "2em"
@@ -60,7 +61,8 @@ const styles = (theme: Theme): TrackInfoStyles<JssRules> => ({
   info: {
     fontSize: "1.4rem",
     lineHeight: "1.4rem",
-    maxWidth: "800px"
+    maxWidth: "750px",
+    paddingLeft: "20px"
   },
   bullet: {
     fontSize: "1.4rem",

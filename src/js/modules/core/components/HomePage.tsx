@@ -48,6 +48,9 @@ const styles = (theme: Theme): HomePageStyles<JssRules> => ({
     minHeight: "400px"
   },
   tracksSection: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: theme.secondBackground,
     color: theme.secondFont
   },
