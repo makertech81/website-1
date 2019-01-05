@@ -28,12 +28,12 @@ import {
 
 interface TrackInfoStyles<T> extends Styles {
   TrackInfo: T;
+  header: T;
   tracks: T;
   description: T;
   bullet: T;
-  header: T;
   icon: T;
-  [`@media(max-width: ${theme.mediumBreakpoint})`]: T;
+  [s: string]: T;
 }
 
 interface Props {
@@ -58,7 +58,9 @@ const styles = (theme: Theme): TrackInfoStyles<JssRules> => ({
     maxWidth: "800px"
   },
   info: {
-    fontSize: "1.4rem"
+    fontSize: "1.4rem",
+    lineHeight: "1.4rem",
+    maxWidth: "800px"
   },
   bullet: {
     fontSize: "1.4rem",
@@ -91,10 +93,13 @@ const TrackInfo: React.SFC<Props> = ({ classes }) => {
     <div className={classes.TrackInfo}>
       <h1 className={classes.header}> TRACKS </h1>
       <p className={classes.info}>
-        Every year, HackNYU chooses several "tracks" for social good for problems for hackers to develop their projects around. 
-        HackNYU 2019 is proud to present our four tracks to hack in: Health and Well Being; Sustainability; Education; Financial Development.
-        Note that these descriptions are only to help you brainstorm! You can create whatever you want, as long as it falls into one of these
-        tracks. Ask an organizer if you aren't sure!
+        Every year, HackNYU provides several tracks centered around social good.
+        Each team submits their project to exactly one track. We are proud to
+        present our four tracks for 2019: Health &amp; Well Being,
+        Sustainability, Education, and Financial Development. Note that these
+        descriptions are only to help you brainstorm! You can create whatever
+        you want, as long as it falls into one of these tracks. Ask an organizer
+        if you aren't sure!
       </p>
       <div className={classes.tracks}>
         <Track

@@ -26,12 +26,6 @@ interface State {
   activeBlocks: number;
 }
 
-interface StepData {
-  element: HTMLElement;
-  data: number;
-  direction: string;
-}
-
 const styles = (theme: Theme): HomePageStyles<JssRules> => ({
   HomePage: {
     display: "flex",

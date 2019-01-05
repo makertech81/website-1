@@ -43,7 +43,7 @@ const styles = (theme: Theme): AboutSectionStyles<JssRules> => ({
   },
   title: {
     fontSize: "2em"
-  },
+  }
 });
 
 const AboutSection: React.SFC<Props> = ({ classes }) => {
@@ -51,15 +51,16 @@ const AboutSection: React.SFC<Props> = ({ classes }) => {
     <div className={classes.AboutSection}>
       <div className={classes.content}>
         <h1 className={classes.title}> ABOUT </h1>
-        <Underline/>
+        <Underline />
         <p className={classes.intro}>
-          HackNYU is NYU's annual student-run hackathon, where people of all disciplines come together to create a tech project
-          that addresses one of several social initiatives, or "tracks". It takes place simultaneously in
-          New York, Abu Dhabi and Shanghai over 48 hours. This year, it takes place from February 15th to 17th. HackNYU is free, and made possible thanks to our wonderful sponsors and volunteers.
+          HackNYU is NYU's annual student-run hackathon, where people of all
+          disciplines come together to create a project that addresses one
+          of several social initiatives, or &ldquo;tracks&rdquo;. It takes place
+          simultaneously in New York, Abu Dhabi and Shanghai over 48 hours. This
+          year, HackNYU takes place from February 15th to 17th. HackNYU is free, and
+          made possible thanks to our wonderful sponsors and volunteers.
         </p>
-        <p className={classes.intro}>
-          Come join us at HackNYU 2019!
-        </p>
+        <p className={classes.intro}>Come join us at HackNYU 2019!</p>
       </div>
     </div>
   );
