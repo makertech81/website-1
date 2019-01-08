@@ -161,8 +161,7 @@ const reducer = (state = { ...initialState }, action) => {
       };
     case LOGOUT_FULFILLED:
       return {
-        ...state,
-        user: undefined,
+        ...initialState,
         notifications: {
           ...state.notifications,
           logout: action.payload
