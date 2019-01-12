@@ -16,6 +16,8 @@ import Input from "./Input";
 import Select from "./Select";
 import UploadResumeButton from "./UploadResumeButton";
 import { getIncompleteFields } from "../../utils";
+import { Theme } from "../../ThemeInjector";
+import { ReduxState } from "../../../reducers";
 
 
 interface FormData {
@@ -59,8 +61,6 @@ interface FormData {
   emergencyContactName: string;
   emergencyContactRelation: string;
 }
-
-import { Theme } from "../../ThemeInjector";
 
 const requiredFields = {
   firstName: "First Name",
