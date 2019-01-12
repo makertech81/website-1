@@ -15,6 +15,8 @@ import Checkbox from "./Checkbox";
 import Input from "./Input";
 import Select from "./Select";
 import UploadResumeButton from "./UploadResumeButton";
+import { getIncompleteFields } from "../../utils";
+
 
 interface FormData {
   firstName: string;
@@ -59,7 +61,6 @@ interface FormData {
 }
 
 import { Theme } from "../../ThemeInjector";
-import { ReduxState } from "../../../reducers";
 
 const requiredFields = {
   firstName: "First Name",
@@ -115,6 +116,11 @@ const styles = (theme: Theme) => ({
   },
   inputLabel: {
     maxWidth: "300px",
+    lineHeight: "1.8rem"
+  },
+  resumeUpload: {
+    maxWidth: "500px",
+    padding: "20px",
     lineHeight: "1.8rem"
   },
   submit: {
