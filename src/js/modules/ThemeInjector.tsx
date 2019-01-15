@@ -81,6 +81,8 @@ const theme: Theme = {
   smallBreakpoint: "600px",
   bodyFontSize: "1.3em",
   titleFontSize: "2em",
+  bodyLineHeight: "1.2em",
+  formElementMaxWidth: "500px",
   ...trackColors
 };
 
