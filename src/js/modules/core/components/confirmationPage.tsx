@@ -38,7 +38,6 @@ interface ConfirmationPageStyles<T> extends Styles {
 
 interface FormData {
   location: string;
-
   nyuCodeOfConduct: boolean;
   nyuPrivacyPolicy: boolean;
 }
@@ -155,11 +154,11 @@ class ConfirmationPage extends React.Component<Props> {
             CONGRATULATIONS! YOU'VE BEEN ACCEPTED!
           </h1>
           Before you accept your offer, there are a few things we need to share
-          with you.
+          with you. Please read the following carefully.
           <ul>
             <li>
               At this time, participation at either the Abu Dhabi or Shanghai
-              location is only available for NYU students who are currently
+              location is <strong>only</strong> available for NYU students who are currently
               enrolled at those campuses.
             </li>
 
@@ -172,7 +171,7 @@ class ConfirmationPage extends React.Component<Props> {
               If you are under 18 years of age at the time of the event, you
               must have your parent(s) or legal guardian(s) print and sign the
               Minors Release Form, which you can access{" "}
-              <a href="/img/minors-waiver.pdf" target="_blank">
+              <a href="/pdf/minors-waiver.pdf" target="_blank">
                 here.
               </a>{" "}
               Please be sure to bring a physical copy of this waiver to you when
@@ -180,6 +179,23 @@ class ConfirmationPage extends React.Component<Props> {
               participate!
             </li>
           </ul>
+
+          <label className={classes.termsAndConditions}>
+            <div className={classes.nyuPolicy}>
+              Please select the location where you will be
+              participating.
+            </div>
+            <Radio name="location" value="abu-dhabi">
+              Abu Dhabi
+            </Radio>
+            <Radio name="location" value="new-york">
+              New York
+            </Radio>
+            <Radio name="location" value="shanghai">
+              Shanghai
+            </Radio>
+          </label>
+
           <Form
             onSubmit={this.handleSubmit}
             validate={this.validateForm}
@@ -225,7 +241,7 @@ class ConfirmationPage extends React.Component<Props> {
                         By checking this box, I hereby acknowledge that I have
                         read and agree to comply with New York University’s Data
                         Privacy Policy, which can be found{" "}
-                        <a href="/img/nyu-dataprivacy.pdf" target="_blank">
+                        <a href="/pdf/nyu-dataprivacy.pdf" target="_blank">
                           here
                         </a>
                       </div>
@@ -242,23 +258,6 @@ class ConfirmationPage extends React.Component<Props> {
                       you!
                       <UploadResumeButton uid={user.uid} />
                     </div>
-
-                    <label className={classes.termsAndConditions}>
-                      <div className={classes.nyuPolicy}>
-                        Finally, please select the location where you will be
-                        participating. You may only choose once, so choose
-                        wisely!
-                      </div>
-                      <Radio name="location" value="abu-dhabi">
-                        Abu Dhabi
-                      </Radio>
-                      <Radio name="location" value="new-york">
-                        New York
-                      </Radio>
-                      <Radio name="location" value="shanghai">
-                        Shanghai
-                      </Radio>
-                    </label>
                     <FormSpy
                       render={({ form }) => {
                         const fields = form.getState().values;

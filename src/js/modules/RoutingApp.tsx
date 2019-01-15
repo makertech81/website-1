@@ -12,8 +12,8 @@ import AboutPage from './core/components/AboutPage'
 import RegisterPage from './core/components/RegisterPage'
 import ResetPasswordPage from "./core/components/ResetPasswordPage";
 import ProfilePage from "./core/components/ProfilePage";
-import createBrowserHistory from "history/createBrowserHistory";
 import appHistory from "../appHistory";
+import ConfirmationPage from './core/components/ConfirmationPage';
 
 class RoutingApp extends React.Component {
   render() {
@@ -26,6 +26,7 @@ class RoutingApp extends React.Component {
               <Route exact path="/about" component={AboutPage}/>
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/register" component={RegisterPage} />
+              <Route exact path="/confirm" component={ConfirmationPage} />
               <Route exact path="/reset_password" component={ResetPasswordPage} />
               <Route exact path="/apply" component={ApplyPage} />
               <Route exact path="/my_profile" component={ProfilePage} />
