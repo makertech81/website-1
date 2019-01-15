@@ -158,8 +158,8 @@ class ConfirmationPage extends React.Component<Props> {
           <ul>
             <li>
               At this time, participation at either the Abu Dhabi or Shanghai
-              location is <strong>only</strong> available for NYU students who are currently
-              enrolled at those campuses.
+              location is <strong>only</strong> available for NYU students who
+              are currently enrolled at those campuses.
             </li>
 
             <li>
@@ -179,11 +179,9 @@ class ConfirmationPage extends React.Component<Props> {
               participate!
             </li>
           </ul>
-
           <label className={classes.termsAndConditions}>
             <div className={classes.nyuPolicy}>
-              Please select the location where you will be
-              participating.
+              Please select the location where you will be participating.
             </div>
             <Radio name="location" value="abu-dhabi">
               Abu Dhabi
@@ -195,7 +193,6 @@ class ConfirmationPage extends React.Component<Props> {
               Shanghai
             </Radio>
           </label>
-
           <Form
             onSubmit={this.handleSubmit}
             validate={this.validateForm}
@@ -206,12 +203,12 @@ class ConfirmationPage extends React.Component<Props> {
                   <div className={classes.inputs}>
                     <label className={classes.termsAndConditions}>
                       <div className={classes.nyuPolicy}>
-                        By checking this box, I hereby give permission to New
-                        York University and HackNYU to use the photograph or
-                        video in which my picture or image appears for all
-                        purposes and in all media, including — without
-                        limitation — brochures, advertisements, and social media
-                        platforms.
+                        By checking this box, I agree to the{" "}
+                        <a href="/pdf/nyu-photorights.pdf">
+                          HackNYU Media Waiver.
+                        </a>{" "}
+                        (NYU and HackNYU can take your photo/video for use in
+                        promotional media).
                       </div>
                       <Field
                         className={classes.checkbox}
