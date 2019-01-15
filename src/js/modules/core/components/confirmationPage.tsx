@@ -55,19 +55,19 @@ const requiredFields = {
 const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
   ConfirmationPage: {
     display: "flex",
-    width: "100%",
+    width: "85%",
     maxWidth: "1000px",
     flexDirection: "column",
     alignItems: "center",
     backgroundColor: theme.formBackground,
     color: theme.secondFont,
     borderRadius: "0.5em",
-    paddingTop: "3em",
-    paddingBottom: "2em",
     lineHeight: theme.bodyLineHeight,
-    fontSize: theme.bodyFontSize
+    fontSize: theme.bodyFontSize,
+    padding: "2em"
   },
   p: {
+    width: "100%",
     maxWidth: "750px"
   },
   ul: {
@@ -117,22 +117,8 @@ const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
     lineHeight: "1.8rem"
   },
   label: {
-    padding: "15px"
-  },
-  [`@media(max-width: ${theme.largeBreakpoint})`]: {
-    ConfirmationPage: {
-      width: theme.containerLargeWidth
-    }
-  },
-  [`@media(max-width: ${theme.mediumBreakpoint})`]: {
-    ConfirmationPage: {
-      width: theme.containerMediumWidth
-    }
-  },
-  [`@media(max-width: ${theme.smallBreakpoint})`]: {
-    ConfirmationPage: {
-      width: theme.containerMobileWidth
-    }
+    padding: "15px",
+    flex: 1
   }
 });
 
