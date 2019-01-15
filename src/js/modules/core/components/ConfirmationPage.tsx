@@ -64,7 +64,7 @@ const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
     borderRadius: "0.5em",
     lineHeight: theme.bodyLineHeight,
     fontSize: theme.bodyFontSize,
-    padding: "2em"
+    padding: "3em"
   },
   p: {
     width: "100%",
@@ -221,12 +221,9 @@ class ConfirmationPage extends React.Component<Props> {
 
                     <label className={classes.label}>
                       <div className={classes.formItem}>
-                        By checking this box, I hereby give permission to New
-                        York University and HackNYU to use the photograph or
-                        video in which my picture or image appears for all
-                        purposes and in all media, including — without
-                        limitation — brochures, advertisements, and social media
-                        platforms.
+                        By checking this box, I hereby acknowledge that I have
+                        read and agree to comply with HackNYU's Media Release Policy which can be found which can be found <a href="/pdf/nyu-photorights.pdf" target="_blank"> here. </a>
+                        (NYU and HackNYU can take your photo/video for use in promotional media).
                       </div>
                       <Field
                         className={classes.checkbox}
