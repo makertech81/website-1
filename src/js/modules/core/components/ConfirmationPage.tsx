@@ -124,16 +124,19 @@ const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
 
 class ConfirmationPage extends React.Component<Props> {
   handleSubmit = values => {
+    console.log('submit');
+    console.log(values);
     //this.props.submitConfirmation(values, []);
   };
 
-  validateForm = (values: FormData): object => {
-    const incomplete = getIncompleteFields(values, requiredFields);
-    let errors = {};
-    incomplete.map(({ field }) => {
-      errors[field] = `Field cannot be empty`;
-    });
-    return errors;
+  validateForm = (values: FormData): Array<object> => {
+    if (values['location'] !== 'cannot-attend') {
+      const incomplete = getIncompleteFields(values, requiredFields);
+      return incomplete;
+    }
+    else {
+      return [];
+    }
   };
 
   render() {
@@ -188,6 +191,7 @@ class ConfirmationPage extends React.Component<Props> {
             render={({ handleSubmit, pristine, invalid }) => (
               <div className={classes.form}>
                 <form onSubmit={handleSubmit}>
+
                   <div className={classes.inputs}>
                     <label className={classes.label}>
                       <div className={classes.formItem}>
@@ -202,6 +206,9 @@ class ConfirmationPage extends React.Component<Props> {
                       </Radio>
                       <Radio name="location" value="shanghai">
                         Shanghai
+                      </Radio>
+                      <Radio name="location" value="cannot-attend">
+                        I won't be able to attend HackNYU 2019.
                       </Radio>
                     </label>
 
@@ -257,22 +264,22 @@ class ConfirmationPage extends React.Component<Props> {
                     <FormSpy
                       render={({ form }) => {
                         const fields = form.getState().values;
-                        const incompleteFields = getIncompleteFields(
+                        const errors = this.validateForm(
                           fields,
                           requiredFields
                         );
-                        const isFormSubmitted = !(
+                        {/*const isFormSubmitted = !(
                           !confirmTimestamp &&
                           incompleteFields.length === 0 &&
                           !resumeTimestamp
-                        );
+                        );*/}
 
                         return (
                           <Button
                             className={classes.submit}
                             type="submit"
                             disabled={
-                              pristine || isConfirming || isFormSubmitted
+                              pristine || isConfirming
                             }
                           >
                             SUBMIT
