@@ -176,8 +176,8 @@ class ConfirmationPage extends React.Component<Props> {
               If you are under 18 years of age at the time of the event, you
               must have your parent(s) or legal guardian(s) print and sign the
               Minors Release Form, which you can access <a href="/pdf/minors-waiver.pdf" target="_blank"> here. </a>
-              Please be sure to bring a physical copy of this waiver to you when
-              you arrive to HackNYU, otherwise we will not be able to let you
+              Please be sure to bring a physical copy of this waiver with you when
+              you arrive at HackNYU, otherwise we will not be able to let you
               participate!
             </li>
           </ul>
