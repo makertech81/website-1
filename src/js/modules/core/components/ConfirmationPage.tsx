@@ -122,18 +122,20 @@ const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
   }
 });
 
-class ConfirmationPage extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  handleSubmit = values => {
+const ConfirmationPage: React.FunctionComponent<Props> = ({
+  classes,
+  isConfirming,
+  user,
+  formData,
+  confirmTimestamp
+}) => {
+  const handleSubmit = values => {
     console.log("submit");
     console.log(values);
     //this.props.submitConfirmation(values, []);
   };
 
-  validateForm = (values: FormData): Array<object> => {
+  const validateForm = (values: FormData): Array<object> => {
     if (values["location"] !== "cannot-attend") {
       const incomplete = getIncompleteFields(values, requiredFields);
       return incomplete;
@@ -142,159 +144,147 @@ class ConfirmationPage extends React.Component<Props> {
     }
   };
 
-  render() {
-    let {
-      classes,
-      isConfirming,
-      user,
-      formData,
-      confirmTimestamp,
-      resumeTimestamp
-    } = this.props;
-    if (confirmTimestamp) {
-      return <SubmittedPage />;
-    } else {
-      return (
-        <div className={classes.ConfirmationPage}>
-          <h1 className={classes.header}>Welcome!</h1>
-          <p className={classes.welcomeMessage}>
-            Before you are confirmed for the event, there are a few things for
-            you to read and fill out. If this form is not filled out, you will
-            not be eligible to attend HackNYU. Please read the following
-            carefully:
-          </p>
-          <ul className={classes.notice}>
-            <li className={classes.statement}>
-              At this time, participation at either the Abu Dhabi or Shanghai
-              location is <strong>only</strong> available for NYU students who
-              are currently enrolled at those campuses.
-            </li>
+  if (confirmTimestamp) {
+    return <SubmittedPage />;
+  } else {
+    return (
+      <div className={classes.ConfirmationPage}>
+        <h1 className={classes.header}>Welcome!</h1>
+        <p className={classes.welcomeMessage}>
+          Before you are confirmed for the event, there are a few things for you
+          to read and fill out. If this form is not filled out, you will not be
+          eligible to attend HackNYU. Please read the following carefully:
+        </p>
+        <ul className={classes.notice}>
+          <li className={classes.statement}>
+            At this time, participation at either the Abu Dhabi or Shanghai
+            location is <strong>only</strong> available for NYU students who are
+            currently enrolled at those campuses.
+          </li>
 
-            <li className={classes.statement}>
-              Any student who is or has been enrolled in the last 12 months at a
-              high school or university can participate at our Brooklyn, NY
-              location.
-            </li>
-            <li className={classes.statement}>
-              If you are under 18 years of age at the time of the event, you
-              must have your parent(s) or legal guardian(s) print and sign the
-              Minors Release Form, which you can access{" "}
-              <a href="/pdf/minors-waiver.pdf" target="_blank">
-                {" "}
-                here.{" "}
-              </a>
-              Please be sure to bring a physical copy of this waiver with you
-              when you arrive at HackNYU, otherwise we will not be able to let
-              you participate!
-            </li>
-          </ul>
-          <h2>
-           Confirm your attendance for HackNYU 2019.
-          </h2>
-          <Form
-            onSubmit={this.handleSubmit}
-            validate={this.validateForm}
-            initialValues={formData}
-            render={({ handleSubmit, pristine}) => (
-              <div className={classes.form}>
-                <form onSubmit={handleSubmit}>
-                  <div className={classes.inputs}>
-                    <label className={classes.label}>
-                      <div className={classes.formItem}>
-                        Please select the location where you will be
-                        participating.
-                      </div>
-                      <Radio name="location" value="new-york">
-                        New York
-                      </Radio>
-                      <Radio name="location" value="abu-dhabi">
-                        Abu Dhabi
-                      </Radio>
-                      <Radio name="location" value="shanghai">
-                        Shanghai
-                      </Radio>
-                      <Radio name="location" value="cannot-attend">
-                        I won't be able to attend HackNYU 2019.
-                      </Radio>
-                    </label>
+          <li className={classes.statement}>
+            Any student who is or has been enrolled in the last 12 months at a
+            high school or university can participate at our Brooklyn, NY
+            location.
+          </li>
+          <li className={classes.statement}>
+            If you are under 18 years of age at the time of the event, you must
+            have your parent(s) or legal guardian(s) print and sign the Minors
+            Release Form, which you can access{" "}
+            <a href="/pdf/minors-waiver.pdf" target="_blank">
+              {" "}
+              here.{" "}
+            </a>
+            Please be sure to bring a physical copy of this waiver with you when
+            you arrive at HackNYU, otherwise we will not be able to let you
+            participate!
+          </li>
+        </ul>
+        <h2>Confirm your attendance for HackNYU 2019.</h2>
 
-                    <div className={classes.resumeUpload}>
-                      Please upload your latest resume as a PDF, so we can share
-                      it with our awesome sponsors who are interested in hiring
-                      you!
-                      <UploadResumeButton uid={user.uid} />
+        <Form
+          onSubmit={handleSubmit}
+          validate={validateForm}
+          initialValues={formData}
+          render={({ handleSubmit, pristine }) => (
+            <div className={classes.form}>
+              <form onSubmit={handleSubmit}>
+                <div className={classes.inputs}>
+                  <label className={classes.label}>
+                    <div className={classes.formItem}>
+                      Please select the location where you will be
+                      participating.
                     </div>
+                    <Radio name="location" value="new-york">
+                      New York
+                    </Radio>
+                    <Radio name="location" value="abu-dhabi">
+                      Abu Dhabi
+                    </Radio>
+                    <Radio name="location" value="shanghai">
+                      Shanghai
+                    </Radio>
+                    <Radio name="location" value="cannot-attend">
+                      I won't be able to attend HackNYU 2019.
+                    </Radio>
+                  </label>
 
-                    <label className={classes.label}>
-                      <div className={classes.formItem}>
-                        By checking this box, I hereby acknowledge that I have
-                        read and agree to comply with HackNYU's Media Release
-                        Policy which can be found which can be found{" "}
-                        <a href="/pdf/nyu-photorights.pdf" target="_blank">
-                          {" "}
-                          here.{" "}
-                        </a>
-                        (NYU and HackNYU can take your photo/video for use in
-                        promotional media).
-                      </div>
-                      <Field
-                        className={classes.checkbox}
-                        name="nyuMediaRights"
-                        component="input"
-                        type="checkbox"
-                      />
-                    </label>
-                    <label className={classes.label}>
-                      <div className={classes.formItem}>
-                        By checking this box, I hereby acknowledge that I have
-                        read and agree to comply with New York University’s Code
-                        of Conduct, which can be found{" "}
-                        <a href="https://www.nyu.edu/students/student-information-and-resources/student-community-standards/university-student-conduct-policies.html">
-                          {" "}
-                          here.{" "}
-                        </a>
-                      </div>
-                      <Field
-                        className={classes.checkbox}
-                        name="nyuCodeOfConduct"
-                        component="input"
-                        type="checkbox"
-                      />
-                    </label>
-                    <label className={classes.label}>
-                      <div className={classes.formItem}>
-                        By checking this box, I hereby acknowledge that I have
-                        read and agree to comply with New York University’s Data
-                        Privacy Policy, which can be found{" "}
-                        <a href="/pdf/nyu-dataprivacy.pdf" target="_blank">
-                          {" "}
-                          here.{" "}
-                        </a>
-                      </div>
-                      <Field
-                        className={classes.checkbox}
-                        name="nyuPrivacyPolicy"
-                        component="input"
-                        type="checkbox"
-                      />
-                    </label>
-                    <Button
-                      className={classes.submit}
-                      type="submit"
-                      disabled={pristine || isConfirming}
-                    >
-                      SUBMIT
-                    </Button>
+                  <div className={classes.resumeUpload}>
+                    Please upload your latest resume as a PDF, so we can share
+                    it with our awesome sponsors who are interested in hiring
+                    you!
+                    <UploadResumeButton uid={user.uid} />
                   </div>
-                </form>
-              </div>
-            )}
-          />
-        </div>
-      );
-    }
+
+                  <label className={classes.label}>
+                    <div className={classes.formItem}>
+                      By checking this box, I hereby acknowledge that I have
+                      read and agree to comply with HackNYU's Media Release
+                      Policy which can be found which can be found{" "}
+                      <a href="/pdf/nyu-photorights.pdf" target="_blank">
+                        {" "}
+                        here.{" "}
+                      </a>
+                      (NYU and HackNYU can take your photo/video for use in
+                      promotional media).
+                    </div>
+                    <Field
+                      className={classes.checkbox}
+                      name="nyuMediaRights"
+                      component="input"
+                      type="checkbox"
+                    />
+                  </label>
+                  <label className={classes.label}>
+                    <div className={classes.formItem}>
+                      By checking this box, I hereby acknowledge that I have
+                      read and agree to comply with New York University’s Code
+                      of Conduct, which can be found{" "}
+                      <a href="https://www.nyu.edu/students/student-information-and-resources/student-community-standards/university-student-conduct-policies.html">
+                        {" "}
+                        here.{" "}
+                      </a>
+                    </div>
+                    <Field
+                      className={classes.checkbox}
+                      name="nyuCodeOfConduct"
+                      component="input"
+                      type="checkbox"
+                    />
+                  </label>
+                  <label className={classes.label}>
+                    <div className={classes.formItem}>
+                      By checking this box, I hereby acknowledge that I have
+                      read and agree to comply with New York University’s Data
+                      Privacy Policy, which can be found{" "}
+                      <a href="/pdf/nyu-dataprivacy.pdf" target="_blank">
+                        {" "}
+                        here.{" "}
+                      </a>
+                    </div>
+                    <Field
+                      className={classes.checkbox}
+                      name="nyuPrivacyPolicy"
+                      component="input"
+                      type="checkbox"
+                    />
+                  </label>
+                  <Button
+                    className={classes.submit}
+                    type="submit"
+                    disabled={pristine || isConfirming}
+                  >
+                    SUBMIT
+                  </Button>
+                </div>
+              </form>
+            </div>
+          )}
+        />
+      </div>
+    );
   }
-}
+};
 const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user
   //formData: state.core.confirmForm.formData,
