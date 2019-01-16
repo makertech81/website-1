@@ -25,9 +25,9 @@ interface Props {
 interface ConfirmationPageStyles<T> extends Styles {
   ConfirmationPage: T;
   header: T;
-  p: T;
-  ul: T;
-  li: T;
+  welcomeMessage: T;
+  notice: T;
+  statement: T;
   form: T;
   inputs: T;
   submit: T;
@@ -66,14 +66,14 @@ const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
     fontSize: theme.bodyFontSize,
     padding: "3em"
   },
-  p: {
+  welcomeMessage: {
     width: "100%",
     maxWidth: "750px"
   },
-  ul: {
+  notice: {
     maxWidth: "750px"
   },
-  li: {
+  statement: {
     marginBottom: theme.bodyFontSize
   },
   header: {
@@ -123,18 +123,21 @@ const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
 });
 
 class ConfirmationPage extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
+
   handleSubmit = values => {
-    console.log('submit');
+    console.log("submit");
     console.log(values);
     //this.props.submitConfirmation(values, []);
   };
 
   validateForm = (values: FormData): Array<object> => {
-    if (values['location'] !== 'cannot-attend') {
+    if (values["location"] !== "cannot-attend") {
       const incomplete = getIncompleteFields(values, requiredFields);
       return incomplete;
-    }
-    else {
+    } else {
       return [];
     }
   };
@@ -153,32 +156,36 @@ class ConfirmationPage extends React.Component<Props> {
     } else {
       return (
         <div className={classes.ConfirmationPage}>
-          <h1 className={classes.header}>
-            Welcome!
-          </h1>
-          <p className={classes.p}>
-            Before you are confirmed for the event, there are a few things for you to read and fill out.
-            If this form is not filled out, you will not be eligible to attend HackNYU. Please read the following carefully:
+          <h1 className={classes.header}>Welcome!</h1>
+          <p className={classes.welcomeMessage}>
+            Before you are confirmed for the event, there are a few things for
+            you to read and fill out. If this form is not filled out, you will
+            not be eligible to attend HackNYU. Please read the following
+            carefully:
           </p>
-          <ul className={classes.ul}>
-            <li className={classes.li}>
+          <ul className={classes.notice}>
+            <li className={classes.statement}>
               At this time, participation at either the Abu Dhabi or Shanghai
               location is <strong>only</strong> available for NYU students who
               are currently enrolled at those campuses.
             </li>
 
-            <li className={classes.li}>
+            <li className={classes.statement}>
               Any student who is or has been enrolled in the last 12 months at a
               high school or university can participate at our Brooklyn, NY
               location.
             </li>
-            <li className={classes.li}>
+            <li className={classes.statement}>
               If you are under 18 years of age at the time of the event, you
               must have your parent(s) or legal guardian(s) print and sign the
-              Minors Release Form, which you can access <a href="/pdf/minors-waiver.pdf" target="_blank"> here. </a>
-              Please be sure to bring a physical copy of this waiver with you when
-              you arrive at HackNYU, otherwise we will not be able to let you
-              participate!
+              Minors Release Form, which you can access{" "}
+              <a href="/pdf/minors-waiver.pdf" target="_blank">
+                {" "}
+                here.{" "}
+              </a>
+              Please be sure to bring a physical copy of this waiver with you
+              when you arrive at HackNYU, otherwise we will not be able to let
+              you participate!
             </li>
           </ul>
           <h2>
@@ -188,10 +195,9 @@ class ConfirmationPage extends React.Component<Props> {
             onSubmit={this.handleSubmit}
             validate={this.validateForm}
             initialValues={formData}
-            render={({ handleSubmit, pristine, invalid }) => (
+            render={({ handleSubmit, pristine}) => (
               <div className={classes.form}>
                 <form onSubmit={handleSubmit}>
-
                   <div className={classes.inputs}>
                     <label className={classes.label}>
                       <div className={classes.formItem}>
@@ -222,8 +228,14 @@ class ConfirmationPage extends React.Component<Props> {
                     <label className={classes.label}>
                       <div className={classes.formItem}>
                         By checking this box, I hereby acknowledge that I have
-                        read and agree to comply with HackNYU's Media Release Policy which can be found which can be found <a href="/pdf/nyu-photorights.pdf" target="_blank"> here. </a>
-                        (NYU and HackNYU can take your photo/video for use in promotional media).
+                        read and agree to comply with HackNYU's Media Release
+                        Policy which can be found which can be found{" "}
+                        <a href="/pdf/nyu-photorights.pdf" target="_blank">
+                          {" "}
+                          here.{" "}
+                        </a>
+                        (NYU and HackNYU can take your photo/video for use in
+                        promotional media).
                       </div>
                       <Field
                         className={classes.checkbox}
@@ -236,7 +248,11 @@ class ConfirmationPage extends React.Component<Props> {
                       <div className={classes.formItem}>
                         By checking this box, I hereby acknowledge that I have
                         read and agree to comply with New York University’s Code
-                        of Conduct, which can be found <a href="https://www.nyu.edu/students/student-information-and-resources/student-community-standards/university-student-conduct-policies.html"> here. </a>
+                        of Conduct, which can be found{" "}
+                        <a href="https://www.nyu.edu/students/student-information-and-resources/student-community-standards/university-student-conduct-policies.html">
+                          {" "}
+                          here.{" "}
+                        </a>
                       </div>
                       <Field
                         className={classes.checkbox}
@@ -249,7 +265,11 @@ class ConfirmationPage extends React.Component<Props> {
                       <div className={classes.formItem}>
                         By checking this box, I hereby acknowledge that I have
                         read and agree to comply with New York University’s Data
-                        Privacy Policy, which can be found <a href="/pdf/nyu-dataprivacy.pdf" target="_blank"> here. </a>
+                        Privacy Policy, which can be found{" "}
+                        <a href="/pdf/nyu-dataprivacy.pdf" target="_blank">
+                          {" "}
+                          here.{" "}
+                        </a>
                       </div>
                       <Field
                         className={classes.checkbox}
@@ -258,32 +278,13 @@ class ConfirmationPage extends React.Component<Props> {
                         type="checkbox"
                       />
                     </label>
-                    <FormSpy
-                      render={({ form }) => {
-                        const fields = form.getState().values;
-                        const errors = this.validateForm(
-                          fields,
-                          requiredFields
-                        );
-                        {/*const isFormSubmitted = !(
-                          !confirmTimestamp &&
-                          incompleteFields.length === 0 &&
-                          !resumeTimestamp
-                        );*/}
-
-                        return (
-                          <Button
-                            className={classes.submit}
-                            type="submit"
-                            disabled={
-                              pristine || isConfirming
-                            }
-                          >
-                            SUBMIT
-                          </Button>
-                        );
-                      }}
-                    />
+                    <Button
+                      className={classes.submit}
+                      type="submit"
+                      disabled={pristine || isConfirming}
+                    >
+                      SUBMIT
+                    </Button>
                   </div>
                 </form>
               </div>
