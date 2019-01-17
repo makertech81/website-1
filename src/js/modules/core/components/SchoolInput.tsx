@@ -2,10 +2,13 @@ import * as React from "react";
 import * as Autocomplete from "react-autocomplete";
 import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
+import { CSSProperties, SyntheticEvent } from "react";
 
 interface Props extends WithStyles<typeof styles> {
   schools: string[];
-  input: object;
+  input: Partial<{
+    onChange: (e: SyntheticEvent<HTMLInputElement>) => any;
+  }>
   label: string;
   meta: Partial<{
     // Idk why, but react-final-form doesn't export this as a type
@@ -69,15 +72,15 @@ const menuStyle = {
   fontSize: "90%",
   top: "50px", // height of your input
   left: 0,
-  position: "absolute",
+  position: "absolute" as "absolute",
   overflow: "auto",
   width: "100%",
   zIndex: 1000
 };
 
-const wrapperStyle = {
+const wrapperStyle: CSSProperties = {
   display: "inline-block",
-  position: "relative"
+  position: "relative" as "relative"
 };
 
 const isUpper = (str: string): boolean => str === str.toUpperCase();
@@ -92,7 +95,7 @@ const doesStringMatch = (item: string, value: string): boolean => {
         .split(" ")
         .filter(word => isUpper(word[0]) && word !== "The");
       const capLetters = importantWords.map(word => word[0]);
-      const chars: string = [...value].join("");
+      const chars: string = value.slice(0);
 
       for (let i = 0; i < chars.length; i++) {
         if (capLetters[i] !== chars[i]) {

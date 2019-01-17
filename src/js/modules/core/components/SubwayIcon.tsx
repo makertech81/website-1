@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import injectSheet, { WithStyles } from "react-jss";
 
 interface Props extends WithStyles<typeof styles> {
+  key: number;
   color: string;
   radius: number;
   children: ReactNode;

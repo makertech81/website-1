@@ -2,10 +2,9 @@ import * as React from "react";
 import injectSheet, { WithStyles } from "react-jss";
 import HoverOverlay from "./HoverOverlay";
 import { delay } from "../../utils";
-import { bindActionCreators, compose } from "redux";
+import { bindActionCreators, Dispatch } from "redux";
 import { uploadProfilePic } from "../coreActions";
 import { connect } from "react-redux";
-
 
 interface Props extends WithStyles<typeof styles> {
   uid: string;
@@ -40,11 +39,10 @@ const styles = {
 };
 
 class ProfilePic extends React.Component<Props, State> {
-  fileUploader: React.Ref;
+  private fileUploader = React.createRef<HTMLInputElement>();
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
-    this.fileUploader = React.createRef();
     this.state = {
       isHovering: false,
       isClicked: false
@@ -106,13 +104,10 @@ class ProfilePic extends React.Component<Props, State> {
   }
 }
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ uploadProfilePic }, dispatch);
 
-export default compose(
-  connect(
-    undefined,
-    mapDispatchToProps
-  ),
-  injectSheet(styles)
-)(ProfilePic);
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(injectSheet(styles)(ProfilePic));

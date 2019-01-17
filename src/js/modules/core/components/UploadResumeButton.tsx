@@ -10,6 +10,7 @@ import { ReduxState } from "../../types";
 
 interface Props extends WithStyles<typeof styles>{
   resumeTimestamp: string;
+  uploadResume: (uid: string, file: File) => any;
   uid: string;
 }
 
@@ -39,16 +40,17 @@ const styles = (theme: Theme) => ({
 });
 
 class UploadResumeButton extends React.Component<Props> {
-  fileUploader: React.Ref<HTMLInputElement>;
+  private fileUploader = React.createRef<HTMLInputElement>()
 
   constructor(props: Props) {
     super(props);
-    this.fileUploader = React.createRef();
   }
 
   handleClick = (event: Event) => {
     event.preventDefault();
-    this.fileUploader.current.click();
+    if (this.fileUploader) {
+      this.fileUploader.current.click();
+    }
   };
 
   handleUpload = () => {

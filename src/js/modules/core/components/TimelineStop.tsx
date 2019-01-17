@@ -21,7 +21,7 @@ const styles = {
   }
 }
 
-const TimelineStop = ({ classes }) => {
+const TimelineStop: React.SFC<Props> = ({ classes }) => {
   return (
     <div className={classes.TimelineStop} />
   )

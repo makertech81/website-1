@@ -10,6 +10,7 @@ import { ReduxState } from "../../types";
 
 interface Props extends WithStyles<typeof styles> {
   updatePassword: (password: string) => any;
+  isSubmitting: boolean;
 }
 
 const styles = {
@@ -31,7 +32,6 @@ const UpdatePasswordForm: React.SFC<Props> = ({
 
   return (
     <Form
-      className={classes.UpdatePasswordForm}
       onSubmit={handleSubmit}
       validate={({
         password,
@@ -60,7 +60,7 @@ const UpdatePasswordForm: React.SFC<Props> = ({
         return errors;
       }}
       render={({ handleSubmit, invalid }) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={classes.UpdatePasswordForm}>
           <Field name="password">
             {({ input, meta }) => (
               <Input

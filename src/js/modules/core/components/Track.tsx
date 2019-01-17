@@ -4,6 +4,7 @@ import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
 
 interface Props extends WithStyles<typeof styles> {
+  key: number;
   id: number;
   icons: ReactNodeArray;
   name: string;

@@ -8,7 +8,7 @@ const styles = {
   }
 };
 
-interface Props extends WithStyles<typeof styles> {}
+type Props = WithStyles<typeof styles>;
 
 const Underline: React.SFC<Props> = ({ classes }) => {
   return <hr className={classes.Underline} />;

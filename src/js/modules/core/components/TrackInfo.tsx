@@ -1,7 +1,6 @@
 import * as React from "react";
 import SubwayIcon from "./SubwayIcon";
 import injectSheet, {  WithStyles } from "react-jss";
-import { JssRules, Theme } from "../../types";
 import Track from "./Track";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -24,9 +23,9 @@ import {
 import {
   faEthereum
 } from "@fortawesome/free-brands-svg-icons";
+import { Theme } from "../../ThemeInjector";
 
-interface Props extends WithStyles<typeof styles>{
-}
+type Props = WithStyles<typeof styles>
 
 const styles = (theme: Theme) => ({
   TrackInfo: {
