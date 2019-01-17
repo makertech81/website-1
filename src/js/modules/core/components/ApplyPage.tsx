@@ -583,4 +583,3 @@ export default compose(
     mapDispatchToProps
   )
 )(ApplyPage);
-

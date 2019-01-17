@@ -1,12 +1,14 @@
 import * as React from "react";
 import * as Autocomplete from "react-autocomplete";
 import injectSheet, { WithStyles } from "react-jss";
-import { ChangeEvent, CSSProperties } from "react";
-import { FieldRenderProps } from "react-final-form";
-import { Theme } from "../../types";
+import { Theme } from "../../ThemeInjector";
+import { CSSProperties, SyntheticEvent } from "react";
 
 interface Props extends WithStyles<typeof styles> {
   schools: string[];
+  input: Partial<{
+    onChange: (e: SyntheticEvent<HTMLInputElement>) => any;
+  }>
   label: string;
 }
 
@@ -75,7 +77,7 @@ const doesStringMatch = (item: string, value: string): boolean => {
         .split(" ")
         .filter(word => isUpper(word[0]) && word !== "The");
       const capLetters = importantWords.map(word => word[0]);
-      const chars: string = [...value].join("");
+      const chars: string = value.slice(0);
 
       for (let i = 0; i < chars.length; i++) {
         if (capLetters[i] !== chars[i]) {

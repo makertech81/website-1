@@ -5,7 +5,6 @@ import { Theme } from "../../ThemeInjector";
 
 const styles = (theme: Theme) => ({
   button: {
-    //@ts-ignore
     width: (props: Props) => props.width,
     display: "flex",
     alignItems: "center",

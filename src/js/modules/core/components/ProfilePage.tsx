@@ -4,7 +4,6 @@ import { User } from "firebase";
 import { bindActionCreators, compose, Dispatch } from "redux";
 import { push } from "connected-react-router";
 import { connect } from "react-redux";
-import { JssRules, ReduxState, Theme } from "../../types";
 import Button from "./Button";
 import PasswordForm from "./UpdatePasswordForm";
 import ProfilePic from "./ProfilePic";
