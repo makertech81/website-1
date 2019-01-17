@@ -301,9 +301,7 @@ const ApplyPage: React.SFC<Props> = ({
                   type="tel"
                   placeholder="1-800-867-5309"
                 />
-
                 <UploadResumeButton uid={user.uid} />
-
                 <Field
                   name="school"
                   label="School:"
