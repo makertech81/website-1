@@ -4,7 +4,10 @@ import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
 
 interface Props extends WithStyles<typeof styles> {
+<<<<<<< HEAD
   key: number;
+=======
+>>>>>>> whew started refactoring. Lots of work to do
   id: number;
   icons: ReactNodeArray;
   name: string;
