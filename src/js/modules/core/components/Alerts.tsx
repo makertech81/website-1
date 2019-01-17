@@ -1,24 +1,19 @@
 import * as React from "react";
-import { Styles } from "react-jss";
-import injectSheet from "react-jss/lib/injectSheet";
-import { Errors, JssRules } from "../../types";
+import injectSheet, { WithStyles } from "react-jss";
+import { Errors } from "../../types";
 import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
 import AnimatedAlert from "./AnimatedAlert";
 import { clearError, clearNotification } from "../coreActions"
 
-interface AlertsStyles<T> extends Styles {
-  Alerts: T;
-}
 
-interface Props {
+interface Props extends WithStyles<typeof styles> {
   errors: Errors;
-  classes: AlertsStyles<string>;
   clearError: (type: string) => any;
   clearNotification: (type: string) => any;
 }
 
-const styles: AlertsStyles<JssRules> = {
+const styles = {
   Alerts: {
     zIndex: "100",
     position: "fixed",

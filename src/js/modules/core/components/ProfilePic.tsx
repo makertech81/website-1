@@ -1,21 +1,13 @@
 import * as React from "react";
-import { Styles } from "react-jss";
-import { JssRules, Theme } from "../../types";
-import injectSheet from "react-jss/lib/injectSheet";
+import injectSheet, { WithStyles } from "react-jss";
 import HoverOverlay from "./HoverOverlay";
 import { delay } from "../../utils";
 import { bindActionCreators, compose } from "redux";
 import { uploadProfilePic } from "../coreActions";
 import { connect } from "react-redux";
 
-interface ProfilePicStyles<T> extends Styles {
-  fileInput: T;
-  ProfilePic: T;
-  roundImg: T;
-}
 
-interface Props {
-  classes: ProfilePicStyles<string>;
+interface Props extends WithStyles<typeof styles> {
   uid: string;
   photoURL: string;
   uploadProfilePic: (file: File, uid: string) => any;
@@ -26,7 +18,7 @@ interface State {
   isClicked: boolean;
 }
 
-const styles = (theme: Theme): ProfilePicStyles<JssRules> => ({
+const styles = {
   fileInput: {
     display: "none"
   },
@@ -45,7 +37,7 @@ const styles = (theme: Theme): ProfilePicStyles<JssRules> => ({
     transition: "filter 0.3s",
     objectFit: "cover"
   }
-});
+};
 
 class ProfilePic extends React.Component<Props, State> {
   fileUploader: React.Ref;

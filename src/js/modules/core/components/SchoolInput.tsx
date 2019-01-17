@@ -1,12 +1,10 @@
 import * as React from "react";
+import * as Autocomplete from "react-autocomplete";
+import injectSheet, { WithStyles } from "react-jss";
+import { Theme } from "../../ThemeInjector";
 
-import Autocomplete from "react-autocomplete";
-import injectSheet, { Styles } from "react-jss/lib/injectSheet";
-import { JssRules, Theme } from "../../types";
-
-interface Props {
+interface Props extends WithStyles<typeof styles> {
   schools: string[];
-  classes: { [s: string]: string };
   input: object;
   label: string;
   meta: Partial<{
@@ -29,16 +27,7 @@ interface Props {
   }>;
 }
 
-interface SchoolInputStyles<T> extends Styles {
-  label: T;
-  error: T;
-  textField: T;
-  Input: T;
-  inputArea: T;
-  [s: string]: T;
-}
-
-const styles = (theme: Theme): SchoolInputStyles<JssRules> => ({
+const styles = (theme: Theme) => ({
   label: {
     padding: "5px",
     width: "150px"
@@ -91,11 +80,11 @@ const wrapperStyle = {
   position: "relative"
 };
 
-const isUpper = str => str === str.toUpperCase();
+const isUpper = (str: string): boolean => str === str.toUpperCase();
 
 // given an autocomplete item and a input value, should we display the autocomplete
 // item?
-const doesStringMatch = (item, value) => {
+const doesStringMatch = (item: string, value: string): boolean => {
   if (value !== "") {
     // if input value is all uppercase, try to compare with the acronym of the autocomplete items
     if (isUpper(value)) {
@@ -103,7 +92,7 @@ const doesStringMatch = (item, value) => {
         .split(" ")
         .filter(word => isUpper(word[0]) && word !== "The");
       const capLetters = importantWords.map(word => word[0]);
-      const chars = [...value];
+      const chars: string = [...value].join("");
 
       for (let i = 0; i < chars.length; i++) {
         if (capLetters[i] !== chars[i]) {

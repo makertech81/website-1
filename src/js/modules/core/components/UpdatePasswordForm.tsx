@@ -2,21 +2,17 @@ import * as React from "react";
 import { Field, Form } from "react-final-form";
 import Input from "./Input";
 import Button from "./Button";
-import { bindActionCreators, compose } from "redux";
+import { bindActionCreators, compose, Dispatch } from "redux";
 import { updatePassword } from "../coreActions";
 import { connect } from "react-redux";
-import injectSheet from "react-jss/lib/injectSheet";
+import injectSheet, { WithStyles } from "react-jss";
+import { ReduxState } from "../../types";
 
-interface Props {
-  classes: UpdatePasswordFormStyles<string>;
+interface Props extends WithStyles<typeof styles> {
   updatePassword: (password: string) => any;
 }
 
-interface UpdatePasswordFormStyles<T> {
-  UpdatePasswordForm: T;
-}
-
-const styles: UpdatePasswordFormStyles<object> = {
+const styles = {
   UpdatePasswordForm: {
     display: "flex",
     flexDirection: "column",
@@ -29,7 +25,7 @@ const UpdatePasswordForm: React.SFC<Props> = ({
   updatePassword,
   isSubmitting
 }) => {
-  const handleSubmit = values => {
+  const handleSubmit = (values: any) => {
     updatePassword(values.password);
   };
 
@@ -37,22 +33,28 @@ const UpdatePasswordForm: React.SFC<Props> = ({
     <Form
       className={classes.UpdatePasswordForm}
       onSubmit={handleSubmit}
-      validate={({ password, passwordConfirmation }) => {
-        let errors: { password?: string } = {};
-        if(!password){
+      validate={({
+        password,
+        passwordConfirmation
+      }: {
+        password: string;
+        passwordConfirmation: string;
+      }) => {
+        let errors: { password?: string; passwordConfirmation?: string } = {};
+        if (!password) {
           errors.password = "Password is required";
-        }
-        else if (password.length < 8) {
+        } else if (password.length < 8) {
           errors.password = "Password must be at least 8 characters";
         }
 
-        if(!passwordConfirmation){
+        if (!passwordConfirmation) {
           errors.passwordConfirmation = "Password confirmation is required";
         }
 
-        if (password && passwordConfirmation){
-          if(password !== passwordConfirmation){
-            errors.passwordConfirmation = "Password must be the same as password confirmation";
+        if (password && passwordConfirmation) {
+          if (password !== passwordConfirmation) {
+            errors.passwordConfirmation =
+              "Password must be the same as password confirmation";
           }
         }
         return errors;
@@ -90,11 +92,11 @@ const UpdatePasswordForm: React.SFC<Props> = ({
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: ReduxState) => ({
   isSubmitting: state.core.updatePasswordForm.isSubmitting
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ updatePassword }, dispatch);
 
 export default compose(

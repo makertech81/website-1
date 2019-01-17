@@ -5,7 +5,7 @@ import { User } from "firebase";
 import { bindActionCreators, compose } from "redux";
 import { push } from "connected-react-router";
 import { connect } from "react-redux";
-import { JssRules, Theme } from "../../types";
+import { JssRules, ReduxState, Theme } from "../../types";
 import Button from "./Button";
 import PasswordForm from "./UpdatePasswordForm";
 import ProfilePic from "./ProfilePic";
@@ -96,7 +96,7 @@ class ProfilePage extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user,
   application: state.core.applyForm.formData
 });
