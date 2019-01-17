@@ -9,8 +9,8 @@ export const getRandomInteger = (max: number): number => {
 
 export const getIncompleteFields = (
   values: any,
-  requiredFields: any
-): string[] => {
+  requiredFields: { [s: string]: string }
+): IncompleteField[] => {
   // Checks if values are all filled and puts an empty string if they aren't
   // (so firebase doesn't complain)
   let incompleteFields = [];

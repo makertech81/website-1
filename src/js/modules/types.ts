@@ -33,10 +33,21 @@ export interface ApplyFormData {
   codeOfConduct: boolean;
   privacyPolicy: boolean;
   resumeTimestamp: string; // timestamp
-
   emergencyContactNumber: string;
   emergencyContactName: string;
   emergencyContactRelation: string;
+}
+export interface IncompleteField {
+  field: string;
+  name: string;
+}
+
+export interface Errors {
+  loginError: string;
+  logoutError: string;
+  registerError: string;
+  passwordEmailError: string;
+  updatePasswordError: string;
 }
 
 export interface Form {

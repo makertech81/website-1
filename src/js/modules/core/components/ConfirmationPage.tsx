@@ -55,23 +55,23 @@ const requiredFields = {
 const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
   ConfirmationPage: {
     display: "flex",
-    width: "85%",
-    maxWidth: "1000px",
+    width: "100%",
+    maxWidth: theme.containerMaxWidth,
     flexDirection: "column",
     alignItems: "center",
     backgroundColor: theme.formBackground,
     color: theme.secondFont,
     borderRadius: "0.5em",
-    lineHeight: theme.bodyLineHeight,
-    fontSize: theme.bodyFontSize,
-    padding: "3em"
+    padding: "10px",
+    paddingTop: "3em",
+    paddingBottom: "2em"
   },
   welcomeMessage: {
-    width: "100%",
-    maxWidth: "750px"
+    padding: "10px",
+    maxWidth: theme.containerMaxWidth,
   },
   notice: {
-    maxWidth: "750px"
+    maxWidth: theme.containerMaxWidth,
   },
   statement: {
     marginBottom: theme.bodyFontSize
@@ -119,7 +119,22 @@ const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
   label: {
     padding: "15px",
     flex: 1
-  }
+  },
+  [`@media(max-width: ${theme.largeBreakpoint})`]: {
+    ConfirmationPage: {
+      width: theme.containerLargeWidth
+    }
+  },
+  [`@media(max-width: ${theme.mediumBreakpoint})`]: {
+    ConfirmationPage: {
+      width: theme.containerMediumWidth
+    }
+  },
+  [`@media(max-width: ${theme.smallBreakpoint})`]: {
+    ConfirmationPage: {
+      width: theme.containerMobileWidth
+    }
+  },
 });
 
 const ConfirmationPage: React.FunctionComponent<Props> = ({
