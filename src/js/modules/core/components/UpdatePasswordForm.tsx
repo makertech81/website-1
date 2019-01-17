@@ -99,10 +99,9 @@ const mapStateToProps = (state: ReduxState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ updatePassword }, dispatch);
 
-export default compose(
+export default injectSheet(styles)(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  ),
-  injectSheet(styles)
-)(UpdatePasswordForm);
+  )(UpdatePasswordForm)
+);

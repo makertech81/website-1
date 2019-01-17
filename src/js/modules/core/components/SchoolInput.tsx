@@ -2,12 +2,12 @@ import * as React from "react";
 import * as Autocomplete from "react-autocomplete";
 import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
-import { CSSProperties, SyntheticEvent } from "react";
+import { CSSProperties } from "react";
 
 interface Props extends WithStyles<typeof styles> {
   schools: string[];
   input: Partial<{
-    onChange: (e: SyntheticEvent<HTMLInputElement>) => any;
+    onChange: (e: string) => any;
   }>
   label: string;
   meta: Partial<{

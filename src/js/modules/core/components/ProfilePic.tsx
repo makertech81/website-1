@@ -1,5 +1,5 @@
 import * as React from "react";
-import injectSheet, { WithStyles } from "react-jss";
+import withStyles, { WithStyles } from "react-jss";
 import HoverOverlay from "./HoverOverlay";
 import { delay } from "../../utils";
 import { bindActionCreators, Dispatch } from "redux";
@@ -110,4 +110,4 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 export default connect(
   undefined,
   mapDispatchToProps
-)(injectSheet(styles)(ProfilePic));
+)(withStyles(styles)(ProfilePic));
