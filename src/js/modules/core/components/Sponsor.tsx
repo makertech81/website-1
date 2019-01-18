@@ -3,16 +3,11 @@ import injectSheet, { Styles } from "react-jss/lib/injectSheet";
 import { JssRules } from "../../types";
 
 
-interface SponsorStyles<T> extends Styles {
-  logoImage: T;
-  Sponsor: T;
-}
-
 interface Props {
-  classes: SponsorStyles<JssRules>;
+  classes: object;
 }
 
-const styles = (theme: Theme): SponsorStyles<JssRules> => ({
+const styles = (theme: Theme) => ({
   Sponsor: {
     margin: "2.5%",
     display: "block",

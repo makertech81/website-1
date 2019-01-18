@@ -5,21 +5,12 @@ import { JssRules } from "../../types";
 
 import Sponsor from "./Sponsor";
 
-interface SponsorshipSectionStyles<T> extends Styles {
-  header: T;
-  SponsorshipSection: T;
-  paragraph: T;
-  previousSponsors: T;
-  link: T;
-  logos: T;
-  logoImage: T;
-}
 
 interface Props {
-  classes: SponsorshipSectionStyles<JssRules>;
+  classes: object;
 }
 
-const styles = (theme: Theme): SponsorshipSectionStyles<JssRules> => ({
+const styles = (theme: Theme) => ({
   SponsorshipSection: {
     backgroundColor: theme.backgroundColor,
     fontSize: "1.4rem",
