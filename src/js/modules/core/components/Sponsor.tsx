@@ -14,22 +14,27 @@ interface Props {
 
 const styles = (theme: Theme): SponsorStyles<JssRules> => ({
   logoImage: {
+    display: "block",
     width: "100%"
   },
   logoContainer: {
-    flex: 1,
-    margin: "25px"
+    margin: "2.5%",
+    display: "block",
+    maxWidth: "20%",
+    flex: "1"
   }
 });
 
-const Sponsor: React.SFC<Props> = ({ classes, src }) => {
+const Sponsor: React.SFC<Props> = ({ classes, className, sponsorName, sponsorsInfo }) => {
   return (
-    <div className={classes.logoContainer}>
+    <a href={sponsorsInfo[sponsorName].url} className={classes.logoContainer}>
       <img
-          className={classes.logoImage}
-          src={src}
-        />
-    </div>
+        alt={sponsorName}
+        title={sponsorName}
+        className={`${classes.logoImage} ${className}`}
+        src={sponsorsInfo[sponsorName].src}
+      />
+    </a>
   )
 };
 

@@ -101,8 +101,7 @@ class HomePage extends React.Component<Props, State> {
             <FAQ />
           </div>
           <div className={classes.sponsorshipSection}>
-          <img className={classes.curvedTop} src="/img/semicircle.svg" />
-          <SponsorshipSection/>
+            <SponsorshipSection/>
           </div>
         </div>
       </div>
