@@ -5,7 +5,7 @@ import { JssRules } from "../../types";
 
 interface SponsorStyles<T> extends Styles {
   logoImage: T;
-  logoContainer: T;
+  Sponsor: T;
 }
 
 interface Props {
@@ -13,11 +13,7 @@ interface Props {
 }
 
 const styles = (theme: Theme): SponsorStyles<JssRules> => ({
-  logoImage: {
-    display: "block",
-    width: "100%"
-  },
-  logoContainer: {
+  Sponsor: {
     margin: "2.5%",
     display: "block",
     maxWidth: "20%",
@@ -27,8 +23,12 @@ const styles = (theme: Theme): SponsorStyles<JssRules> => ({
       transform: "scale(1.1)"
     }
   },
+  logoImage: {
+    display: "block",
+    width: "100%"
+  },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
-    logoContainer: {
+    Sponsor: {
       flex: "1 0 30%",
       maxWidth: "50%",
       margin: "5%"
@@ -38,7 +38,7 @@ const styles = (theme: Theme): SponsorStyles<JssRules> => ({
 
 const Sponsor: React.SFC<Props> = ({ classes, className, sponsorName, sponsorsInfo }) => {
   return (
-    <a href={sponsorsInfo[sponsorName].url} className={classes.logoContainer}>
+    <a href={sponsorsInfo[sponsorName].url} className={classes.Sponsor}>
       <img
         alt={sponsorName}
         title={sponsorName}

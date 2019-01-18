@@ -51,6 +51,7 @@ const styles = (theme: Theme): SponsorshipSectionStyles<JssRules> => ({
       color: "white"
     }
   },
+  // forces logo to be smaller
   squareLogo: {
     boxSizing: "border-box",
     padding: "20px"
@@ -71,51 +72,51 @@ const SponsorshipSection: React.SFC<Props> = ({ classes }) => {
     },
     "Gandi": {
       "src": ASSET_DIR + "/Gandi/Gandi-logo-white.svg",
-      "url": "",
+      "url": "https://www.gandi.net/en",
     },
     "BNY Mellon": {
       "src": ASSET_DIR + "/BNY Mellon/bnym_rgb_wht.svg",
-      "url": ""
+      "url": "https://www.bnymellon.com/"
     },
     "Kensho": {
       "src": ASSET_DIR + "/Kensho/kenshologo-white.svg",
-      "url": ""
+      "url": "https://www.kensho.com/"
     },
     "Contrary Capital":{
       "src": ASSET_DIR + "/Contrary Capital/contrary-light.png",
-      "url": ""
+      "url": "https://contrarycap.com/"
     },
     "Soylent":{
       "src": ASSET_DIR + "/Soylent/Soylent-White.svg",
-      "url": ""
+      "url": "https://soylent.com"
     },
     "Facebook":{
       "src": ASSET_DIR + "/Facebook/Facebook-06-2015-White.svg",
-      "url": ""
+      "url": "https://facebook.com"
     },
     "7 Chord":{
       "src": ASSET_DIR + "/7 Chord/7Chord-White-2.png",
-      "url": ""
+      "url": "https://www.7-chord.com/"
     },
     "Major League Hacking":{
       "src": ASSET_DIR + "/MLH/mlh-logo-white.svg",
-      "url": ""
+      "url": "https://mlh.io/"
     },
     "Insomnia Cookies":{
       "src": ASSET_DIR + "/Insomnia/InsomniaCookies-White2.png",
-      "url": ""
+      "url": "https://insomniacookies.com/"
     },
-    "KIND Bars":{
+    "KIND Snacks":{
       "src": ASSET_DIR + "/Kind/KIND-White-3.png",
-      "url": ""
+      "url": "https://www.kindsnacks.com/"
     },
     "New York Life":{
       "src": ASSET_DIR + "/New York Life/NYLLogo_white.png",
-      "url": ""
+      "url": "https://www.newyorklife.com/"
     },
     "JP Morgan Chase":{
       "src": ASSET_DIR + "/JPMC/JPMC-White.png",
-      "url": ""
+      "url": "https://www.jpmorganchase.com/"
     }
   };
 
@@ -147,7 +148,7 @@ const SponsorshipSection: React.SFC<Props> = ({ classes }) => {
       <div className={classes.sponsorRow}>
         <Sponsor sponsorName="Major League Hacking" sponsorsInfo={sponsorsInfo} className={classes.squareLogo} />
         <Sponsor sponsorName="Insomnia Cookies" sponsorsInfo={sponsorsInfo} className={classes.squareLogo} />
-        <Sponsor sponsorName="KIND Bars" sponsorsInfo={sponsorsInfo} className={classes.squareLogo} />
+        <Sponsor sponsorName="KIND Snacks" sponsorsInfo={sponsorsInfo} className={classes.squareLogo} />
         <Sponsor sponsorName="New York Life" sponsorsInfo={sponsorsInfo} className={classes.squareLogo} />
       </div>
       <div className={classes.sponsorRow}>
