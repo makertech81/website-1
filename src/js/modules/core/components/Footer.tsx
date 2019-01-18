@@ -14,12 +14,11 @@ const styles = (theme: Theme): object => ({
     backgroundColor: "#333",
     width: "100%"
   },
-  footerLogo: {
-    width: "200px",
-    padding: "50px",
+  logo: {
+    width: "175px",
+    padding: "20px",
     display: "block",
-    margin: "25px auto",
-    border: "3px solid white"
+    margin: "25px auto"
   },
   a: {
     color: theme.fontColor,
@@ -47,7 +46,7 @@ const Footer: React.SFC<Props> = ({ classes }) => {
         <a className={classes.socialMediaLink} href="https://www.facebook.com/hacknyu"> <FontAwesomeIcon icon={faFacebook} /> </a>
         <a className={classes.socialMediaLink} href="https://twitter.com/hacknyu"> <FontAwesomeIcon icon={faTwitter} /> </a>
       </p>
-      <img className={classes.footerLogo} src="/img/hacknyu-logo-full.svg"/>
+      <img className={classes.logo} src="/img/hacknyu-logo-full.svg"/>
       <p className={classes.footerLine}>Website proudly built from scratch by HackNYU tech team!</p>
       <p className={classes.footerLine}>Open sourced <a href="https://github.com/hacknyu/hacknyu-2019" className={classes.a}>here</a>.</p>
       
