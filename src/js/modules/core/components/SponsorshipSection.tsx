@@ -23,7 +23,7 @@ const styles = (theme: Theme): SponsorshipSectionStyles<JssRules> => ({
   SponsorshipSection: {
     backgroundColor: theme.backgroundColor,
     fontSize: "1.4rem",
-    margin: "3rem"
+    padding: "5%"
   },
   header: {
     margin: "0 8%",
@@ -54,6 +54,11 @@ const styles = (theme: Theme): SponsorshipSectionStyles<JssRules> => ({
   squareLogo: {
     boxSizing: "border-box",
     padding: "20px"
+  },
+  [`@media(max-width: ${theme.smallBreakpoint})`]: {
+    sponsorRow: {
+      flexWrap: "wrap"
+    }
   }
 });
 

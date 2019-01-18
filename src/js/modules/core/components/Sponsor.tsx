@@ -26,6 +26,13 @@ const styles = (theme: Theme): SponsorStyles<JssRules> => ({
     "&:hover": {
       transform: "scale(1.1)"
     }
+  },
+  [`@media(max-width: ${theme.smallBreakpoint})`]: {
+    logoContainer: {
+      flex: "1 0 30%",
+      maxWidth: "50%",
+      margin: "5%"
+    }
   }
 });
 
