@@ -21,7 +21,11 @@ const styles = (theme: Theme): SponsorStyles<JssRules> => ({
     margin: "2.5%",
     display: "block",
     maxWidth: "20%",
-    flex: "1"
+    flex: "1",
+    transitionDuration: "200ms",
+    "&:hover": {
+      transform: "scale(1.1)"
+    }
   }
 });
 
