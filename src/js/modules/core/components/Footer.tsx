@@ -1,13 +1,14 @@
 import * as React from "react";
-import injectSheet, { Styles } from "react-jss/lib/injectSheet";
+import injectSheet  from "react-jss/lib/injectSheet";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
   faTwitter
 } from "@fortawesome/free-brands-svg-icons";
+import { Theme } from "../../types";
 
-const styles = (theme: Theme): object => ({
+const styles = (theme: Theme) => ({
   Footer: {
     padding: "2em",
     marginTop: "25px",
@@ -18,7 +19,17 @@ const styles = (theme: Theme): object => ({
     width: "175px",
     padding: "20px",
     display: "block",
-    margin: "25px auto"
+    margin: "0 auto",
+    marginTop: "50px",
+    // Added this cause in mobile user tools blocks the copy
+    marginBottom: "100px",
+    backgroundColor: theme.backgroundColor,
+    width: "100vw"
+  },
+  footerLogo: {
+    maxWidth: "100px",
+    display: "block",
+    margin: "25px auto",
   },
   a: {
     color: theme.fontColor,
@@ -32,25 +43,24 @@ const styles = (theme: Theme): object => ({
       textDecoration: "none"
     }
   },
-  footerLine: {
+  copyText: {
     margin: "0.25em",
     textAlign: "center"
   }
 });
 
-const Footer: React.SFC<Props> = ({ classes }) => {
+const Footer: React.SFC = ({ classes }) => {
   return (
     <div className={classes.Footer}>
-      <p className={classes.footerLine}>Copyright © 2018 HackNYU. </p>
-      <p className={classes.footerLine}>Contact us at: support.hack@nyu.edu</p>
-      <p className={classes.footerLine}>Find us on social media: 
+      <p className={classes.copyText}>Copyright © 2018 HackNYU. </p>
+      <p className={classes.copyText}>Contact us at: support.hack@nyu.edu</p>
+      <p className={classes.copyText}>Find us on social media:
         <a className={classes.socialMediaLink} href="https://www.facebook.com/hacknyu"> <FontAwesomeIcon icon={faFacebook} /> </a>
         <a className={classes.socialMediaLink} href="https://twitter.com/hacknyu"> <FontAwesomeIcon icon={faTwitter} /> </a>
       </p>
-      <img className={classes.logo} src="/img/hacknyu-logo-full.svg"/>
-      <p className={classes.footerLine}>Website proudly built from scratch by HackNYU tech team!</p>
-      <p className={classes.footerLine}>Open sourced <a href="https://github.com/hacknyu/hacknyu-2019" className={classes.a}>here</a>.</p>
-      
+      <img className={classes.footerLogo} src="/img/hacknyu-logo-full.svg"/>
+      <p className={classes.copyText}>Website proudly built from scratch by HackNYU tech team!</p>
+      <p className={classes.copyText}>Open sourced <a href="https://github.com/hacknyu/hacknyu-2019" class={classes.a}>here</a>.</p>
     </div>
   );
 };
