@@ -49,7 +49,7 @@ const Footer: React.SFC<Props> = ({ classes }) => {
       </p>
       <img className={classes.footerLogo} src="/img/hacknyu-logo-full.svg"/>
       <p className={classes.footerLine}>Website proudly built from scratch by HackNYU tech team!</p>
-      <p className={classes.footerLine}>Open sourced <a href="https://github.com/hacknyu/hacknyu-2019" class={classes.a}>here</a>.</p>
+      <p className={classes.footerLine}>Open sourced <a href="https://github.com/hacknyu/hacknyu-2019" className={classes.a}>here</a>.</p>
       
     </div>
   );

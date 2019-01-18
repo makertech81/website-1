@@ -3,19 +3,20 @@ import { ReactNode } from "react";
 import injectSheet, { Styles } from "react-jss/lib/injectSheet";
 import { JssRules } from "../../types";
 
+import Sponsor from "./Sponsor";
+
 interface SponsorshipSectionStyles<T> extends Styles {
   header: T;
   SponsorshipSection: T;
   paragraph: T;
   previousSponsors: T;
-  icon: T;
   link: T;
   logos: T;
   logoImage: T;
 }
 
 interface Props {
-  classes: SponsorshipSectionStyles<string>;
+  classes: SponsorshipSectionStyles<JssRules>;
 }
 
 const styles = (theme: Theme): SponsorshipSectionStyles<JssRules> => ({
@@ -41,23 +42,11 @@ const styles = (theme: Theme): SponsorshipSectionStyles<JssRules> => ({
     justifyContent: "flex-start",
     flexDirection: "row"
   },
-  icon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    minWidth: "50px",
-    paddingRight: "20px"
-  },
-  logos: {
+  sponsorRow: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
     flexDirection: "row"
-  },
-  logoImage: {
-    display: "flex",
-    maxWidth: "500px",
-    margin: "4% 4% 4% 4%"
   },
   link: {
     color: "yellow",
@@ -89,11 +78,18 @@ const SponsorshipSection: React.SFC<Props> = ({ classes }) => {
         HackNYU is made possible thanks to the support of our wonderful
         sponsors!
       </div>
-      <div className={classes.previousSponsors}>
+      <div className={classes.currentSponsors}>
         <h1 className={classes.header}>Current Sponsors</h1>
       </div>
 
-      <div className={classes.logos}>
+      <div className={classes.sponsorRow}>
+        <Sponsor src="img/sponsorship-logos/Google/Google-White.png" />
+        <Sponsor src="img/sponsorship-logos/BNY Mellon/bnym_rgb_wht.svg" />
+        <Sponsor src="img/sponsorship-logos/Gandi/Gandi-logo-white.svg" />
+        <Sponsor src="img/sponsorship-logos/Kensho/kenshologo-white.svg" />
+      </div>
+
+      {/*<div className={classes.logos}>
         <img
           className={classes.logoImage}
           src="img/sponsorship-logos/Google/Google-White.png"
@@ -155,7 +151,7 @@ const SponsorshipSection: React.SFC<Props> = ({ classes }) => {
           className={classes.logoImage}
           src="img/sponsorship-logos/JPMC/JPMC-White.png"
         />
-      </div>
+      </div> */}
     </div>
   );
 };
