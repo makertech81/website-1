@@ -32,7 +32,7 @@ const styles = (theme: Theme): object => ({
       textDecoration: "none"
     }
   },
-  p: {
+  footerLine: {
     margin: "0.25em",
     textAlign: "center"
   }
@@ -41,15 +41,15 @@ const styles = (theme: Theme): object => ({
 const Footer: React.SFC<Props> = ({ classes }) => {
   return (
     <div className={classes.Footer}>
-      <p class={classes.p}>Copyright © 2018 HackNYU. </p>
-      <p class={classes.p}>Contact us at: support.hack@nyu.edu</p>
-      <p class={classes.p}>Find us on social media: 
-        <a class={classes.socialMediaLink} href="https://www.facebook.com/hacknyu"> <FontAwesomeIcon icon={faFacebook} /> </a>
-        <a class={classes.socialMediaLink} href="https://twitter.com/hacknyu"> <FontAwesomeIcon icon={faTwitter} /> </a>
+      <p className={classes.footerLine}>Copyright © 2018 HackNYU. </p>
+      <p className={classes.footerLine}>Contact us at: support.hack@nyu.edu</p>
+      <p className={classes.footerLine}>Find us on social media: 
+        <a className={classes.socialMediaLink} href="https://www.facebook.com/hacknyu"> <FontAwesomeIcon icon={faFacebook} /> </a>
+        <a className={classes.socialMediaLink} href="https://twitter.com/hacknyu"> <FontAwesomeIcon icon={faTwitter} /> </a>
       </p>
-      <img class={classes.footerLogo} src="/img/hacknyu-logo-full.svg"/>
-      <p class={classes.p}>Website proudly built from scratch by HackNYU tech team!</p>
-      <p class={classes.p}>Open sourced <a href="https://github.com/hacknyu/hacknyu-2019" class={classes.a}>here</a>.</p>
+      <img className={classes.footerLogo} src="/img/hacknyu-logo-full.svg"/>
+      <p className={classes.footerLine}>Website proudly built from scratch by HackNYU tech team!</p>
+      <p className={classes.footerLine}>Open sourced <a href="https://github.com/hacknyu/hacknyu-2019" class={classes.a}>here</a>.</p>
       
     </div>
   );

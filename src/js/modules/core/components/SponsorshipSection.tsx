@@ -1,7 +1,6 @@
 import * as React from "react";
-import { Styles } from "react-jss";
 import { ReactNode } from "react";
-import injectSheet from "react-jss/lib/injectSheet";
+import injectSheet, { Styles } from "react-jss/lib/injectSheet";
 import { JssRules } from "../../types";
 
 interface SponsorshipSectionStyles<T> extends Styles {
@@ -68,7 +67,7 @@ const styles = (theme: Theme): SponsorshipSectionStyles<JssRules> => ({
   }
 });
 
-const SponsorshipInfo: React.SFC<Props> = ({ classes }) => {
+const SponsorshipSection: React.SFC<Props> = ({ classes }) => {
   return (
     <div className={classes.SponsorshipSection}>
       <h1 className={classes.header}>SPONSORSHIP</h1>
@@ -161,4 +160,4 @@ const SponsorshipInfo: React.SFC<Props> = ({ classes }) => {
   );
 };
 
-export default injectSheet(styles)(SponsorshipInfo);
+export default injectSheet(styles)(SponsorshipSection);
