@@ -26,6 +26,7 @@ const styles = (theme: Theme): object => ({
   },
   socialMediaLink: {
     color: theme.fontColor,
+    margin: "0.1em",
     textDecoration: "none",
     "&:hover": {
       textDecoration: "none"
