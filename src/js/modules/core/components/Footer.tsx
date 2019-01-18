@@ -11,7 +11,7 @@ const styles = (theme: Theme): object => ({
   Footer: {
     padding: "2em",
     marginTop: "25px",
-    backgroundColor: "#333",
+    backgroundColor: "#2F0757",
     width: "100%"
   },
   logo: {
