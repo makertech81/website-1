@@ -178,6 +178,13 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
             you arrive at HackNYU, otherwise we will not be able to let you
             participate!
           </li>
+          <li className={classes.statement}>
+            Finally, HackNYU aims to be a safe and welcoming space for participants. All participants 
+            (hackers, volunteers, mentors, organizers, etc) must abide by the {" "}
+            <a className={classes.link} href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">
+            MLH Code of Conduct.
+            </a>
+          </li>
         </ul>
         <h2>Confirm your attendance for HackNYU 2019.</h2>
 
@@ -185,7 +192,7 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
           onSubmit={handleSubmit}
           validate={validateForm}
           initialValues={formData}
-          render={({ handleSubmit, pristine }) => (
+          render={({ handleSubmit, pristine, invalid }) => (
             <div className={classes.form}>
               <form onSubmit={handleSubmit}>
                 <div className={classes.inputs}>
@@ -245,7 +252,7 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
                   <Button
                     className={classes.submit}
                     type="submit"
-                    disabled={pristine || isConfirming}
+                    disabled={pristine || invalid || isConfirming}
                   >
                     SUBMIT
                   </Button>
