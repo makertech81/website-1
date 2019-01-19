@@ -11,8 +11,8 @@ interface Props extends WithStyles<typeof styles> {
 const styles = (theme: Theme) => ({
   Checkbox: {
     display: "flex",
-    alignItems: "center",
-    padding: "20px"
+    padding: "20px",
+    maxWidth: "500px"
   },
   input: {
     width: "20px",

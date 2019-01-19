@@ -74,14 +74,14 @@ const theme: Theme = {
   containerSmallWidth: "28em",
   containerMediumWidth: "40em",
   containerLargeWidth: "45em",
-  containerMaxWidth: "62.5em",
+  containerMaxWidth: "62.5rem",
   overlayColor: "#696969",
   largeBreakpoint: "1100px",
   mediumBreakpoint: "800px",
   smallBreakpoint: "600px",
   bodyFontSize: "1.3rem",
   titleFontSize: "2em",
-  bodyLineHeight: "1.2em",
+  bodyLineHeight: "1.2",
   formElementMaxWidth: "500px",
   ...trackColors
 };

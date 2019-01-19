@@ -20,7 +20,7 @@ const styles = (theme: Theme): RadioStyles<JssRules> => ({
   Radio: {
     display: "flex",
     alignItems: "center",
-    padding: "20px"
+    padding: "10px"
   },
   input: {
     width: "20px",
