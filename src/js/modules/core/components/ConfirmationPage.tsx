@@ -20,7 +20,6 @@ interface Props {
   user: User;
   userData: FormData;
   confirmTimestamp: string;
-  // resumeTimestamp: string;
   submitRSVP: (values: FormData, incompleteFields: string[]) => any;
 }
 
@@ -147,9 +146,6 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
     return location.split('-').map((word) => word.toUpperCase()).join(' ');
   };
 
-  // if (confirmTimestamp) {
-    // return <SubmittedPage />;
-  // } else {
   return (
     <div>
       {confirmTimestamp &&
@@ -158,11 +154,16 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
           <Underline />
           { userData.location !== 'cannot-attend' &&
             <div>
-              <p> You are confirmed for: {locationToReadable(userData.location)} </p>
+              <p> You are confirmed for: {locationToReadable(userData.location)} 😎 </p>
               <p> See you at the event! If you can no longer attend the event, please update your response below. </p>
             </div>
           }
-          { userData.location === 'cannot-attend' && <p> Your status: {locationToReadable(userData.location)} </p>}
+          { userData.location === 'cannot-attend' && 
+            <div>
+              <p> Your status: Can't Attend 😔 </p>
+              <p> We're sorry to see you can't attend. Hope to see at our event next year! </p>
+            </div>
+          }
         </div>
       }
 
@@ -285,7 +286,6 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
       </div>
     </div>
     );
-  // }
 };
 
 const mapStateToProps = (state: ReduxState) => ({
