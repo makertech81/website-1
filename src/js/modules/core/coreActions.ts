@@ -12,6 +12,10 @@ type ThunkResult<R> = ThunkAction<R, ReduxState, undefined, Action>;
 
 export const REFRESH_WINDOW_DIMENSIONS = "core/REFRESH_WINDOW_DIMENSIONS";
 
+export const SUBMIT_RSVP_PENDING = "core/SUBMIT_RSVP_PENDING";
+export const SUBMIT_RSVP_FULFILLED = "core/SUBMIT_RSVP_FULFILLED";
+export const SUBMIT_RSVP_REJECTED = "core/SUBMIT_RSVP_REJECTED";
+
 export const SUBMIT_APP_PENDING = "core/SUBMIT_APP_PENDING";
 export const SUBMIT_APP_FULFILLED = "core/SUBMIT_APP_FULFILLED";
 export const SUBMIT_APP_REJECTED = "core/SUBMIT_APP_REJECTED";
@@ -148,6 +152,44 @@ export const uploadResume = (uid: string, file: File): ThunkResult<void> => (
       return timestamp;
     })
     .catch(err => dispatch({ type: UPLOAD_RESUME_REJECTED, payload: err }));
+};
+
+export const submitRSVP = formValues => dispatch => {
+  if (!auth.currentUser) {
+    dispatch({
+      type: SUBMIT_APP_REJECTED,
+      payload: "Not logged in, please log in to RSVP"
+    });
+    dispatch(push("/login"));
+    return;
+  }
+
+  const uid = auth.currentUser.uid;
+  const currentTime = new Date();
+  const data = { ...formValues, confirmTimestamp: currentTime };
+
+  dispatch({
+    type: SUBMIT_RSVP_PENDING
+  });
+  return (
+    db
+      .collection("users")
+      .doc(uid)
+      // don't wipe existing apply data
+      .update(data)
+      .then(() =>
+        dispatch({
+          type: SUBMIT_RSVP_FULFILLED,
+          payload: { message: "RSVP submitted.", data }
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: SUBMIT_RSVP_REJECTED,
+          payload: err
+        })
+      )
+  );
 };
 
 export const submitApp = (

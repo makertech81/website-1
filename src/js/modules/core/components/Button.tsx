@@ -24,7 +24,8 @@ const styles = (theme: Theme) => ({
       backgroundColor: theme.submitButtonHover
     },
     '&:disabled': {
-      backgroundColor: theme.submitButtonDeactivated
+      backgroundColor: theme.submitButtonDeactivated,
+      cursor: "not-allowed"
     }
   }
 });

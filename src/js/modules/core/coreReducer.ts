@@ -29,6 +29,9 @@ import {
   UPLOAD_RESUME_REJECTED,
   GET_FORM_DATA_FULFILLED,
   GET_FORM_DATA_REJECTED,
+  SUBMIT_RSVP_PENDING,
+  SUBMIT_RSVP_FULFILLED,
+  SUBMIT_RSVP_REJECTED,
   LOADING_FULFILLED,
   LOADING_REJECTED
 } from "./coreActions";
@@ -103,6 +106,7 @@ const initialState = {
   user: undefined as User,
   notifications: {},
   applyForm: { isSubmitting: false, formData: {} },
+  confirmForm: { isSubmitting: false, formData: {} },
   loginForm: { isSubmitting: false },
   registerForm: { isSubmitting: false },
   resumeForm: { isSubmitting: false },
@@ -145,12 +149,39 @@ const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
         ...state,
         errors: { ...state.errors, resume: action.payload.message }
       };
+    case SUBMIT_RSVP_PENDING:
+      return {
+        ...state,
+        rsvp: { isSubmitting: true }
+      };
+    case SUBMIT_RSVP_FULFILLED: {
+      const { message, data } = action.payload;
+
+      // merge the rsvp data with the applyForm data (actually just general user store)
+      const formData = { ...state.applyForm.formData, ...data };
+
+      return {
+        ...state,
+        // TODO: rename from applyForm
+        applyForm: { ...state.applyForm, formData },
+        notifications: {
+          ...state.notifications,
+          rsvp: message
+        }
+      };
+    }
+    case SUBMIT_RSVP_REJECTED:
+      return {
+        ...state,
+        rsvp: { isSubmitting: false },
+        errors: { ...state.errors, rsvp: action.payload.message }
+      };
     case SUBMIT_APP_PENDING:
       return {
         ...state,
         applyForm: { ...state.applyForm, isSubmitting: true }
       };
-    case SUBMIT_APP_FULFILLED:
+    case SUBMIT_APP_FULFILLED: {
       const { message, submitTimestamp, ...formData } = action.payload;
       if (submitTimestamp) {
         return {
@@ -179,6 +210,7 @@ const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
           apply: message
         }
       };
+    }
     case SUBMIT_APP_REJECTED:
       return {
         ...state,
@@ -282,6 +314,7 @@ const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
         updatePasswordForm: { isSubmitting: false }
       };
     case GET_FORM_DATA_FULFILLED:
+      console.log(action.payload);
       if (action.payload) {
         const {
           resumeTimestamp,

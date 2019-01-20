@@ -1,9 +1,9 @@
 import * as React from "react";
 import { JssRules, ReduxState, Theme } from "../../types";
 import injectSheet, { Styles } from "react-jss/lib/injectSheet";
-//import { submitConfirmation } from "../coreActions";
+import { submitRSVP } from "../coreActions";
 import { Form, Field, FormSpy } from "react-final-form";
-import { compose } from "redux";
+import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
 import { User } from "firebase";
 import Button from "./Button";
@@ -16,35 +16,35 @@ import SubmittedPage from "./SubmittedPage";
 
 interface Props {
   classes: ConfirmationPageStyles<string>;
+  isSubmitting: boolean;
   user: User;
-  push: (route: string) => any;
-  formData: FormData;
+  userData: FormData;
   confirmTimestamp: string;
-  resumeTimestamp: string;
-  // submitConfirmation: (values: FormData, incompleteFields: string[]) => any;
+  // resumeTimestamp: string;
+  submitRSVP: (values: FormData, incompleteFields: string[]) => any;
 }
 
 interface ConfirmationPageStyles<T> extends Styles {
-  ConfirmationPage: T;
-  header: T;
+  Page: T;
   welcomeMessage: T;
   notice: T;
   statement: T;
+  header: T;
   form: T;
   inputs: T;
+  resumeUpload: T;
   submit: T;
   checkbox: T;
   radio: T;
-  resumeUpload: T;
   formItem: T;
-  label: T;
-  [`@media(max-width: ${theme.mediumBreakpoint})`]: T;
+  link: T;
 }
 
 interface FormData {
   location: string;
   nyuCodeOfConduct: boolean;
   nyuPrivacyPolicy: boolean;
+  nyuMediaRights: boolean;
 }
 
 const requiredFields = {
@@ -55,7 +55,7 @@ const requiredFields = {
 };
 
 const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
-  ConfirmationPage: {
+  Page: {
     display: "flex",
     width: "90%",
     maxWidth: theme.containerMaxWidth,
@@ -65,11 +65,12 @@ const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
     color: theme.secondFont,
     borderRadius: "0.5em",
     padding: "5%",
-    paddingTop: "3rem",
+    paddingTop: "2rem",
     paddingBottom: "2rem",
     maxWidth: "600px",
     lineHeight: theme.bodyLineHeight,
-    fontSize: theme.bodyFontSize
+    fontSize: theme.bodyFontSize,
+    marginBottom: "2rem"
   },
   welcomeMessage: {
     maxWidth: theme.containerMaxWidth
@@ -123,15 +124,14 @@ const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
 
 const ConfirmationPage: React.FunctionComponent<Props> = ({
   classes,
-  isConfirming,
+  isSubmitting,
   user,
-  formData,
+  userData,
+  submitRSVP,
   confirmTimestamp
 }) => {
   const handleSubmit = values => {
-    console.log("submit");
-    console.log(values);
-    //this.props.submitConfirmation(values, []);
+    submitRSVP(values);
   };
 
   const validateForm = (values: FormData): Array<object> => {
@@ -143,11 +143,30 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
     }
   };
 
-  if (confirmTimestamp) {
-    return <SubmittedPage />;
-  } else {
-    return (
-      <div className={classes.ConfirmationPage}>
+  const locationToReadable = (location: string): string => {
+    return location.split('-').map((word) => word.toUpperCase()).join(' ');
+  };
+
+  // if (confirmTimestamp) {
+    // return <SubmittedPage />;
+  // } else {
+  return (
+    <div>
+      {confirmTimestamp &&
+        <div className={classes.Page}>
+          <h1> Thanks for responding! </h1>
+          <Underline />
+          { userData.location !== 'cannot-attend' &&
+            <div>
+              <p> You are confirmed for: {locationToReadable(userData.location)} </p>
+              <p> See you at the event! If you can no longer attend the event, please update your response below. </p>
+            </div>
+          }
+          { userData.location === 'cannot-attend' && <p> Your status: {locationToReadable(userData.location)} </p>}
+        </div>
+      }
+
+      <div className={classes.Page}>
         <h1 className={classes.header}>Welcome! RSVP to HackNYU.</h1>
         <Underline/>
         <p className={classes.welcomeMessage}>
@@ -191,7 +210,7 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
         <Form
           onSubmit={handleSubmit}
           validate={validateForm}
-          initialValues={formData}
+          initialValues={userData}
           render={({ handleSubmit, pristine, invalid }) => (
             <div className={classes.form}>
               <form onSubmit={handleSubmit}>
@@ -252,27 +271,35 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
                   <Button
                     className={classes.submit}
                     type="submit"
-                    disabled={pristine || invalid || isConfirming}
+                    disabled={pristine || invalid || isSubmitting}
                   >
                     SUBMIT
                   </Button>
+
+                  {invalid && <p>Please complete the fields above to submit.</p>}
                 </div>
               </form>
             </div>
           )}
         />
       </div>
+    </div>
     );
-  }
+  // }
 };
+
 const mapStateToProps = (state: ReduxState) => ({
-  user: state.core.user
-  //formData: state.core.confirmForm.formData,
-  //confirmTimestamp: state.core.confirmForm.confirmTimestamp,
-  //isConfirming: state.core.confirmForm.isConfirming
+  user: state.core.user,
+  // so currently, all the user data is loaded here
+  userData: state.core.applyForm.formData,
+  confirmTimestamp: state.core.applyForm.formData.confirmTimestamp,
+  isSubmitting: state.core.confirmForm.isSubmitting
 });
+
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators({ submitRSVP }, dispatch);
 
 export default compose(
   injectSheet(styles),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(ConfirmationPage);
