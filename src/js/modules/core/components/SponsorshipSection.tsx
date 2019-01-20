@@ -12,7 +12,7 @@ interface Props {
 
 const styles = (theme: Theme) => ({
   SponsorshipSection: {
-    backgroundColor: theme.backgroundColor,
+    backgroundColor: theme.secondBackground,
     fontSize: "1.4rem",
     padding: "5%"
   },
@@ -58,15 +58,15 @@ const SponsorshipSection: React.SFC<Props> = ({ classes }) => {
   const ASSET_DIR = "img/sponsorship-logos";
   const sponsorsInfo = {
     "Google": {
-      "src": ASSET_DIR + "/Google/Google-White.png",
+      "src": ASSET_DIR + "/Google/google.png",
       "url": "https://google.com"
     },
     "Gandi": {
-      "src": ASSET_DIR + "/Gandi/Gandi-logo-white.svg",
+      "src": ASSET_DIR + "/Gandi/gandi.svg",
       "url": "https://www.gandi.net/en",
     },
     "BNY Mellon": {
-      "src": ASSET_DIR + "/BNY Mellon/bnym_rgb_wht.svg",
+      "src": ASSET_DIR + "/BNY Mellon/bny-mellon.svg",
       "url": "https://www.bnymellon.com/"
     },
     "Kensho": {
@@ -74,7 +74,7 @@ const SponsorshipSection: React.SFC<Props> = ({ classes }) => {
       "url": "https://www.kensho.com/"
     },
     "Contrary Capital":{
-      "src": ASSET_DIR + "/Contrary Capital/contrary-light.png",
+      "src": ASSET_DIR + "/Contrary Capital/contrary.png",
       "url": "https://contrarycap.com/"
     },
     "Soylent":{
@@ -90,23 +90,23 @@ const SponsorshipSection: React.SFC<Props> = ({ classes }) => {
       "url": "https://www.7-chord.com/"
     },
     "Major League Hacking":{
-      "src": ASSET_DIR + "/MLH/mlh-logo-white.svg",
+      "src": ASSET_DIR + "/MLH/mlh.png",
       "url": "https://mlh.io/"
     },
     "Insomnia Cookies":{
-      "src": ASSET_DIR + "/Insomnia/InsomniaCookies-White2.png",
+      "src": ASSET_DIR + "/Insomnia/insomnia.png",
       "url": "https://insomniacookies.com/"
     },
     "KIND Snacks":{
-      "src": ASSET_DIR + "/Kind/KIND-White-3.png",
+      "src": ASSET_DIR + "/Kind/kind.png",
       "url": "https://www.kindsnacks.com/"
     },
     "New York Life":{
-      "src": ASSET_DIR + "/New York Life/NYLLogo_white.png",
+      "src": ASSET_DIR + "/New York Life/nyl.png",
       "url": "https://www.newyorklife.com/"
     },
     "JP Morgan Chase":{
-      "src": ASSET_DIR + "/JPMC/JPMC-White.png",
+      "src": ASSET_DIR + "/JPMC/jpmc.png",
       "url": "https://www.jpmorganchase.com/"
     }
   };

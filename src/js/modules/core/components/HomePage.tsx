@@ -61,8 +61,8 @@ const styles = (theme: Theme): HomePageStyles<JssRules> => ({
     color: theme.fontColor
   },
   sponsorshipSection: {
-    backgroundColor: theme.backgroundColor,
-    color: theme.fontColor
+    backgroundColor: theme.secondBackground,
+    color: theme.secondFont
   },
   curvedTop: {
     width: "100vw",
