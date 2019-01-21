@@ -12,7 +12,7 @@ import { ApplyFormData, ReduxState } from "../../types";
 
 interface Props extends WithStyles<typeof styles> {
   user: User;
-  appplication: ApplyFormData
+  application: ApplyFormData
 }
 
 interface State {

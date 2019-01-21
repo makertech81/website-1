@@ -46,9 +46,9 @@ export interface Theme {
   containerSmallWidth: string;
   containerMediumWidth: string;
   containerLargeWidth: string;
-  smallBreakpoint: string;
-  mediumBreakpoint: string;
   largeBreakpoint: string;
+  mediumBreakpoint: string;
+  smallBreakpoint: string;
 }
 
 const theme: Theme = {
@@ -84,11 +84,11 @@ const theme: Theme = {
   ...trackColors
 };
 
-class ThemeInjector extends React.Component<Props & RouteComponentProps> {
+class ThemeInjector extends React.Component<Props> {
   render() {
     let { children } = this.props;
     return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
   }
 }
 
-export default withRouter(ThemeInjector);
+export default ThemeInjector;

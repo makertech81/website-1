@@ -10,7 +10,7 @@ import { ReduxState } from "../../types";
 interface Props extends WithStyles<typeof styles> {
   resumeTimestamp: string;
   uploadResume: (uid: string, file: File) => any;
-  uid: string;
+  uid?: string;
 }
 
 const styles = (theme: Theme) => ({
@@ -88,10 +88,9 @@ const mapStateToProps = (state: ReduxState) => ({
   resumeTimestamp: state.core.applyForm.resumeTimestamp
 });
 
-export default compose(
-  injectSheet(styles),
+export default injectSheet(styles)(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )
-)(UploadResumeButton);
+  )(UploadResumeButton)
+);

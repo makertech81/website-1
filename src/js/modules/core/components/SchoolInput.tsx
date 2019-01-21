@@ -8,7 +8,7 @@ interface Props extends WithStyles<typeof styles> {
   schools: string[];
   input: Partial<{
     onChange: (e: string) => any;
-  }>
+  }>;
   label: string;
   meta: Partial<{
     // Idk why, but react-final-form doesn't export this as a type
@@ -115,14 +115,22 @@ const doesStringMatch = (item: string, value: string): boolean => {
 };
 
 // School input with autocomplete form of schools
-const SchoolInput: React.SFC<Props> = ({ meta, schools, input, classes, label }) => {
+const SchoolInput: React.SFC<Props> = ({
+  meta,
+  schools,
+  input,
+  classes,
+  label
+}) => {
   return (
     <div className={classes.Input}>
       <div className={classes.inputArea}>
         <div className={classes.label}>{label} </div>
         <Autocomplete
           {...input}
-          renderInput={props => <input {...props} className={classes.textField} />}
+          renderInput={props => (
+            <input {...props} className={classes.textField} />
+          )}
           getItemValue={item => item}
           items={schools}
           shouldItemRender={doesStringMatch}
@@ -134,7 +142,7 @@ const SchoolInput: React.SFC<Props> = ({ meta, schools, input, classes, label })
               {item}
             </div>
           )}
-          onChange={val => input.onChange(val)}
+          onChange={(val: string) => input.onChange(val)}
           onSelect={val => input.onChange(val)}
           menuStyle={menuStyle}
           wrapperStyle={wrapperStyle}

@@ -107,7 +107,9 @@ class ProfilePic extends React.Component<Props, State> {
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ uploadProfilePic }, dispatch);
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(withStyles(styles)(ProfilePic));
+export default withStyles(styles)(
+  connect(
+    undefined,
+    mapDispatchToProps
+  )(ProfilePic)
+);

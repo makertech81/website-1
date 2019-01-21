@@ -94,7 +94,7 @@ const styles = (theme: Theme) => ({
     display: "flex",
     width: "100%",
     maxWidth: theme.containerMaxWidth,
-    flexDirection: "column",
+    flexDirection: "column" as "column",
     alignItems: "center",
     backgroundColor: theme.formBackground,
     color: theme.secondFont,
@@ -192,7 +192,7 @@ interface IncompleteField {
   name: string;
 }
 
-const ApplyPage: React.SFC<Props> = ({
+const ApplyPage: React.FunctionComponent<Props> = ({
   classes,
   isSubmitting,
   user,
@@ -296,7 +296,6 @@ const ApplyPage: React.SFC<Props> = ({
                 <Field
                   name="phoneNumber"
                   label="Phone Number:"
-                  className={classes.input}
                   component={Input}
                   type="tel"
                   placeholder="1-800-867-5309"

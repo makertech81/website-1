@@ -15,7 +15,7 @@ interface Props {
 }
 
 class AnimatedSubwayLine extends React.Component<Props, State> {
-  isMounted: boolean;
+  private isMounted: boolean = false;
 
   constructor(props: Props) {
     super(props);
