@@ -88,19 +88,9 @@ const mapStateToProps = (state: ReduxState) => ({
   resumeTimestamp: state.core.applyForm.resumeTimestamp
 });
 
-<<<<<<< HEAD
 export default injectSheet(styles)(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )(UploadResumeButton)
 );
-=======
-export default compose(
-  injectSheet(styles),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
-)(UploadResumeButton);
->>>>>>> added redux thunk typings

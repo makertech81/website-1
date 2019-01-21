@@ -86,7 +86,7 @@ const theme: Theme = {
   ...trackColors
 };
 
-class ThemeInjector extends React.Component<Props & RouteComponentProps> {
+class ThemeInjector extends React.Component<Props> {
   render() {
     let { children } = this.props;
     return <ThemeProvider theme={theme}>{children}</ThemeProvider>;

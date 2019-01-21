@@ -2,7 +2,7 @@ import * as React from "react";
 import injectSheet, { WithStyles } from "react-jss";
 import { Field, Form } from "react-final-form";
 import Button from "./Button";
-import { compose, Dispatch } from "redux";
+import { AnyAction, compose, Dispatch } from "redux";
 import { connect } from "react-redux";
 import { loginWithGoogle, loginWithPassword } from "../coreActions";
 import { emailRegex } from "../../constants";
@@ -151,6 +151,7 @@ const LoginPage: React.SFC<Props> = ({
 const mapStateToProps = (state: ReduxState) => ({
   isSubmitting: state.core.loginForm.isSubmitting
 });
+
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   loginWithGoogle: () => {

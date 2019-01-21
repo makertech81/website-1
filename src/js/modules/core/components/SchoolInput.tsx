@@ -2,13 +2,14 @@ import * as React from "react";
 import * as Autocomplete from "react-autocomplete";
 import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
-import { CSSProperties } from "react";
+import { ChangeEvent, CSSProperties } from "react";
+import { FieldRenderProps } from "react-final-form"
 
 interface Props extends WithStyles<typeof styles> {
   schools: string[];
   input: Partial<{
     onChange: (e: string) => any;
-  }>
+  }>;
   label: string;
 }
 
