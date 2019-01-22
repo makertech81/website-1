@@ -2,6 +2,13 @@ import { db, auth, provider, storage } from "../../firebase";
 import { push } from "connected-react-router";
 
 import { UNRESTRICTED_ROUTES } from "../constants";
+import { ReduxState } from "../../reducers";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { Action } from "redux";
+import { User } from "firebase";
+import { ApplyFormData, IncompleteField } from "../types";
+
+type ThunkResult<R> = ThunkAction<R, ReduxState, undefined, Action>;
 
 export const REFRESH_WINDOW_DIMENSIONS = "core/REFRESH_WINDOW_DIMENSIONS";
 
@@ -60,7 +67,9 @@ export const refreshWindowDimensions = () => ({
   payload: {}
 });
 
-const getUserData = user => dispatch => {
+const getUserData = (user: User): ThunkResult<void> => (
+  dispatch: ThunkDispatch<ReduxState, undefined, any>
+) => {
   db.collection("users")
     .doc(user.uid)
     .get()
@@ -84,7 +93,9 @@ const getUserData = user => dispatch => {
     });
 };
 
-export const loadInitialState = location => dispatch => {
+export const loadInitialState = (location: Location): ThunkResult<void> => (
+  dispatch: ThunkDispatch<ReduxState, undefined, any>
+) => {
   auth.onAuthStateChanged(user => {
     if (user) {
       dispatch({
@@ -110,7 +121,9 @@ export const loadInitialState = location => dispatch => {
   });
 };
 
-export const uploadResume = (uid, file) => dispatch => {
+export const uploadResume = (uid: string, file: File): ThunkResult<void> => (
+  dispatch: ThunkDispatch<ReduxState, undefined, any>
+) => {
   dispatch({
     type: UPLOAD_RESUME_PENDING
   });
@@ -145,7 +158,10 @@ export const uploadResume = (uid, file) => dispatch => {
     .catch(err => dispatch({ type: UPLOAD_RESUME_REJECTED, payload: err }));
 };
 
-export const submitApp = (appValues, incompleteFields) => dispatch => {
+export const submitApp = (
+  appValues: ApplyFormData,
+  incompleteFields: IncompleteField[]
+) => (dispatch: ThunkDispatch<ReduxState, undefined, any>) => {
   if (!auth.currentUser) {
     dispatch({
       type: SUBMIT_APP_REJECTED,
@@ -157,18 +173,18 @@ export const submitApp = (appValues, incompleteFields) => dispatch => {
 
   const uid = auth.currentUser.uid;
   const currentTime = new Date();
-  let message, data;
+  let message: string, data: any;
   // If form is complete
   if (incompleteFields.length !== 0) {
-    const readify = list =>
-      list
-      .map(val => val.name)
-      .join(", ");
+    const readify = (list: IncompleteField[]) =>
+      list.map(val => val.name).join(", ");
     data = appValues;
-    message = "Application saved but NOT complete. Missing: " + readify(incompleteFields);
+    message =
+      "Application saved but NOT complete. Missing: " +
+      readify(incompleteFields);
   } else {
     data = {
-      submitTimestamp:  currentTime,
+      submitTimestamp: currentTime,
       ...appValues
     };
     message = `Application submitted at ${currentTime.toLocaleString()}. \
@@ -196,7 +212,9 @@ export const submitApp = (appValues, incompleteFields) => dispatch => {
     );
 };
 
-export const logout = () => dispatch => {
+export const logout = () => (
+  dispatch: ThunkDispatch<ReduxState, undefined, any>
+) => {
   auth
     .signOut()
     .then(() => {
@@ -215,7 +233,7 @@ export const logout = () => dispatch => {
 };
 
 // Directly add user for rehydrating from localStorage
-export const addUser = user => ({
+export const addUser = (user: User) => ({
   type: ADD_USER,
   payload: user
 });
@@ -224,7 +242,13 @@ export const deleteUser = () => ({
   type: DELETE_USER
 });
 
-export const loginWithPassword = ({ password, email }) => dispatch => {
+export const loginWithPassword = ({
+  password,
+  email
+}: {
+  password: string;
+  email: string;
+}) => (dispatch: ThunkDispatch<ReduxState, undefined, any>) => {
   dispatch({ type: LOGIN_PENDING });
   auth
     .signInWithEmailAndPassword(email, password)
@@ -247,7 +271,9 @@ export const loginWithPassword = ({ password, email }) => dispatch => {
     });
 };
 
-export const loginWithGoogle = () => dispatch => {
+export const loginWithGoogle = () => (
+  dispatch: ThunkDispatch<ReduxState, undefined, any>
+) => {
   dispatch({ type: LOGIN_PENDING });
   auth
     .signInWithPopup(provider)
@@ -267,7 +293,13 @@ export const loginWithGoogle = () => dispatch => {
     });
 };
 
-export const register = ({ email, password }) => dispatch => {
+export const register = ({
+  email,
+  password
+}: {
+  email: string;
+  password: string;
+}) => (dispatch: ThunkDispatch<ReduxState, undefined, any>) => {
   dispatch({ type: REGISTER_PENDING });
   auth
     .createUserWithEmailAndPassword(email, password)
@@ -287,7 +319,9 @@ export const register = ({ email, password }) => dispatch => {
     });
 };
 
-export const resetPassword = email => dispatch => {
+export const resetPassword = (email: string) => (
+  dispatch: ThunkDispatch<ReduxState, undefined, any>
+) => {
   dispatch({ type: RESET_PASSWORD_PENDING });
   auth
     .sendPasswordResetEmail(email)
@@ -306,7 +340,9 @@ export const resetPassword = email => dispatch => {
     });
 };
 
-export const updatePassword = password => dispatch => {
+export const updatePassword = (password: string) => (
+  dispatch: ThunkDispatch<ReduxState, undefined, any>
+) => {
   dispatch({ type: UPDATE_PASSWORD_PENDING });
   auth.currentUser
     .updatePassword(password)
@@ -321,17 +357,19 @@ export const clearEmailState = () => ({
   type: CLEAR_EMAIL_STATE
 });
 
-export const clearError = errorType => ({
+export const clearError = (errorType: string) => ({
   type: CLEAR_ERROR,
   payload: errorType
 });
 
-export const clearNotification = errorType => ({
+export const clearNotification = (errorType: string) => ({
   type: CLEAR_NOTIFICATION,
   payload: errorType
 });
 
-export const uploadProfilePic = (file, uid) => dispatch => {
+export const uploadProfilePic = (file: File, uid: string) => (
+  dispatch: ThunkDispatch<ReduxState, undefined, any>
+) => {
   dispatch({ type: UPLOAD_PROFILE_PICTURE_PENDING });
   const validFileTypes = new Set(["image/png", "image/jpg", "image/jpeg"]);
 
@@ -339,14 +377,15 @@ export const uploadProfilePic = (file, uid) => dispatch => {
     const ext = file.name.split(".").pop();
     const storageRef = storage.ref();
     const imageRef = storageRef.child(`users/${uid}/profile.${ext}`);
-    let photoURL;
+    let photoURL: string;
     imageRef
       .put(file)
       .then(() => imageRef.getDownloadURL())
       .then(url => {
         photoURL = url;
         return auth.currentUser.updateProfile({
-          photoURL: url
+          photoURL: url,
+          displayName: auth.currentUser.displayName
         });
       })
       .then(() => {
