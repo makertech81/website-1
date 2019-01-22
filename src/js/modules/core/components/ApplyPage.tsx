@@ -251,13 +251,13 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                 <Field
                   name="firstName"
                   label="First Name:"
-                  component={Input}
+                  render={props => <Input {...props} />}
                   placeholder="Rose"
                 />
                 <Field
                   name="lastName"
                   label="Last Name:"
-                  component={Input}
+                  render={props => <Input {...props} />}
                   placeholder="Kolodny"
                 />
                 <Field
@@ -265,9 +265,13 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                   name="birthDate"
                   label="Date Of Birth:"
                   type="date"
-                  component={Input}
+                  render={props => <Input {...props} />}
                 />
-                <Field name="gender" label="Gender:" component={Select}>
+                <Field
+                  name="gender"
+                  label="Gender:"
+                  render={props => <Select {...props} />}
+                >
                   <option value=""> Select an option </option>
                   <option value="male"> Male </option>
                   <option value="female"> Female </option>
@@ -296,16 +300,16 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                 <Field
                   name="phoneNumber"
                   label="Phone Number:"
-                  component={Input}
+                  render={props => <Input {...props} />}
                   type="tel"
                   placeholder="1-800-867-5309"
                 />
                 <UploadResumeButton uid={user.uid} />
                 <Field
                   name="school"
-                  label="School:"
-                  component={SchoolInput}
-                  schools={schools}
+                  render={props => (
+                    <SchoolInput schools={schools} {...props} label="School:" />
+                  )}
                   classes={classes}
                 />
 
@@ -313,7 +317,7 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                   <Field
                     label="NYU School:"
                     name="nyuSchool"
-                    component={Select}
+                    render={props => <Select {...props} />}
                   >
                     <option value="">Select an option</option>
                     <option value="tandon">Tandon School of Engineering</option>
@@ -355,7 +359,7 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                 <Field
                   label="Current year of study:"
                   name="yearOfStudy"
-                  component={Select}
+                  render={props => <Select {...props} />}
                 >
                   <option value=""> Select an option </option>
                   <option value="high-school">High School </option>
@@ -372,12 +376,16 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                     eligible)
                   </option>
                 </Field>
-                <Field label="Major:" name="major" component={Input} />
+                <Field
+                  label="Major:"
+                  name="major"
+                  render={props => <Select {...props} />}
+                />
 
                 <Field
                   label="Anticipated graduation year:"
                   name="gradYear"
-                  component={Select}
+                  render={props => <Select {...props} />}
                 >
                   <option value=""> Select an option </option>
                   <option value="2019"> 2019 </option>
@@ -392,7 +400,7 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                 <Field
                   label="Is this your first time at HackNYU?"
                   name="isFirstTime"
-                  component={Select}
+                  render={props => <Select {...props} />}
                 >
                   <option value=""> Select an option </option>
                   <option value="yes"> Yes </option>
@@ -403,7 +411,7 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                     <Field
                       name="timesParticipated"
                       label="How many times have you participated at HackNYU so far?"
-                      component={Select}
+                      render={props => <Select {...props} />}
                     >
                       <option value=""> Select an option </option>
                       <option value="one"> 1 </option>
@@ -416,7 +424,7 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                 <Field
                   label="Which track are you currently most interested in hacking in? (You can change your track at the hackathon)"
                   name="track"
-                  component={Select}
+                  render={props => <Select {...props} />}
                 >
                   <option value="">Select an option</option>
                   <option value="education">Education</option>
@@ -432,7 +440,7 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                 <Field
                   label="Unisex t-shirt size:"
                   name="tshirtSize"
-                  component={Select}
+                  render={props => <Select {...props} />}
                 >
                   <option value=""> Select an option </option>
                   <option value="x-small"> XS </option>
@@ -457,13 +465,13 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                 <Field
                   label="(Optional) Any other dietary restrictions or allergies?"
                   name="otherDietaryRestrictions"
-                  component={Input}
+                  render={props => <Input {...props} />}
                 />
 
                 <Field
                   label="(Optional) Any allergies?"
                   name="allergies"
-                  component={Input}
+                  render={props => <Input {...props} />}
                 />
 
                 <fieldset className={classes.multipleCheckboxes}>
@@ -475,21 +483,21 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                     label="Emergency contact number"
                     name="emergencyContactNumber"
                     type="tel"
-                    component={Input}
+                    render={props => <Input {...props} />}
                     placeholder="1-800-867-5309"
                   />
 
                   <Field
                     label="Emergency contact full name"
                     name="emergencyContactName"
-                    component={Input}
+                    render={props => <Input {...props} />}
                     placeholder="Andrew Davis"
                   />
 
                   <Field
                     label="Relation to emergency contact"
                     name="emergencyContactRelation"
-                    component={Input}
+                    render={props => <Input {...props} />}
                     placeholder="mother, father, friend, etc..."
                   />
                 </fieldset>

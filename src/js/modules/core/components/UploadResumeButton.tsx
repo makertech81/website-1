@@ -41,7 +41,7 @@ const styles = (theme: Theme) => ({
 class UploadResumeButton extends React.Component<Props> {
   private fileUploader = React.createRef<HTMLInputElement>();
 
-  handleClick = (event: Event) => {
+  handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (this.fileUploader) {
       this.fileUploader.current.click();

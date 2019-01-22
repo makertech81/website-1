@@ -2,7 +2,7 @@ import * as React from "react";
 import injectSheet, { WithStyles } from "react-jss";
 import { Field, Form } from "react-final-form";
 import Button from "./Button";
-import { AnyAction, compose, Dispatch } from "redux";
+import { compose, Dispatch } from "redux";
 import { connect } from "react-redux";
 import { loginWithGoogle, loginWithPassword } from "../coreActions";
 import { emailRegex } from "../../constants";
@@ -88,7 +88,7 @@ const LoginPage: React.SFC<Props> = ({
   const handleSubmit = (values: FormValues) => {
     loginWithPassword(values);
   };
-  const handleGoogleLogin = (event: MouseEvent) => {
+  const handleGoogleLogin = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
     loginWithGoogle();
   };

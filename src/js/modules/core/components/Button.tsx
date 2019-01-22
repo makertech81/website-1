@@ -30,11 +30,10 @@ const styles = (theme: Theme) => ({
 });
 
 interface Props extends WithStyles<typeof styles> {
-  children: ReactNode;
+  children?: ReactNode;
   type?: string;
   width?: string;
-  onClick: () => any;
-  className: string;
+  className?: string;
   disabled?: boolean;
 }
 

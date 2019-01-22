@@ -2,32 +2,12 @@ import * as React from "react";
 import * as Autocomplete from "react-autocomplete";
 import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
-import { CSSProperties } from "react";
+import { ChangeEvent, CSSProperties } from "react";
+import { FieldRenderProps } from "react-final-form";
 
 interface Props extends WithStyles<typeof styles> {
   schools: string[];
-  input: Partial<{
-    onChange: (e: string) => any;
-  }>;
   label: string;
-  meta: Partial<{
-    // Idk why, but react-final-form doesn't export this as a type
-    active: boolean;
-    data: object;
-    dirty: boolean;
-    dirtySinceLastSubmit: boolean;
-    error: any;
-    initial: any;
-    invalid: boolean;
-    pristine: boolean;
-    submitError: any;
-    submitFailed: boolean;
-    submitSucceeded: boolean;
-    submitting: boolean;
-    touched: boolean;
-    valid: boolean;
-    visited: boolean;
-  }>;
 }
 
 const styles = (theme: Theme) => ({
@@ -115,7 +95,7 @@ const doesStringMatch = (item: string, value: string): boolean => {
 };
 
 // School input with autocomplete form of schools
-const SchoolInput: React.SFC<Props> = ({
+const SchoolInput: React.FunctionComponent<Props & FieldRenderProps> = ({
   meta,
   schools,
   input,
@@ -137,13 +117,14 @@ const SchoolInput: React.SFC<Props> = ({
           renderItem={(item, isHighlighted) => (
             <div
               style={{ background: isHighlighted ? "lightgray" : "white" }}
-              className={classes.autocompleteItem}
             >
               {item}
             </div>
           )}
-          onChange={(val: string) => input.onChange(val)}
-          onSelect={val => input.onChange(val)}
+          onChange={(e: ChangeEvent<HTMLInputElement>, val: string) =>
+            input.onChange(val)
+          }
+          onSelect={(val: string) => input.onChange(val)}
           menuStyle={menuStyle}
           wrapperStyle={wrapperStyle}
         />

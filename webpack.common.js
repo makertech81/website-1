@@ -9,9 +9,6 @@ module.exports = {
         test: /\.(jsx?$)|(tsx?$)/,
         exclude: /(node_modules|bower_components)/,
         loader: "ts-loader",
-        options: {
-          ignoreDiagnostics: [ 2322]
-        }
       }
     ]
   },
