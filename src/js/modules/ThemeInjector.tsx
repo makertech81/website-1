@@ -47,6 +47,10 @@ export interface Theme {
   largeBreakpoint: string;
   mediumBreakpoint: string;
   smallBreakpoint: string;
+  bodyLineHeight: string;
+  bodyFontSize: string;
+  titleFontSize: string;
+  formElementMaxWidth: string;
 }
 
 const theme: Theme = {

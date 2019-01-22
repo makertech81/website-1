@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Field } from "react-final-form";
-import { JssRules, Theme } from "../../types";
-import injectSheet, { Styles } from "react-jss";
+import { Theme } from "../../ThemeInjector";
+import injectSheet from "react-jss";
 
 interface Props {
   name: string,
-  classes: RadioStyles<string>,
+  classes: any,
   value: string
 }
 

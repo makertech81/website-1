@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ConfirmationFormData, ReduxState, Theme } from "../../types";
+import { ConfirmationFormData, ReduxState, IncompleteField } from "../../types";
 import injectSheet from "react-jss";
 import { submitConfirmation } from "../coreActions";
 import { Form } from "react-final-form";
@@ -14,6 +14,7 @@ import Radio from "./Radio";
 import { getIncompleteFields } from "../../utils";
 import SubmittedPage from "./SubmittedPage";
 import Attendance from "./Attendance";
+import { Theme } from "../../ThemeInjector";
 
 interface Props {
   classes: any;
@@ -23,7 +24,7 @@ interface Props {
   confirmTimestamp: string;
   submitConfirmation: (
     values: ConfirmationFormData,
-    incompleteFields: string[]
+    incompleteFields: IncompleteField[]
   ) => any;
 }
 

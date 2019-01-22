@@ -1,11 +1,9 @@
 import * as React from "react";
-import { ApplyFormData } from "../../types";
+import { ApplyFormData, IncompleteField } from "../../types";
 import injectSheet, { WithStyles } from "react-jss";
 import { push } from "connected-react-router";
 import { submitApp } from "../coreActions";
 import { Form, Field, FormSpy } from "react-final-form";
-import { bindActionCreators, compose } from "redux";
-import { connect } from "react-redux";
 import { User } from "firebase";
 import { schools } from "../schools";
 import SchoolInput from "./SchoolInput";
@@ -15,10 +13,18 @@ import Checkbox from "./Checkbox";
 import Input from "./Input";
 import Select from "./Select";
 import UploadResumeButton from "./UploadResumeButton";
-import { getIncompleteFields } from "../../utils";
 import { Theme } from "../../ThemeInjector";
 import { ReduxState } from "../../../reducers";
 
+
+interface Props {
+  classes: any;
+  user: User;
+  push: (route: string) => any;
+  formData: ApplyFormData;
+  submitTimestamp: string;
+  submitApp: (values: ApplyFormData, incompleteFields: IncompleteField[]) => any;
+}
 
 interface FormData {
   firstName: string;
@@ -61,6 +67,9 @@ interface FormData {
   emergencyContactName: string;
   emergencyContactRelation: string;
 }
+
+
+
 
 const requiredFields = {
   firstName: "First Name",
@@ -185,10 +194,6 @@ interface Props extends WithStyles<typeof styles> {
   ) => any;
 }
 
-interface IncompleteField {
-  field: string;
-  name: string;
-}
 
 const ApplyPage: React.FunctionComponent<Props> = ({
   classes,

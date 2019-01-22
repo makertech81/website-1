@@ -1,11 +1,12 @@
 import * as React from "react";
 import injectSheet from "react-jss";
 import Underline from "./Underline";
-import { Theme, ConfirmationFormData, ReduxState } from "../../types";
+import { ConfirmationFormData, ReduxState } from "../../types";
 import { User } from "firebase";
 import { compose } from "redux";
 import { locationToReadable } from "../../utils";
 import { connect } from "react-redux";
+import { Theme } from "../../ThemeInjector";
 
 interface Props {
   classes: any;
