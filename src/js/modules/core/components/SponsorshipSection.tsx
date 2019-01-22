@@ -1,11 +1,13 @@
 import * as React from "react";
 import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
-
 import Sponsor from "./Sponsor";
+import { any } from "prop-types";
 
 interface Props {
   classes: any;
+  sponsorName: any;
+  sponsorsInfo: object;
 }
 
 const styles = (theme: Theme) => ({
@@ -36,7 +38,7 @@ const styles = (theme: Theme) => ({
   // forces logo to be smaller
   squareLogo: {
     boxSizing: "border-box",
-    padding: "20px"
+    padding: "10px"
   },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
     sponsorRow: {
@@ -162,16 +164,48 @@ const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
       </header>
 
       <div className={classes.sponsorRow}>
-        <Sponsor sponsorName="Google" sponsorsInfo={sponsorsInfo} />
-        <Sponsor sponsorName="BNY Mellon" sponsorsInfo={sponsorsInfo} />
-        <Sponsor sponsorName="Gandi" sponsorsInfo={sponsorsInfo} />
-        <Sponsor sponsorName="VentureOut NYC" sponsorsInfo={sponsorsInfo} />
+        <Sponsor
+          sponsorName="Google"
+          sponsorsInfo={sponsorsInfo}
+          className={classes.squareLogo}
+        />
+        <Sponsor
+          sponsorName="BNY Mellon"
+          sponsorsInfo={sponsorsInfo}
+          className={classes.squareLogo}
+        />
+        <Sponsor
+          sponsorName="Gandi"
+          sponsorsInfo={sponsorsInfo}
+          className={classes.squareLogo}
+        />
+        <Sponsor
+          sponsorName="VentureOut NYC"
+          sponsorsInfo={sponsorsInfo}
+          className={classes.squareLogo}
+        />
       </div>
       <div className={classes.sponsorRow}>
-        <Sponsor sponsorName="Contrary Capital" sponsorsInfo={sponsorsInfo} />
-        <Sponsor sponsorName="Facebook" sponsorsInfo={sponsorsInfo} />
-        <Sponsor sponsorName="NYU" sponsorsInfo={sponsorsInfo} />
-        <Sponsor sponsorName="NYU Tandon" sponsorsInfo={sponsorsInfo} />
+        <Sponsor
+          sponsorName="Contrary Capital"
+          sponsorsInfo={sponsorsInfo}
+          className={classes.squareLogo}
+        />
+        <Sponsor
+          sponsorName="Facebook"
+          sponsorsInfo={sponsorsInfo}
+          className={classes.squareLogo}
+        />
+        <Sponsor
+          sponsorName="NYU"
+          sponsorsInfo={sponsorsInfo}
+          className={classes.squareLogo}
+        />
+        <Sponsor
+          sponsorName="NYU Tandon"
+          sponsorsInfo={sponsorsInfo}
+          className={classes.squareLogo}
+        />
       </div>
       <div className={classes.sponsorRow}>
         <Sponsor
@@ -201,7 +235,11 @@ const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
           sponsorsInfo={sponsorsInfo}
           className={classes.squareLogo}
         />
-        <Sponsor sponsorName="Insomnia Cookies" sponsorsInfo={sponsorsInfo} />
+        <Sponsor
+          sponsorName="Insomnia Cookies"
+          sponsorsInfo={sponsorsInfo}
+          className={classes.squareLogo}
+        />
         <Sponsor
           sponsorName="Avitae"
           sponsorsInfo={sponsorsInfo}
@@ -224,7 +262,6 @@ const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
           sponsorsInfo={sponsorsInfo}
           className={classes.squareLogo}
         />
-        <Sponsor sponsorName="Soylent" sponsorsInfo={sponsorsInfo} />
         <Sponsor
           sponsorName="KIND Snacks"
           sponsorsInfo={sponsorsInfo}

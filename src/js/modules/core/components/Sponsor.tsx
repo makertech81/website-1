@@ -1,10 +1,13 @@
 import * as React from "react";
-import injectSheet, { Styles } from "react-jss/lib/injectSheet";
-import { JssRules } from "../../types";
+import injectSheet from "react-jss";
+import { Theme } from "../../ThemeInjector";
 
 
 interface Props {
-  classes: object;
+  classes: any;
+  className: any;
+  sponsorName: any;
+  sponsorsInfo: any;
 }
 
 const styles = (theme: Theme) => ({

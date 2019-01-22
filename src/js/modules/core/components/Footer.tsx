@@ -1,6 +1,5 @@
 import * as React from "react";
 import injectSheet, { WithStyles } from "react-jss";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Theme } from "../../ThemeInjector";
@@ -21,7 +20,6 @@ const styles = (theme: Theme) => ({
     // Added this cause in mobile user tools blocks the copy
     marginBottom: "100px",
     backgroundColor: theme.backgroundColor,
-    width: "100vw"
   },
   footerLogo: {
     maxWidth: "100px",
