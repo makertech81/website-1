@@ -1,14 +1,7 @@
 import * as React from "react";
 import { Field } from "react-final-form";
 import { JssRules, Theme } from "../../types";
-import injectSheet, { Styles } from "react-jss/lib/injectSheet";
-
-
-interface RadioStyles<T> extends Styles {
-  Radio: T;
-  input: T;
-  [s: string]: T;
-}
+import injectSheet, { Styles } from "react-jss";
 
 interface Props {
   name: string,
@@ -16,7 +9,7 @@ interface Props {
   value: string
 }
 
-const styles = (theme: Theme): RadioStyles<JssRules> => ({
+const styles = (theme: Theme) => ({
   Radio: {
     display: "flex",
     alignItems: "center",

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { ReduxState, Theme, ConfirmationFormData } from "../../types";
-import injectSheet from "react-jss/lib/injectSheet";
+import { ConfirmationFormData, ReduxState, Theme } from "../../types";
+import injectSheet from "react-jss";
 import { submitConfirmation } from "../coreActions";
 import { Form } from "react-final-form";
 import { bindActionCreators, compose } from "redux";

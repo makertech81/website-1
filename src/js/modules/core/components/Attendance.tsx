@@ -1,5 +1,5 @@
 import * as React from "react";
-import injectSheet from "react-jss/lib/injectSheet";
+import injectSheet from "react-jss";
 import Underline from "./Underline";
 import { Theme, ConfirmationFormData, ReduxState } from "../../types";
 import { User } from "firebase";
