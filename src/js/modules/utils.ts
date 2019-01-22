@@ -13,7 +13,7 @@ export const getIncompleteFields = (
 ): IncompleteField[] => {
   // Checks if values are all filled and puts an empty string if they aren't
   // (so firebase doesn't complain)
-  let incompleteFields = [];
+  let incompleteFields: IncompleteField[] = [];
   Object.entries(requiredFields).forEach(([field, name]) => {
     if (
       !(field in values) ||
