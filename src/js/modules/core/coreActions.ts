@@ -7,6 +7,7 @@ import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { Action } from "redux";
 import { User } from "firebase";
 import { ApplyFormData, IncompleteField } from "../types";
+import { action, createAction } from "typesafe-actions";
 
 type ThunkResult<R> = ThunkAction<R, ReduxState, undefined, Action>;
 
@@ -66,10 +67,7 @@ export const UPLOAD_PROFILE_PICTURE_REJECTED =
 export const UPLOAD_PROFILE_PICTURE_FULFILLED =
   "core/UPLOAD_PROFILE_PICTURE_FULFILLED";
 
-export const refreshWindowDimensions = () => ({
-  type: REFRESH_WINDOW_DIMENSIONS,
-  payload: {}
-});
+export const refreshWindowDimensions = () => action(REFRESH_WINDOW_DIMENSIONS);
 
 const getUserData = (user: User): ThunkResult<void> => (
   dispatch: ThunkDispatch<ReduxState, undefined, any>
@@ -78,14 +76,12 @@ const getUserData = (user: User): ThunkResult<void> => (
     .doc(user.uid)
     .get()
     .then(doc => {
-      dispatch({ type: GET_FORM_DATA_FULFILLED, payload: doc.data() });
-      dispatch({ type: LOADING_FULFILLED });
+      dispatch(action(GET_FORM_DATA_FULFILLED, doc.data()));
+      dispatch(action(LOADING_FULFILLED));
     })
     .catch(err => {
-      dispatch({ type: GET_FORM_DATA_REJECTED, payload: err });
-      dispatch({
-        type: LOADING_REJECTED
-      });
+      dispatch(action(GET_FORM_DATA_REJECTED, err));
+      dispatch(action(LOADING_REJECTED));
     });
 };
 
@@ -94,10 +90,7 @@ export const loadInitialState = (location: Location): ThunkResult<void> => (
 ) => {
   auth.onAuthStateChanged(user => {
     if (user) {
-      dispatch({
-        type: ADD_USER,
-        payload: user
-      });
+      dispatch(action(ADD_USER, user));
       dispatch(getUserData(user));
     } else {
       // If not in the routes that are unrestricted,
@@ -107,12 +100,8 @@ export const loadInitialState = (location: Location): ThunkResult<void> => (
       if (!UNRESTRICTED_ROUTES.has(location.pathname)) {
         dispatch(push("/login"));
       }
-      dispatch({
-        type: DELETE_USER
-      });
-      dispatch({
-        type: LOADING_FULFILLED
-      });
+      dispatch(action(DELETE_USER));
+      dispatch(action(LOADING_FULFILLED));
     }
   });
 };
