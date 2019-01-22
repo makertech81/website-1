@@ -7,9 +7,6 @@ import { FieldRenderProps } from "react-final-form"
 
 interface Props extends WithStyles<typeof styles> {
   schools: string[];
-  input: Partial<{
-    onChange: (e: string) => any;
-  }>;
   label: string;
 }
 
