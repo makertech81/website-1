@@ -1,8 +1,8 @@
 import * as React from "react";
-import { JssRules, ReduxState, Theme } from "../../types";
-import injectSheet, { Styles } from "react-jss/lib/injectSheet";
-import { submitRSVP } from "../coreActions";
-import { Form, Field, FormSpy } from "react-final-form";
+import { ReduxState, Theme, ConfirmationFormData } from "../../types";
+import injectSheet from "react-jss/lib/injectSheet";
+import { submitConfirmation } from "../coreActions";
+import { Form } from "react-final-form";
 import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
 import { User } from "firebase";
@@ -13,37 +13,18 @@ import Checkbox from "./Checkbox";
 import Radio from "./Radio";
 import { getIncompleteFields } from "../../utils";
 import SubmittedPage from "./SubmittedPage";
+import Attendance from "./Attendance";
 
 interface Props {
-  classes: ConfirmationPageStyles<string>;
+  classes: any;
   isSubmitting: boolean;
   user: User;
-  userData: FormData;
+  userData: ConfirmationFormData;
   confirmTimestamp: string;
-  submitRSVP: (values: FormData, incompleteFields: string[]) => any;
-}
-
-interface ConfirmationPageStyles<T> extends Styles {
-  Page: T;
-  welcomeMessage: T;
-  notice: T;
-  statement: T;
-  header: T;
-  form: T;
-  inputs: T;
-  resumeUpload: T;
-  submit: T;
-  checkbox: T;
-  radio: T;
-  formItem: T;
-  link: T;
-}
-
-interface FormData {
-  location: string;
-  nyuCodeOfConduct: boolean;
-  nyuPrivacyPolicy: boolean;
-  nyuMediaRights: boolean;
+  submitConfirmation: (
+    values: ConfirmationFormData,
+    incompleteFields: string[]
+  ) => any;
 }
 
 const requiredFields = {
@@ -53,8 +34,8 @@ const requiredFields = {
   location: "Participation Location"
 };
 
-const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
-  Page: {
+const styles = (theme: Theme) => ({
+  page: {
     display: "flex",
     width: "90%",
     maxWidth: theme.containerMaxWidth,
@@ -66,7 +47,6 @@ const styles = (theme: Theme): ConfirmationPageStyles<JssRules> => ({
     padding: "5%",
     paddingTop: "2rem",
     paddingBottom: "2rem",
-    maxWidth: "600px",
     lineHeight: theme.bodyLineHeight,
     fontSize: theme.bodyFontSize,
     marginBottom: "2rem"
@@ -126,14 +106,14 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
   isSubmitting,
   user,
   userData,
-  submitRSVP,
+  submitConfirmation,
   confirmTimestamp
 }) => {
-  const handleSubmit = values => {
-    submitRSVP(values);
+  const handleSubmit = (values: ConfirmationFormData) => {
+    submitConfirmation(values, []);
   };
 
-  const validateForm = (values: FormData): Array<object> => {
+  const validateForm = (values: ConfirmationFormData): Array<object> => {
     if (values["location"] !== "cannot-attend") {
       const incomplete = getIncompleteFields(values, requiredFields);
       return incomplete;
@@ -142,38 +122,23 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
     }
   };
 
-  const locationToReadable = (location: string): string => {
-    return location.split('-').map((word) => word.toUpperCase()).join(' ');
-  };
 
   return (
     <div>
-      {confirmTimestamp &&
-        <div className={classes.Page}>
-          <h1> Thanks for responding! </h1>
-          <Underline />
-          { userData.location !== 'cannot-attend' &&
-            <div>
-              <p> You are confirmed for: {locationToReadable(userData.location)} 😎 </p>
-              <p> See you at the event! If you can no longer attend the event, please update your response below. </p>
-            </div>
-          }
-          { userData.location === 'cannot-attend' && 
-            <div>
-              <p> Your status: Can't Attend 😔 </p>
-              <p> We're sorry to see you can't attend. Hope to see at our event next year! </p>
-            </div>
-          }
-        </div>
-      }
-
-      <div className={classes.Page}>
+      {confirmTimestamp && (
+      <Attendance/>
+      )}
+      <div className={classes.page}>
         <h1 className={classes.header}>Welcome! RSVP to HackNYU.</h1>
-        <Underline/>
+        <Underline />
         <p className={classes.welcomeMessage}>
           Before you are confirmed for the event, there are a few things for you
-          to read and submit. <strong>If this form is not submitted, you will not be
-          eligible to attend HackNYU.</strong> Please read the following carefully:
+          to read and submit.{" "}
+          <strong>
+            If this form is not submitted, you will not be eligible to attend
+            HackNYU.
+          </strong>{" "}
+          Please read the following carefully:
         </p>
         <ul className={classes.notice}>
           <li className={classes.statement}>
@@ -183,26 +148,34 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
           </li>
 
           <li className={classes.statement}>
-            Any student who is or has been enrolled within the last 12 months at a
-            high school or university can participate at the event at our Brooklyn, NY
-            location.
+            Any student who is or has been enrolled within the last 12 months at
+            a high school or university can participate at the event at our
+            Brooklyn, NY location.
           </li>
           <li className={classes.statement}>
             If you are under 18 years of age at the time of the event, you must
             have your parent(s) or legal guardian(s) print and sign the Minors
             Release Form, which you can access{" "}
-            <a className={classes.link} href="/pdf/minors-waiver.pdf" target="_blank">
+            <a
+              className={classes.link}
+              href="/pdf/minors-waiver.pdf"
+              target="_blank"
+            >
               here.
-            </a>
-            {" "} Please be sure to bring a physical copy of this waiver with you when
+            </a>{" "}
+            Please be sure to bring a physical copy of this waiver with you when
             you arrive at HackNYU, otherwise we will not be able to let you
             participate!
           </li>
           <li className={classes.statement}>
-            Finally, HackNYU aims to be a safe and welcoming space for participants. All participants 
-            (hackers, volunteers, mentors, organizers, etc) must abide by the {" "}
-            <a className={classes.link} href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">
-            MLH Code of Conduct.
+            Finally, HackNYU aims to be a safe and welcoming space for
+            participants. All participants (hackers, volunteers, mentors,
+            organizers, etc) must abide by the{" "}
+            <a
+              className={classes.link}
+              href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+            >
+              MLH Code of Conduct.
             </a>
           </li>
         </ul>
@@ -243,30 +216,44 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
                   </div>
 
                   <Checkbox name="nyuMediaRights">
-                      By checking this box, I hereby acknowledge that I have
-                      read and agree to comply with HackNYU's Media Release
-                      Policy which can be found which can be found {" "}
-                      <a className={classes.link} href="/pdf/nyu-photorights.pdf" target="_blank">
-                        here.
-                      </a>
-                      {" "} (NYU and HackNYU can take your photo/video for use in
-                      promotional media).
+                    By checking this box, I hereby acknowledge that I have read
+                    and agree to comply with HackNYU's Media Release Policy
+                    which can be found which can be found{" "}
+                    <a
+                      className={classes.link}
+                      href="/pdf/nyu-photorights.pdf"
+                      target="_blank"
+                    >
+                      here.
+                    </a>{" "}
+                    (NYU and HackNYU can take your photo/video for use in
+                    promotional media).
                   </Checkbox>
 
                   <Checkbox name="nyuCodeOfConduct">
-                    By checking this box, I hereby acknowledge that I have
-                    read and agree to comply with New York University’s Code
-                    of Conduct, which can be found {" "}
-                    <a className={classes.link} href="https://www.nyu.edu/students/student-information-and-resources/student-community-standards/university-student-conduct-policies.html">
-                     here. 
+                    By checking this box, I hereby acknowledge that I have read
+                    and agree to comply with New York University’s Code of
+                    Conduct, which can be found{" "}
+                    <a
+                      className={classes.link}
+                      href="https://www.nyu.edu/students/student-information-and-resources/student-community-standards/university-student-conduct-policies.html"
+                    >
+                      here.
                     </a>
                   </Checkbox>
 
                   <Checkbox name="nyuPrivacyPolicy">
-                    By checking this box, I hereby acknowledge that I have
-                    read and agree to comply with New York University’s Data
-                    Privacy Policy, which can be found {" "}
-                    <a className={classes.link} href="/pdf/nyu-dataprivacy.pdf" target="_blank"> here. </a>
+                    By checking this box, I hereby acknowledge that I have read
+                    and agree to comply with New York University’s Data Privacy
+                    Policy, which can be found{" "}
+                    <a
+                      className={classes.link}
+                      href="/pdf/nyu-dataprivacy.pdf"
+                      target="_blank"
+                    >
+                      {" "}
+                      here.{" "}
+                    </a>
                   </Checkbox>
 
                   <Button
@@ -277,7 +264,9 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
                     SUBMIT
                   </Button>
 
-                  {invalid && <p>Please complete the fields above to submit.</p>}
+                  {invalid && (
+                    <p>Please complete the fields above to submit.</p>
+                  )}
                 </div>
               </form>
             </div>
@@ -285,7 +274,7 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
         />
       </div>
     </div>
-    );
+  );
 };
 
 const mapStateToProps = (state: ReduxState) => ({
@@ -297,9 +286,12 @@ const mapStateToProps = (state: ReduxState) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) =>
-  bindActionCreators({ submitRSVP }, dispatch);
+  bindActionCreators({ submitConfirmation }, dispatch);
 
 export default compose(
   injectSheet(styles),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(ConfirmationPage);

@@ -1,3 +1,6 @@
+import { User } from "firebase";
+import { LoadingStates } from "./core/coreReducer";
+
 export interface ApplyFormData {
   firstName: string;
   lastName: string;
@@ -37,6 +40,14 @@ export interface ApplyFormData {
   emergencyContactName: string;
   emergencyContactRelation: string;
 }
+
+export interface ConfirmationFormData {
+  location: string;
+  nyuCodeOfConduct: boolean;
+  nyuPrivacyPolicy: boolean;
+  nyuMediaRights: boolean;
+}
+
 export interface IncompleteField {
   field: string;
   name: string;
@@ -54,7 +65,50 @@ export interface Form {
   isSubmitting: boolean;
 }
 
-export interface IncompleteField {
-  field: string;
-  name: string;
+export interface CoreState {
+  viewportWidth: number;
+  viewportHeight: number;
+  user: User;
+  errors: Errors;
+  loadingState: LoadingStates;
+}
+
+export interface Theme {
+  backgroundColor: string;
+  secondBackground: string;
+  secondBackgroundHighlight: string;
+  thirdBackground: string;
+  fontColor: string;
+  secondFont: string;
+  secondFontHover: string;
+  highlightColor: string;
+  highlightColorHover: string;
+  formBackground: string;
+  submitButton: string;
+  submitButtonHover: string;
+  submitButtonDeactivated: string;
+  errorBorder: string;
+  errorText: string;
+  errorBackground: string;
+  notificationBackground: string;
+  notificationBorder: string;
+  overlayColor: string;
+  fontFamily: string;
+  inputPadding: string;
+  red: string;
+  green: string;
+  blue: string;
+  orange: string;
+  containerMaxWidth: string;
+  containerMobileWidth: string;
+  containerSmallWidth: string;
+  containerMediumWidth: string;
+  containerLargeWidth: string;
+  smallBreakpoint: string;
+  mediumBreakpoint: string;
+  largeBreakpoint: string;
+  bodyLineHeight: string;
+  bodyFontSize: string;
+  titleFontSize: string;
+  formElementMaxWidth: string;
 }

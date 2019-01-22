@@ -27,3 +27,10 @@ export const getIncompleteFields = (
   });
   return incompleteFields;
 };
+
+export const locationToReadable = (location: string): string => {
+  return location
+    .split("-")
+    .map(word => word.toUpperCase())
+    .join(" ");
+};

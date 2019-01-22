@@ -154,7 +154,7 @@ export const uploadResume = (uid: string, file: File): ThunkResult<void> => (
     .catch(err => dispatch({ type: UPLOAD_RESUME_REJECTED, payload: err }));
 };
 
-export const submitRSVP = formValues => dispatch => {
+export const submitConfirmation = formValues => dispatch => {
   if (!auth.currentUser) {
     dispatch({
       type: SUBMIT_APP_REJECTED,
