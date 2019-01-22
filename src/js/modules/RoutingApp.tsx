@@ -14,12 +14,13 @@ import ResetPasswordPage from "./core/components/ResetPasswordPage";
 import ProfilePage from "./core/components/ProfilePage";
 import appHistory from "../appHistory";
 import ConfirmationPage from './core/components/ConfirmationPage';
+import createBrowserHistory from "history/createBrowserHistory";
 
 class RoutingApp extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <ConnectedRouter history={appHistory}>
+        <ConnectedRouter history={createBrowserHistory()}>
           <ThemeInjector>
             <MainApp>
               <Route exact path="/" component={HomePage} />
