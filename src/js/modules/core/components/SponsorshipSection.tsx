@@ -1,12 +1,11 @@
 import * as React from "react";
-import { ReactNode } from "react";
-import injectSheet, { Styles } from "react-jss/lib/injectSheet";
-import { JssRules } from "../../types";
+import injectSheet, { WithStyles } from "react-jss";
+import { Theme } from "../../ThemeInjector";
 
 import Sponsor from "./Sponsor";
 
 interface Props {
-  classes: object;
+  classes: any;
 }
 
 const styles = (theme: Theme) => ({
@@ -46,7 +45,7 @@ const styles = (theme: Theme) => ({
   }
 });
 
-const SponsorshipSection: React.SFC<Props> = ({ classes }) => {
+const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
   const ASSET_DIR = "img/sponsorship-logos";
   const sponsorsInfo = {
     Google: {
