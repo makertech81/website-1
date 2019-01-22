@@ -221,17 +221,17 @@ const ApplyPage: React.FunctionComponent<Props> = ({
   };
 
   const handleSave = (
-    values: FormData,
+    values: ApplyFormData,
     incompleteFields: IncompleteField[]
   ) => {
     submitApp(values, incompleteFields);
   };
 
-  const handleSubmit = (values: FormData) => {
+  const handleSubmit = (values: ApplyFormData) => {
     submitApp(values, []);
   };
 
-  const validateForm = (values: FormData): object => {
+  const validateForm = (values: ApplyFormData): object => {
     const incomplete = getIncompleteFields(values);
     let errors: { [s: string]: string } = {};
     incomplete.map(({ field }: { field: string }) => {

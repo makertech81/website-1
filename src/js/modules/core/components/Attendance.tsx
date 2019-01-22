@@ -4,7 +4,6 @@ import Underline from "./Underline";
 import { ConfirmationFormData, ReduxState } from "../../types";
 import { User } from "firebase";
 import { compose } from "redux";
-import { locationToReadable } from "../../utils";
 import { connect } from "react-redux";
 import { Theme } from "../../ThemeInjector";
 
@@ -37,6 +36,14 @@ const Attendance: React.SFC<Props> = ({
   classes,
   userData,
 }) => {
+
+  const locationToReadable = (location: string): string => {
+    return location
+      .split("-")
+      .map(word => word.toUpperCase())
+      .join(" ");
+  };
+
   let isAttending, locationMessage, postMessage;
 
     isAttending = userData.location !== "cannot-attend";

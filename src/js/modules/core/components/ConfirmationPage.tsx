@@ -123,12 +123,9 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
     }
   };
 
-
   return (
     <div>
-      {confirmTimestamp && (
-      <Attendance/>
-      )}
+      {confirmTimestamp && <Attendance />}
       <div className={classes.page}>
         <h1 className={classes.header}>Welcome! RSVP to HackNYU.</h1>
         <Underline />
