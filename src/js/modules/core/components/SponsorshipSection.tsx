@@ -17,10 +17,6 @@ const styles = (theme: Theme) => ({
     maxWidth: "750px"
   },
   sponsorRow: {
-    display: "grid",
-    grid: "repeat(2, auto) / repeat(2, auto)",
-    placeContent: "stretch",
-    margin: "0 6%"
   },
   link: {
     textDecoration: "underline",
@@ -28,11 +24,6 @@ const styles = (theme: Theme) => ({
     "&:hover": {
       color: theme.backgroundColor
     }
-  },
-  // forces logo to be smaller
-  squareLogo: {
-    boxSizing: "border-box",
-    padding: "10px"
   },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
     sponsorRow: {
@@ -42,17 +33,15 @@ const styles = (theme: Theme) => ({
 });
 
 const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
-  const getSponsorInfo = (sponsorsInfo:{[key:string]: SponsorFields}): object => {
-    let name;
+  const getSponsorInfo = (sponsorsInfo: Array<SponsorFields>): Array<object> => {
     let array = [];
-    for (let item in sponsorsInfo) {
-      name = sponsorsInfo[item].name;
+    for (let item of sponsorsInfo) {
       array.push(
         <Sponsor
-          sponsorName={name}
-          className={classes.squareLogo}
-          sponsorLink={sponsorsInfo[item].url}
-          sponsorSource={ASSET_DIR + sponsorsInfo[item].src}
+          isSquareLogo={item.square}
+          sponsorName={item.name}
+          sponsorLink={item.url}
+          sponsorSource={ASSET_DIR + item.src}
         />
       );
     }

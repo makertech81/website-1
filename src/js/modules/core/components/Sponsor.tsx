@@ -5,17 +5,20 @@ import { Theme } from "../../ThemeInjector";
 
 interface Props extends WithStyles<typeof styles> {
   sponsorName: string;
-  className: string;
+  isSquareLogo: boolean;
   sponsorLink: string;
   sponsorSource: string;
 }
 
 const styles = (theme: Theme) => ({
   Sponsor: {
+    height: "20vh",
+    width: "20%",
     margin: "2.5%",
-    display: "block",
-    maxWidth: "20%",
-    flex: "1",
+    float: "left",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     transitionDuration: "200ms",
     "&:hover": {
       transform: "scale(1.1)"
@@ -25,22 +28,26 @@ const styles = (theme: Theme) => ({
     display: "block",
     width: "100%"
   },
+  squareLogo: {
+    width: "auto",
+    height: "100%",
+    maxHeight: "15vh"
+  },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
     Sponsor: {
-      flex: "1 0 30%",
-      maxWidth: "50%",
+      width: "40%",
       margin: "5%"
     }
   }
 });
 
-const Sponsor: React.SFC<Props> = ({ classes, className, sponsorName, sponsorLink, sponsorSource }) => {
+const Sponsor: React.SFC<Props> = ({ classes, isSquareLogo, sponsorName, sponsorLink, sponsorSource }) => {
   return (
     <a href={sponsorLink} className={classes.Sponsor}>
       <img
         alt={sponsorName}
         title={sponsorName}
-        className={`${classes.logoImage} ${className}`}
+        className={`${classes.logoImage} ${isSquareLogo ? classes.squareLogo : "" }`}
         src={sponsorSource}
       />
     </a>
