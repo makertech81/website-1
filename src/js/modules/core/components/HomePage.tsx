@@ -78,7 +78,7 @@ const HomePage: React.SFC<Props> = ({ classes }) => {
           <FAQ />
         </div>
         <div className={classes.sponsorshipSection}>
-        <SponsorshipSection/>
+        <SponsorshipSection />
         </div>
       </div>
     </div>

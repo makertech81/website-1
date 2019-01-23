@@ -1,13 +1,13 @@
 import * as React from "react";
-import injectSheet from "react-jss";
+import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
 
 
-interface Props {
-  classes: any;
-  className: any;
-  sponsorName: any;
-  sponsorsInfo: any;
+interface Props extends WithStyles<typeof styles> {
+  sponsorName: string;
+  className: string;
+  sponsorLink: string;
+  sponsorSource: string;
 }
 
 const styles = (theme: Theme) => ({
@@ -34,14 +34,14 @@ const styles = (theme: Theme) => ({
   }
 });
 
-const Sponsor: React.SFC<Props> = ({ classes, className, sponsorName, sponsorsInfo }) => {
+const Sponsor: React.SFC<Props> = ({ classes, className, sponsorName, sponsorLink, sponsorSource }) => {
   return (
-    <a href={sponsorsInfo[sponsorName].url} className={classes.Sponsor}>
+    <a href={sponsorLink} className={classes.Sponsor}>
       <img
         alt={sponsorName}
         title={sponsorName}
         className={`${classes.logoImage} ${className}`}
-        src={sponsorsInfo[sponsorName].src}
+        src={sponsorSource}
       />
     </a>
   )
