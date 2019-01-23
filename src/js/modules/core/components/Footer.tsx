@@ -8,7 +8,7 @@ const styles = (theme: Theme) => ({
   Footer: {
     padding: "2em",
     marginTop: "25px",
-    backgroundColor: "#2F0757",
+    backgroundColor: theme.backgroundColor,
     width: "100%"
   },
   logo: {
