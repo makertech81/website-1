@@ -5,7 +5,6 @@ import injectSheet, { WithStyles } from "react-jss";
 
 interface Props extends WithStyles<typeof styles> {
   name: string,
-  classes: any,
   value: string
 }
 

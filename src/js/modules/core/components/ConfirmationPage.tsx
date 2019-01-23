@@ -16,7 +16,6 @@ import AttendanceConfirmation from "./AttendanceConfirmation";
 import { Theme } from "../../ThemeInjector";
 
 interface Props extends WithStyles<typeof styles> {
-  classes: any;
   isSubmitting: boolean;
   user: User;
   userData: ConfirmationFormData;

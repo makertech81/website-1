@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import { Theme } from "../../ThemeInjector";
 
 interface Props extends WithStyles<typeof styles> {
-  classes: any;
   user: User;
   userData: ConfirmationFormData;
 }
