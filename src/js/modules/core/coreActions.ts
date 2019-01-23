@@ -6,7 +6,7 @@ import { ReduxState } from "../../reducers";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { Action } from "redux";
 import { User } from "firebase";
-import { ApplyFormData, IncompleteField } from "../types";
+import { ApplyFormData, ConfirmationFormData, IncompleteField } from "../types";
 
 type ThunkResult<R> = ThunkAction<R, ReduxState, undefined, Action>;
 
@@ -244,6 +244,47 @@ export const submitApp = (
         payload: err
       })
     );
+};
+
+export const submitConfirmation = (formValues: ConfirmationFormData) => (
+  dispatch: ThunkDispatch<ReduxState, undefined, any>
+) => {
+  if (!auth.currentUser) {
+    dispatch({
+      type: SUBMIT_APP_REJECTED,
+      payload: "Not logged in, please log in to RSVP"
+    });
+    dispatch(push("/login"));
+    return;
+  }
+
+  const uid = auth.currentUser.uid;
+  const currentTime = new Date();
+  const data = { ...formValues, confirmTimestamp: currentTime };
+
+  dispatch({
+    type: SUBMIT_RSVP_PENDING
+  });
+  return (
+    db
+      .collection("users")
+      .doc(uid)
+      // don't wipe existing apply data
+      .update(data)
+      .then(() => {
+        dispatch({
+          type: SUBMIT_RSVP_FULFILLED,
+          payload: { message: "RSVP submitted.", data }
+        });
+        window.scroll({ top: 0, left: 0, behavior: "smooth" });
+      })
+      .catch(err =>
+        dispatch({
+          type: SUBMIT_RSVP_REJECTED,
+          payload: err
+        })
+      )
+  );
 };
 
 export const logout = () => (
