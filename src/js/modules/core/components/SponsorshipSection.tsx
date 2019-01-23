@@ -16,14 +16,6 @@ const styles = (theme: Theme) => ({
     margin: "0 8%",
     maxWidth: "750px"
   },
-  sponsorRow: {
-    // display: "grid",
-    // grid: "repeat(4, auto) / repeat(4, auto)",
-    // placeContent: "center",
-    // columnGap: "2rem",
-    // justifyContent: "space-evenly",
-    // margin: "0 6%"
-  },
   link: {
     textDecoration: "underline",
     color: "rgb(247, 193, 93)",
@@ -61,7 +53,7 @@ const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
           </a>
         </p>
       </header>
-      <div className={classes.sponsorRow}>
+      <div>
         {
           SPONSORS_INFO.map(sponsor => (
           <Sponsor
