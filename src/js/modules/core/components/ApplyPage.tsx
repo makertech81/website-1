@@ -189,6 +189,7 @@ const ApplyPage: React.FunctionComponent<Props> = ({
   isSubmitting,
   user,
   formData,
+  submitApp,
   submitTimestamp
 }) => {
   // Checks if values are all filled and puts an empty string if they aren't
@@ -371,7 +372,7 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                 <Field
                   label="Major:"
                   name="major"
-                  render={props => <Select {...props} />}
+                  render={props => <Input {...props} />}
                 />
 
                 <Field
