@@ -2,7 +2,7 @@ import * as React from "react";
 import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
 import Sponsor from "./Sponsor";
-import { ASSET_DIR, SPONSORS_INFO } from "../../constants";
+import { ASSET_DIR, SPONSORS_INFO, NYU_SPONSOR } from "../../constants";
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -15,6 +15,14 @@ const styles = (theme: Theme) => ({
   header: {
     margin: "0 8%",
     maxWidth: "750px"
+  },
+  nyuLogo: {
+    backgroundColor: theme.secondBackground,
+    width: "100vw",
+    display: "flex",
+    flexDirection: "row",
+    placeContent: "center",
+    transform: "translateX(-5.75vw)"
   },
   link: {
     textDecoration: "underline",
@@ -65,7 +73,23 @@ const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
           />))
         }
       </div>
+      <div className={classes.nyuLogo}>
+      {
+          NYU_SPONSOR.map(sponsor => (
+          <Sponsor
+            isSquareLogo={sponsor.square}
+            key={sponsor.name}
+            name={sponsor.name}
+            link={sponsor.url}
+            source={ASSET_DIR + sponsor.src}
+          />))
+        }
+      </div> 
+      
+      
     </div>
+    
+    
   );
 };
 

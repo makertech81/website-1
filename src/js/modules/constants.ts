@@ -23,17 +23,26 @@ interface SponsorFields {
   square: boolean;
 }
 
+export const NYU_SPONSOR: Array<SponsorFields> = [
+  {
+    name: "NYU Tandon School of Engineering",
+    src:  "/new-york-university/tandon.png",
+    url: "https://www.engineering.nyu.edu/",
+    square: false  
+  },
+  {
+    name: "New York University",
+    src:  "/new-york-university/nyu-long.png",
+    url: "https://nyu.edu/",
+    square: false  
+  },
+]
+
 export const SPONSORS_INFO: Array<SponsorFields> = [
   {
     name: "Google",
     src:  "/google/google.png",
     url: "https://google.com",
-    square: false  
-  },
-  {
-    name: "Gandi",
-    src:  "/gandi/gandi.svg",
-    url: "https://www.gandi.net/en",
     square: false  
   },
   {
@@ -91,18 +100,6 @@ export const SPONSORS_INFO: Array<SponsorFields> = [
     square: false  
   },
   {
-    name: "NYU Tandon School of Engineering",
-    src:  "/new-york-university/tandon.png",
-    url: "https://www.engineering.nyu.edu/",
-    square: false  
-  },
-  {
-    name: "New York University",
-    src:  "/new-york-university/nyu.png",
-    url: "https://www.nyu.edu",
-    square: false  
-  },
-  {
     name: "Avitae",
     src:  "/avitae/avitae.png",
     url: "https://www.goavitae.com",
@@ -149,5 +146,5 @@ export const SPONSORS_INFO: Array<SponsorFields> = [
     src: "/ibm/ibm.png",
     url: "https://www.ibm.com/",
     square: false
-  }
+  },
 ];
