@@ -34,7 +34,7 @@ const requiredFields = {
 };
 
 const styles = (theme: Theme) => ({
-  page: {
+  confirmPageContainer: {
     display: "flex",
     width: "90%",
     maxWidth: theme.containerMaxWidth,
@@ -122,7 +122,7 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
   return (
     <div>
       {userData.confirmTimestamp && <AttendanceConfirmation />}
-      <div className={classes.page}>
+      <div className={classes.confirmPageContainer}>
         <h1 className={classes.header}>Welcome! RSVP to HackNYU.</h1>
         <Underline />
         <p className={classes.welcomeMessage}>
