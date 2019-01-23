@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Field } from "react-final-form";
 import { Theme } from "../../ThemeInjector";
-import injectSheet from "react-jss";
+import injectSheet, { WithStyles } from "react-jss";
 
-interface Props {
+interface Props extends WithStyles<typeof styles> {
   name: string,
   classes: any,
   value: string
@@ -27,7 +27,7 @@ const styles = (theme: Theme) => ({
   },
 })
 
-const Radio: React.SFC<Props> = props => {
+const Radio: React.FunctionComponent<Props> = props => {
   const { name, classes, children, value } = props;
 
   return (

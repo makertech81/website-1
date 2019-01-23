@@ -12,6 +12,7 @@ const styles = (theme: Theme) => ({
   Checkbox: {
     display: "flex",
     padding: "20px",
+    alignItems: "center",
     maxWidth: "500px"
   },
   input: {

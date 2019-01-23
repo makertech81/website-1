@@ -1,5 +1,5 @@
 import * as React from "react";
-import injectSheet from "react-jss";
+import injectSheet, { WithStyles } from "react-jss";
 import Underline from "./Underline";
 import { ConfirmationFormData, ReduxState } from "../../types";
 import { User } from "firebase";
@@ -7,7 +7,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { Theme } from "../../ThemeInjector";
 
-interface Props {
+interface Props extends WithStyles<typeof styles> {
   classes: any;
   user: User;
   userData: ConfirmationFormData;
@@ -32,7 +32,7 @@ const styles = (theme: Theme) => ({
   }
 });
 
-const Attendance: React.SFC<Props> = ({
+const AttendanceConfirmation: React.FunctionComponent<Props> = ({
   classes,
   userData,
 }) => {
@@ -78,4 +78,4 @@ const mapStateToProps = (state: ReduxState) => ({
 export default compose(
   injectSheet(styles),
   connect(mapStateToProps)
-) (Attendance);
+) (AttendanceConfirmation);

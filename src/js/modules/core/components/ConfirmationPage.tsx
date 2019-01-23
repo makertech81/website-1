@@ -1,6 +1,6 @@
 import * as React from "react";
-import { ConfirmationFormData, ReduxState, IncompleteField } from "../../types";
-import injectSheet from "react-jss";
+import { ConfirmationFormData } from "../../types";
+import injectSheet, { WithStyles } from "react-jss";
 import { submitConfirmation } from "../coreActions";
 import { Form } from "react-final-form";
 import { bindActionCreators, compose } from "redux";
@@ -12,11 +12,10 @@ import Underline from "./Underline";
 import Checkbox from "./Checkbox";
 import Radio from "./Radio";
 import { getIncompleteFields } from "../../utils";
-import SubmittedPage from "./SubmittedPage";
-import Attendance from "./Attendance";
+import AttendanceConfirmation from "./AttendanceConfirmation";
 import { Theme } from "../../ThemeInjector";
 
-interface Props {
+interface Props extends WithStyles<typeof styles> {
   classes: any;
   isSubmitting: boolean;
   user: User;
@@ -115,9 +114,8 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
   };
 
   const validateForm = (values: ConfirmationFormData): Array<object> => {
-    if (values["location"] !== "cannot-attend") {
-      const incomplete = getIncompleteFields(values, requiredFields);
-      return incomplete;
+    if (values.location !== "cannot-attend") {
+      return getIncompleteFields(values, requiredFields);
     } else {
       return [];
     }
@@ -125,7 +123,7 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
 
   return (
     <div>
-      {confirmTimestamp && <Attendance />}
+      {confirmTimestamp && <AttendanceConfirmation />}
       <div className={classes.page}>
         <h1 className={classes.header}>Welcome! RSVP to HackNYU.</h1>
         <Underline />
