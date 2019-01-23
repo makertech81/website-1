@@ -2,7 +2,7 @@ import * as React from "react";
 import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
 import Sponsor from "./Sponsor";
-import { ASSET_DIR, sponsorsInfo, SponsorFields } from "../../types";
+import { ASSET_DIR, SPONSORS_INFO } from "../../constants";
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -17,6 +17,12 @@ const styles = (theme: Theme) => ({
     maxWidth: "750px"
   },
   sponsorRow: {
+    // display: "grid",
+    // grid: "repeat(4, auto) / repeat(4, auto)",
+    // placeContent: "center",
+    // columnGap: "2rem",
+    // justifyContent: "space-evenly",
+    // margin: "0 6%"
   },
   link: {
     textDecoration: "underline",
@@ -33,20 +39,6 @@ const styles = (theme: Theme) => ({
 });
 
 const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
-  const getSponsorInfo = (sponsorsInfo: Array<SponsorFields>): Array<object> => {
-    let array = [];
-    for (let item of sponsorsInfo) {
-      array.push(
-        <Sponsor
-          isSquareLogo={item.square}
-          sponsorName={item.name}
-          sponsorLink={item.url}
-          sponsorSource={ASSET_DIR + item.src}
-        />
-      );
-    }
-    return array;
-  };
   return (
     <div className={classes.SponsorshipSection}>
       <header className={classes.header}>
@@ -69,7 +61,18 @@ const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
           </a>
         </p>
       </header>
-      <div className={classes.sponsorRow}>{getSponsorInfo(sponsorsInfo)}</div>
+      <div className={classes.sponsorRow}>
+        {
+          SPONSORS_INFO.map(sponsor => (
+          <Sponsor
+            isSquareLogo={sponsor.square}
+            key={sponsor.name}
+            name={sponsor.name}
+            link={sponsor.url}
+            source={ASSET_DIR + sponsor.src}
+          />))
+        }
+      </div>
     </div>
   );
 };
