@@ -1,6 +1,8 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as sgMail from "@sendgrid/mail";
+import * as express from "express";
+import render from "./AcceptanceEmail";
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -38,3 +40,29 @@ export const sendConfirmationEmail = functions.firestore
       .then(() => console.log("SENT!"))
       .catch(err => console.error(err));
   });
+
+export const sendAcceptanceEmail = functions.firestore
+  .document("admitted/{userId}")
+  .onCreate((snapshot, context) => {
+    return admin
+      .auth()
+      .getUser(context.params.userId)
+      .then(user => {
+        const apiKey = functions.config().sendgrid.key;
+        sgMail.setApiKey(apiKey);
+        const msg = {
+          to: "nick@nicholasyang.com",
+          from: "confirm@hacknyu.org",
+          subject: "[ACTION REQUIRED] You're in! Welcome to HackNYU 2019",
+          text: "You've been accepted to HackNYU 2019!",
+          html: render(user.displayName)
+        };
+        return sgMail.send(msg);
+      })
+      .then(() => console.log("SENT!"))
+      .catch(err => console.error(err));
+  });
+
+const app = express();
+app.get("/", (req, res) => res.send(render(undefined)));
+app.listen("3000", () => console.log(`Example app listening on port 3000!`));
