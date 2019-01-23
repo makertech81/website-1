@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ConfirmationFormData } from "../../types";
+import { ConfirmationFormData, ApplyFormData } from "../../types";
 import injectSheet, { WithStyles } from "react-jss";
 import { submitConfirmation } from "../coreActions";
 import { Form } from "react-final-form";
@@ -18,8 +18,8 @@ import { Theme } from "../../ThemeInjector";
 interface Props extends WithStyles<typeof styles> {
   isSubmitting: boolean;
   user: User;
-  userData: ConfirmationFormData;
-  confirmTimestamp: string;
+  // TODO: separate apply form and confirmation form data
+  userData: ApplyFormData;
   submitConfirmation: (
     values: ConfirmationFormData,
     incompleteFields: IncompleteField[]
@@ -105,8 +105,7 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
   isSubmitting,
   user,
   userData,
-  submitConfirmation,
-  confirmTimestamp
+  submitConfirmation
 }) => {
   const handleSubmit = (values: ConfirmationFormData) => {
     submitConfirmation(values, []);
@@ -122,7 +121,7 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
 
   return (
     <div>
-      {confirmTimestamp && <AttendanceConfirmation />}
+      {userData.confirmTimestamp && <AttendanceConfirmation />}
       <div className={classes.page}>
         <h1 className={classes.header}>Welcome! RSVP to HackNYU.</h1>
         <Underline />
@@ -184,7 +183,7 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
             <div className={classes.form}>
               <form onSubmit={handleSubmit}>
                 <div className={classes.inputs}>
-                  <label className={classes.label}>
+                  <label>
                     <div className={classes.formItem}>
                       Please select the location where you will be
                       participating:
@@ -276,7 +275,6 @@ const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user,
   // so currently, all the user data is loaded here
   userData: state.core.applyForm.formData,
-  confirmTimestamp: state.core.applyForm.formData.confirmTimestamp,
   isSubmitting: state.core.confirmForm.isSubmitting
 });
 

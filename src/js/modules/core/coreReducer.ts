@@ -57,6 +57,7 @@ export interface CoreState {
   notifications: Notifications;
   loadingState: LoadingStates;
   applyForm: ApplyForm;
+  confirmForm: ConfirmForm;
   updatePasswordForm: UpdatePasswordForm;
   resetPasswordForm: ResetPasswordForm;
   registerForm: RegisterForm;
@@ -72,6 +73,8 @@ interface ApplyForm extends Form {
   submitTimestamp?: string;
   formData: ApplyFormData | {};
 }
+
+interface ConfirmForm extends Form {}
 
 interface UpdatePasswordForm extends Form {}
 
