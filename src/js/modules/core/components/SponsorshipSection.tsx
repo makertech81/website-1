@@ -2,7 +2,7 @@ import * as React from "react";
 import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
 import Sponsor from "./Sponsor";
-import { ASSET_DIR, sponsorsInfo, SponsorFields } from "../../types";
+import { ASSET_DIR, sponsorsInfo } from "../../constants";
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -18,8 +18,10 @@ const styles = (theme: Theme) => ({
   },
   sponsorRow: {
     display: "grid",
-    grid: "repeat(2, auto) / repeat(2, auto)",
-    placeContent: "stretch",
+    grid: "repeat(4, auto) / repeat(4, auto)",
+    placeContent: "center",
+    columnGap: "2rem",
+    justifyContent: "space-evenly",
     margin: "0 6%"
   },
   link: {
@@ -29,11 +31,6 @@ const styles = (theme: Theme) => ({
       color: theme.backgroundColor
     }
   },
-  // forces logo to be smaller
-  squareLogo: {
-    boxSizing: "border-box",
-    padding: "10px"
-  },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
     sponsorRow: {
       flexWrap: "wrap"
@@ -42,22 +39,6 @@ const styles = (theme: Theme) => ({
 });
 
 const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
-  const getSponsorInfo = (sponsorsInfo:{[key:string]: SponsorFields}): object => {
-    let name;
-    let array = [];
-    for (let item in sponsorsInfo) {
-      name = sponsorsInfo[item].name;
-      array.push(
-        <Sponsor
-          sponsorName={name}
-          className={classes.squareLogo}
-          sponsorLink={sponsorsInfo[item].url}
-          sponsorSource={ASSET_DIR + sponsorsInfo[item].src}
-        />
-      );
-    }
-    return array;
-  };
   return (
     <div className={classes.SponsorshipSection}>
       <header className={classes.header}>
@@ -80,7 +61,16 @@ const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
           </a>
         </p>
       </header>
-      <div className={classes.sponsorRow}>{getSponsorInfo(sponsorsInfo)}</div>
+      <div className={classes.sponsorRow}>
+        {sponsorsInfo.map(sponsor => (
+          <Sponsor
+            key={sponsor.id}
+            name={sponsor.name}
+            link={sponsor.url}
+            source={ASSET_DIR + sponsor.src}
+          />
+        ))}
+      </div>
     </div>
   );
 };

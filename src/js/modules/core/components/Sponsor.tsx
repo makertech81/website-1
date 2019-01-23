@@ -4,10 +4,9 @@ import { Theme } from "../../ThemeInjector";
 
 
 interface Props extends WithStyles<typeof styles> {
-  sponsorName: string;
-  className: string;
-  sponsorLink: string;
-  sponsorSource: string;
+  name: string;
+  link: string;
+  source: string;
 }
 
 const styles = (theme: Theme) => ({
@@ -19,11 +18,12 @@ const styles = (theme: Theme) => ({
     transitionDuration: "200ms",
     "&:hover": {
       transform: "scale(1.1)"
-    }
+    },
   },
   logoImage: {
-    display: "block",
-    width: "100%"
+    display: "grid",
+    justifyContent: "space-evenly",
+    width: "100%",
   },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
     Sponsor: {
@@ -34,14 +34,14 @@ const styles = (theme: Theme) => ({
   }
 });
 
-const Sponsor: React.SFC<Props> = ({ classes, className, sponsorName, sponsorLink, sponsorSource }) => {
+const Sponsor: React.FunctionComponent<Props> = ({ classes, name, link, source }) => {
   return (
-    <a href={sponsorLink} className={classes.Sponsor}>
+    <a href={link} className={classes.Sponsor}>
       <img
-        alt={sponsorName}
-        title={sponsorName}
-        className={`${classes.logoImage} ${className}`}
-        src={sponsorSource}
+        alt={name}
+        title={name}
+        className={classes.logoImage}
+        src={source}
       />
     </a>
   )
