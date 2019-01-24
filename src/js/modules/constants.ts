@@ -23,14 +23,12 @@ interface SponsorFields {
   square: boolean;
 }
 
-export const NYU_SPONSOR: Array<SponsorFields> = [
-  {
-    name: "New York University",
-    src:  "/new-york-university/nyu-long.png",
-    url: "https://nyu.edu/",
-    square: false  
-  }
-]
+export const NYU_SPONSOR =  {
+  name: "New York University",
+  src:  "/new-york-university/nyu-long.png",
+  url: "https://nyu.edu/",
+  square: false  
+};
 
 export const SPONSORS_INFO: Array<SponsorFields> = [
   {

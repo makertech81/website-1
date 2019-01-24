@@ -10,7 +10,7 @@ interface Props extends WithStyles<typeof styles> {}
 const styles = (theme: Theme) => ({
   SponsorshipSection: {
     display: "flex",
-    flexDirection: "column" as "column",
+    flexDirection: "column",
     alignItems: "center",
     backgroundColor: theme.secondBackground,
     fontSize: "1.4rem",
@@ -18,23 +18,27 @@ const styles = (theme: Theme) => ({
     padding: "5%"
   },
   header: {
-    margin: "0 8%",
     maxWidth: "750px"
   },
   acknowledgementSection: {
     lineHeight: "1.2em",
-    display: "inline-block",
+    display: "inline-block"
   },
   departmentList: {
     listStyleType: "none",
+    paddingLeft: "0px"
   },
-  nyuLogo: {
+  nyuLogoSection: {
     width: "100vw",
     display: "flex",
-    flexDirection: "column" as "column",
+    flexDirection: "column",
     placeItems: "center",
     placeContent: "center",
-    transform: "scale(2.0)"
+    margin: "20px"
+  },
+  nyuLogo: {
+    height: "20vh",
+    width: "50vw"
   },
   link: {
     textDecoration: "underline",
@@ -85,16 +89,15 @@ const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
           />
         ))}
       </div>
-      <div className={classes.nyuLogo}>
-        {NYU_SPONSOR.map(sponsor => (
-          <Sponsor
-            isSquareLogo={sponsor.square}
-            key={sponsor.name}
-            name={sponsor.name}
-            link={sponsor.url}
-            source={ASSET_DIR + sponsor.src}
-          />
-        ))}
+      <div className={classes.nyuLogoSection}>
+        <Sponsor
+          className={classes.nyuLogo}
+          isSquareLogo={NYU_SPONSOR.square}
+          key={NYU_SPONSOR.name}
+          name={NYU_SPONSOR.name}
+          link={NYU_SPONSOR.url}
+          source={ASSET_DIR + NYU_SPONSOR.src}
+        />
       </div>
       <div className={classes.acknowledgementSection}>
         <h2 className={classes.header}>Special thanks to:</h2>

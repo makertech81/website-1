@@ -8,6 +8,7 @@ interface Props extends WithStyles<typeof styles> {
   name: string;
   link: string;
   source: string;
+  className?: string;
 }
 
 const styles = (theme: Theme) => ({
@@ -42,9 +43,9 @@ const styles = (theme: Theme) => ({
   }
 });
 
-const Sponsor: React.FunctionComponent<Props> = ({ classes, name, link, source, isSquareLogo }) => {
+const Sponsor: React.FunctionComponent<Props> = ({ classes, className="", name, link, source, isSquareLogo }) => {
   return (
-    <a href={link} className={classes.Sponsor}>
+    <a href={link} className={`${classes.Sponsor} ${className}`}>
       <img
         alt={name}
         title={name}
