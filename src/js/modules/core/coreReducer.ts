@@ -29,14 +29,14 @@ import {
   UPLOAD_RESUME_REJECTED,
   GET_FORM_DATA_FULFILLED,
   GET_FORM_DATA_REJECTED,
-  SUBMIT_RSVP_PENDING,
-  SUBMIT_RSVP_FULFILLED,
-  SUBMIT_RSVP_REJECTED,
+  SUBMIT_CONFIRM_PENDING,
+  SUBMIT_CONFIRM_FULFILLED,
+  SUBMIT_CONFIRM_REJECTED,
   LOADING_FULFILLED,
   LOADING_REJECTED
 } from "./coreActions";
 import { User } from "firebase";
-import { ApplyFormData, Form } from "../types";
+import { ApplyFormData, ConfirmationFormData, Form } from "../types";
 import { Reducer } from "redux";
 
 export enum LoadingStates {
@@ -74,7 +74,10 @@ interface ApplyForm extends Form {
   formData: ApplyFormData | {};
 }
 
-interface ConfirmForm extends Form {}
+interface ConfirmForm extends Form {
+  confirmTimestamp?: string;
+  formData: ConfirmationFormData | {};
+}
 
 interface UpdatePasswordForm extends Form {}
 
@@ -152,32 +155,30 @@ const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
         ...state,
         errors: { ...state.errors, resume: action.payload.message }
       };
-    case SUBMIT_RSVP_PENDING:
+    case SUBMIT_CONFIRM_PENDING:
       return {
         ...state,
-        rsvp: { isSubmitting: true }
+        confirm: { isSubmitting: true }
       };
-    case SUBMIT_RSVP_FULFILLED: {
+    case SUBMIT_CONFIRM_FULFILLED: {
       const { message, data } = action.payload;
 
-      // merge the rsvp data with the applyForm data (actually just general user store)
-      const formData = { ...state.applyForm.formData, ...data };
-
       return {
         ...state,
-        // TODO: rename from applyForm
-        applyForm: { ...state.applyForm, formData },
+        confirmForm: {
+          ...data
+        },
         notifications: {
           ...state.notifications,
-          rsvp: message
+          confirm: message
         }
       };
     }
-    case SUBMIT_RSVP_REJECTED:
+    case SUBMIT_CONFIRM_REJECTED:
       return {
         ...state,
-        rsvp: { isSubmitting: false },
-        errors: { ...state.errors, rsvp: action.payload.message }
+        confirm: { isSubmitting: false },
+        errors: { ...state.errors, confirm: action.payload.message }
       };
     case SUBMIT_APP_PENDING:
       return {
@@ -317,15 +318,32 @@ const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
         updatePasswordForm: { isSubmitting: false }
       };
     case GET_FORM_DATA_FULFILLED:
+<<<<<<< HEAD
       console.log(action.payload);
+=======
+>>>>>>> Factored out ConfirmationForm, fixed data logic for reducers. Kinda messy, but still better than before
       if (action.payload) {
         const {
           resumeTimestamp,
           submitTimestamp,
           ...formData
         } = action.payload;
+        let confirmForm;
+        if (
+          "confirmTimestamp" in action.payload &&
+          "confirmData" in action.payload
+        ) {
+          confirmForm = {
+            ...state.confirmForm,
+            formData: action.payload.confirmData,
+            confirmTimestamp: action.payload.confirmTimestamp
+          };
+        } else {
+          confirmForm = { ...state.confirmForm };
+        }
         return {
           ...state,
+          confirmForm,
           applyForm: {
             ...state.applyForm,
             formData,

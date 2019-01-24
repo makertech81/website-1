@@ -40,13 +40,6 @@ export interface ApplyFormData {
   emergencyContactNumber: string;
   emergencyContactName: string;
   emergencyContactRelation: string;
-
-  // ConfirmForm Data; this is not too nice, so let's fix this later
-  location?: string;
-  nyuCodeOfConduct?: boolean;
-  nyuPrivacyPolicy?: boolean;
-  nyuMediaRights?: boolean;
-  confirmTimestamp?: string;
 }
 
 export interface ConfirmationFormData {

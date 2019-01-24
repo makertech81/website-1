@@ -12,9 +12,9 @@ type ThunkResult<R> = ThunkAction<R, ReduxState, undefined, Action>;
 
 export const REFRESH_WINDOW_DIMENSIONS = "core/REFRESH_WINDOW_DIMENSIONS";
 
-export const SUBMIT_RSVP_PENDING = "core/SUBMIT_RSVP_PENDING";
-export const SUBMIT_RSVP_FULFILLED = "core/SUBMIT_RSVP_FULFILLED";
-export const SUBMIT_RSVP_REJECTED = "core/SUBMIT_RSVP_REJECTED";
+export const SUBMIT_CONFIRM_PENDING = "core/SUBMIT_CONFIRM_PENDING";
+export const SUBMIT_CONFIRM_FULFILLED = "core/SUBMIT_CONFIRM_FULFILLED";
+export const SUBMIT_CONFIRM_REJECTED = "core/SUBMIT_CONFIRM_REJECTED";
 
 export const SUBMIT_APP_PENDING = "core/SUBMIT_APP_PENDING";
 export const SUBMIT_APP_FULFILLED = "core/SUBMIT_APP_FULFILLED";
@@ -251,39 +251,39 @@ export const submitConfirmation = (formValues: ConfirmationFormData) => (
 ) => {
   if (!auth.currentUser) {
     dispatch({
-      type: SUBMIT_APP_REJECTED,
-      payload: "Not logged in, please log in to RSVP"
+      type: SUBMIT_CONFIRM_REJECTED,
+      payload: "Not logged in, please log in to confirm"
     });
     dispatch(push("/login"));
     return;
   }
 
   const uid = auth.currentUser.uid;
-  const currentTime = new Date();
-  const data = { ...formValues, confirmTimestamp: currentTime };
+  const confirmTimestamp = new Date();
 
   dispatch({
-    type: SUBMIT_RSVP_PENDING
+    type: SUBMIT_CONFIRM_PENDING
   });
-  return (
-    db
-      .collection("users")
-      .doc(uid)
-      .set({ ...data }, { merge: true })
-      .then(() => {
-        dispatch({
-          type: SUBMIT_RSVP_FULFILLED,
-          payload: { message: "RSVP submitted.", data }
-        });
-        window.scroll({ top: 0, left: 0, behavior: "smooth" });
+  return db
+    .collection("users")
+    .doc(uid)
+    .set({ confirmData: formValues, confirmTimestamp }, { merge: true })
+    .then(() => {
+      dispatch({
+        type: SUBMIT_CONFIRM_FULFILLED,
+        payload: {
+          message: "Confirmation submitted. See you at the hackathon!",
+          data: { confirmData: formValues, confirmTimestamp }
+        }
+      });
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
+    })
+    .catch(err =>
+      dispatch({
+        type: SUBMIT_CONFIRM_REJECTED,
+        payload: err
       })
-      .catch(err =>
-        dispatch({
-          type: SUBMIT_RSVP_REJECTED,
-          payload: err
-        })
-      )
-  );
+    );
 };
 
 export const logout = () => (

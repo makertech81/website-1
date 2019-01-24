@@ -47,6 +47,7 @@ export interface Theme {
   largeBreakpoint: string;
   mediumBreakpoint: string;
   smallBreakpoint: string;
+  mobileBreakpoint: string;
   bodyLineHeight: string;
   bodyFontSize: string;
   titleFontSize: string;
@@ -83,6 +84,7 @@ const theme: Theme = {
   largeBreakpoint: "1100px",
   mediumBreakpoint: "800px",
   smallBreakpoint: "600px",
+  mobileBreakpoint: "500px",
   bodyFontSize: "1.3rem",
   titleFontSize: "2em",
   bodyLineHeight: "1.2",
