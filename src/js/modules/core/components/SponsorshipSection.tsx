@@ -34,7 +34,7 @@ const styles = (theme: Theme) => ({
     flexDirection: "column" as "column",
     placeItems: "center",
     placeContent: "center",
-    transform: "scale(1.6)"
+    transform: "scale(2.0)"
   },
   link: {
     textDecoration: "underline",
@@ -46,8 +46,7 @@ const styles = (theme: Theme) => ({
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
     sponsorRow: {
       flexWrap: "wrap"
-    },
-    
+    } 
   }
 });
 
