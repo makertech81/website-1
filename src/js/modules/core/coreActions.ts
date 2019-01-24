@@ -269,7 +269,7 @@ export const submitConfirmation = (formValues: ConfirmationFormData) => (
     db
       .collection("users")
       .doc(uid)
-      .set({ data }, { merge: true })
+      .set({ ...data }, { merge: true })
       .then(() => {
         dispatch({
           type: SUBMIT_RSVP_FULFILLED,
