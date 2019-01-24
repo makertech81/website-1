@@ -6,7 +6,7 @@ import Underline from "./Underline";
 type Props = WithStyles<typeof styles>;
 
 const styles = (theme: Theme) => ({
-  admissionStatusContainer: {
+  AdmissionStatus: {
     display: "flex",
     width: "90vw",
     maxWidth: theme.containerMaxWidth,
@@ -22,30 +22,40 @@ const styles = (theme: Theme) => ({
     fontSize: theme.bodyFontSize,
     marginBottom: "2rem"
   },
+  header: {
+    padding: "10px"
+  },
   statusMessage: {
+    width: "90vw",
     maxWidth: theme.containerMaxWidth
   },
   [`@media(max-width: ${theme.largeBreakpoint})`]: {
-    admissionStatusContainer: {
+    AdmissionStatus: {
       width: theme.containerLargeWidth
     }
   },
   [`@media(max-width: ${theme.mediumBreakpoint})`]: {
-    admissionStatusContainer: {
+    AdmissionStatus: {
       width: theme.containerMediumWidth
+    },
+    header: {
+      maxWidth: "7.5em"
     }
   },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
-    admissionStatusContainer: {
+    AdmissionStatus: {
       width: theme.containerMobileWidth
+    },
+    header: {
+      maxWidth: "7.5em"
     }
   }
 });
 
 const AdmissionStatus: React.FunctionComponent<Props> = ({ classes }) => {
   return (
-    <div className={classes.admissionStatusContainer}>
-      <h1>APPLICATION STATUS: PENDING</h1>
+    <div className={classes.AdmissionStatus}>
+      <h1 className={classes.header}>APPLICATION STATUS: PENDING</h1>
       <Underline />
       <p className={classes.statusMessage}>
         Hello! If you are seeing this page, then that means your application

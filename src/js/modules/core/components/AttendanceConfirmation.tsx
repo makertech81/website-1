@@ -13,7 +13,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const styles = (theme: Theme) => ({
-  submittedContainer: {
+  AttendanceConfirmation: {
     display: "flex",
     width: "90vw",
     maxWidth: theme.containerMaxWidth,
@@ -38,12 +38,12 @@ const styles = (theme: Theme) => ({
     maxWidth: theme.containerMaxWidth
   },
   [`@media(max-width: ${theme.largeBreakpoint})`]: {
-    submittedContainer: {
+    AttendanceConfirmation: {
       width: theme.containerLargeWidth
     }
   },
   [`@media(max-width: ${theme.mediumBreakpoint})`]: {
-    submittedContainer: {
+    AttendanceConfirmation: {
       width: theme.containerMediumWidth
     },
     header: {
@@ -51,7 +51,7 @@ const styles = (theme: Theme) => ({
     }
   },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
-    submittedContainer: {
+    AttendanceConfirmation: {
       width: theme.containerMobileWidth
     },
     header: {
@@ -85,7 +85,7 @@ const AttendanceConfirmation: React.FunctionComponent<Props> = ({
   }
 
   return (
-    <div className={classes.submittedContainer}>
+    <div className={classes.AttendanceConfirmation}>
       <h1 className={classes.header}> Thanks for responding to us! </h1>
       <Underline />
       <p className={classes.locationMessage}>
