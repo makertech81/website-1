@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { User } from "firebase";
 import injectSheet, { WithStyles } from "react-jss";
 import { ReduxState } from "../../../reducers";
-import { Theme } from "../../types";
+import { Theme } from "../../ThemeInjector";
 
 const styles = (theme: Theme) => ({
   AboutPage: {

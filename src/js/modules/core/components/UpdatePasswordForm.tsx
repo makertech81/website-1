@@ -2,19 +2,11 @@ import * as React from "react";
 import { Field, Form } from "react-final-form";
 import Input from "./Input";
 import Button from "./Button";
-<<<<<<< HEAD
 import { bindActionCreators, Dispatch } from "redux";
 import { updatePassword } from "../coreActions";
 import { connect } from "react-redux";
 import injectSheet, { WithStyles } from "react-jss";
 import { ReduxState } from "../../../reducers";
-=======
-import { bindActionCreators, compose, Dispatch } from "redux";
-import { updatePassword } from "../coreActions";
-import { connect } from "react-redux";
-import injectSheet, { WithStyles } from "react-jss";
-import { ReduxState } from "../../types";
->>>>>>> whew started refactoring. Lots of work to do
 
 interface Props extends WithStyles<typeof styles> {
   updatePassword: (password: string) => any;

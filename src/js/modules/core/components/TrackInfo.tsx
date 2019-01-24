@@ -20,7 +20,6 @@ import { faHandshake } from "@fortawesome/free-solid-svg-icons/faHandshake";
 import { faEthereum } from "@fortawesome/free-brands-svg-icons/faEthereum";
 import { Theme } from "../../ThemeInjector";
 import Track from "./Track";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 type Props = WithStyles<typeof styles>;

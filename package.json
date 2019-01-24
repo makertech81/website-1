@@ -57,10 +57,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.4.2",
     "@fortawesome/free-solid-svg-icons": "^5.4.2",
     "@fortawesome/react-fontawesome": "^0.1.3",
-<<<<<<< HEAD
     "@types/node": "^10.12.18",
-=======
->>>>>>> More fixes. Almost there
     "@types/react": "^16.7.20",
     "@types/react-autocomplete": "^1.8.4",
     "@types/react-redux": "^6.0.7",

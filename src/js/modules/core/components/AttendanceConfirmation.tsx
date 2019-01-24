@@ -1,11 +1,12 @@
 import * as React from "react";
 import injectSheet, { WithStyles } from "react-jss";
 import Underline from "./Underline";
-import { ConfirmationFormData, ReduxState } from "../../types";
+import { ConfirmationFormData } from "../../types";
 import { User } from "firebase";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { Theme } from "../../ThemeInjector";
+import { ReduxState } from "../../../reducers";
 
 interface Props extends WithStyles<typeof styles> {
   user: User;

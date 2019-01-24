@@ -318,10 +318,6 @@ const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
         updatePasswordForm: { isSubmitting: false }
       };
     case GET_FORM_DATA_FULFILLED:
-<<<<<<< HEAD
-      console.log(action.payload);
-=======
->>>>>>> Factored out ConfirmationForm, fixed data logic for reducers. Kinda messy, but still better than before
       if (action.payload) {
         const {
           resumeTimestamp,

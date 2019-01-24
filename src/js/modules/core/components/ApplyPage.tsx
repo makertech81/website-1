@@ -15,6 +15,8 @@ import Select from "./Select";
 import UploadResumeButton from "./UploadResumeButton";
 import { Theme } from "../../ThemeInjector";
 import { ReduxState } from "../../../reducers";
+import { connect } from "react-redux";
+import { bindActionCreators, compose } from "redux";
 
 
 interface Props {
