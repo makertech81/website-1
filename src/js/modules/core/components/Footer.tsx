@@ -7,9 +7,10 @@ import { Theme } from "../../ThemeInjector";
 const styles = (theme: Theme) => ({
   Footer: {
     padding: "2em",
+    paddingBottom: "125px",
     marginTop: "25px",
     backgroundColor: theme.backgroundColor,
-    width: "100%"
+    width: "100%",
   },
   logo: {
     width: "175px",
