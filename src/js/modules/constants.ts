@@ -25,17 +25,11 @@ interface SponsorFields {
 
 export const NYU_SPONSOR: Array<SponsorFields> = [
   {
-    name: "NYU Tandon School of Engineering",
-    src:  "/new-york-university/tandon.png",
-    url: "https://www.engineering.nyu.edu/",
-    square: false  
-  },
-  {
     name: "New York University",
     src:  "/new-york-university/nyu-long.png",
     url: "https://nyu.edu/",
     square: false  
-  },
+  }
 ]
 
 export const SPONSORS_INFO: Array<SponsorFields> = [

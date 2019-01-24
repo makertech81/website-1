@@ -3,26 +3,38 @@ import injectSheet, { WithStyles } from "react-jss";
 import { Theme } from "../../ThemeInjector";
 import Sponsor from "./Sponsor";
 import { ASSET_DIR, SPONSORS_INFO, NYU_SPONSOR } from "../../constants";
+import Underline from "./Underline";
 
 interface Props extends WithStyles<typeof styles> {}
 
 const styles = (theme: Theme) => ({
   SponsorshipSection: {
+    display: "flex",
+    flexDirection: "column" as "column",
+    alignItems: "center",
     backgroundColor: theme.secondBackground,
     fontSize: "1.4rem",
+    textAlign: "center",
     padding: "5%"
   },
   header: {
     margin: "0 8%",
     maxWidth: "750px"
   },
+  acknowledgementSection: {
+    lineHeight: "1.2em",
+    display: "inline-block",
+  },
+  departmentList: {
+    listStyleType: "none",
+  },
   nyuLogo: {
-    backgroundColor: theme.secondBackground,
     width: "100vw",
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column" as "column",
+    placeItems: "center",
     placeContent: "center",
-    transform: "translateX(-5.75vw)"
+    transform: "scale(1.6)"
   },
   link: {
     textDecoration: "underline",
@@ -34,7 +46,8 @@ const styles = (theme: Theme) => ({
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
     sponsorRow: {
       flexWrap: "wrap"
-    }
+    },
+    
   }
 });
 
@@ -43,6 +56,7 @@ const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
     <div className={classes.SponsorshipSection}>
       <header className={classes.header}>
         <h2>SPONSORS</h2>
+        <Underline />
         <p>
           HackNYU is made possible thanks to the support of our gracious
           sponsors! We are proud to have sponsors represented from a wide
@@ -62,34 +76,37 @@ const SponsorshipSection: React.FunctionComponent<Props> = ({ classes }) => {
         </p>
       </header>
       <div>
-        {
-          SPONSORS_INFO.map(sponsor => (
+        {SPONSORS_INFO.map(sponsor => (
           <Sponsor
             isSquareLogo={sponsor.square}
             key={sponsor.name}
             name={sponsor.name}
             link={sponsor.url}
             source={ASSET_DIR + sponsor.src}
-          />))
-        }
+          />
+        ))}
       </div>
       <div className={classes.nyuLogo}>
-      {
-          NYU_SPONSOR.map(sponsor => (
+        {NYU_SPONSOR.map(sponsor => (
           <Sponsor
             isSquareLogo={sponsor.square}
             key={sponsor.name}
             name={sponsor.name}
             link={sponsor.url}
             source={ASSET_DIR + sponsor.src}
-          />))
-        }
-      </div> 
-      
-      
+          />
+        ))}
+      </div>
+      <div className={classes.acknowledgementSection}>
+        <h2 className={classes.header}>Special thanks to:</h2>
+        <ul className={classes.departmentList}>
+          <li>NYU Tandon Undergraduate Student Council</li>
+          <li>NYU Tandon Computer Science & Engineering Department</li>
+          <li>NYU Information Technology</li>
+          <li>NYU Violet 100</li>
+        </ul>
+      </div>
     </div>
-    
-    
   );
 };
 
