@@ -15,6 +15,8 @@ import ProfilePage from "./core/components/ProfilePage";
 import appHistory from "../appHistory";
 import ConfirmationPage from './core/components/ConfirmationPage';
 import createBrowserHistory from "history/createBrowserHistory";
+import ConfirmationPage from "./core/components/ConfirmationPage";
+import AdmissionStatus from "./core/components/AdmissionStatus";
 
 class RoutingApp extends React.Component {
   render() {
@@ -31,6 +33,7 @@ class RoutingApp extends React.Component {
               <Route exact path="/reset_password" component={ResetPasswordPage} />
               <Route exact path="/apply" component={ApplyPage} />
               <Route exact path="/my_profile" component={ProfilePage} />
+              <Route exact path="/application_pending" component={AdmissionStatus} />
             </MainApp>
           </ThemeInjector>
         </ConnectedRouter>
