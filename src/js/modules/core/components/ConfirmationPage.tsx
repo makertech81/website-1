@@ -20,10 +20,7 @@ interface Props extends WithStyles<typeof styles> {
   user: User;
   // TODO: separate apply form and confirmation form data
   userData: ApplyFormData;
-  submitConfirmation: (
-    values: ConfirmationFormData,
-    incompleteFields: IncompleteField[]
-  ) => any;
+  submitConfirmation: (values: ConfirmationFormData) => any;
 }
 
 const requiredFields = {
@@ -34,48 +31,48 @@ const requiredFields = {
 };
 
 const styles = (theme: Theme) => ({
-  confirmPageContainer: {
+  ConfirmationPage: {
     display: "flex",
-    width: "90%",
+    width: "90vw",
     maxWidth: theme.containerMaxWidth,
-    flexDirection: "column",
+    flexDirection: "column" as "column",
     alignItems: "center",
     backgroundColor: theme.formBackground,
     color: theme.secondFont,
     borderRadius: "0.5em",
-    padding: "5%",
+    padding: "5vw",
     paddingTop: "2rem",
     paddingBottom: "2rem",
     lineHeight: theme.bodyLineHeight,
-    fontSize: theme.bodyFontSize,
-    marginBottom: "2rem"
+    fontSize: theme.bodyFontSize
   },
   welcomeMessage: {
+    width: "90vw",
     maxWidth: theme.containerMaxWidth
   },
   notice: {
+    width: "90vw",
     maxWidth: theme.containerMaxWidth
   },
   statement: {
-    marginBottom: theme.bodyFontSize
+    marginBottom: theme.bodyFontSize,
+    maxWidth: theme.containerMaxWidth
   },
   header: {
-    padding: "10px",
-    fontSize: theme.titleFontSize
+    padding: "10px"
   },
   form: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column" as "column",
     alignItems: "center",
-    paddingBottom: "40px"
+    lineHeight: "1.2em",
+    fontSize: "1.5em",
+    padding: "40px 0 40px 0"
   },
   inputs: {
     display: "flex",
+    lineHeight: "2rem",
     flexDirection: "column"
-  },
-  resumeUpload: {
-    maxWidth: "500px",
-    padding: "20px"
   },
   submit: {
     width: "fit-content",
@@ -84,19 +81,35 @@ const styles = (theme: Theme) => ({
     border: "none",
     maxWidth: "250px"
   },
-  checkbox: {
-    width: "20px",
-    height: "20px"
-  },
-  radio: {
-    width: "20px",
-    height: "20px"
-  },
-  formItem: {
-    maxWidth: theme.formElementMaxWidth
-  },
   link: {
     textDecoration: "underline"
+  },
+  [`@media(max-width: ${theme.largeBreakpoint})`]: {
+    ConfirmationPage: {
+      width: theme.containerLargeWidth
+    }
+  },
+  [`@media(max-width: ${theme.mediumBreakpoint})`]: {
+    ConfirmationPage: {
+      width: theme.containerMediumWidth
+    },
+    inputs: {
+      alignItems: "center"
+    },
+    header: {
+      maxWidth: "7.5em"
+    }
+  },
+  [`@media(max-width: ${theme.smallBreakpoint})`]: {
+    ConfirmationPage: {
+      width: theme.containerMobileWidth
+    },
+    inputs: {
+      alignItems: "center"
+    },
+    header: {
+      maxWidth: "7.5em"
+    }
   }
 });
 
@@ -120,95 +133,94 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
   };
 
   return (
-    <div>
+    <div className={classes.ConfirmationPage}>
       {userData.confirmTimestamp && <AttendanceConfirmation />}
-      <div className={classes.confirmPageContainer}>
-        <h1 className={classes.header}>Welcome! RSVP to HackNYU.</h1>
-        <Underline />
-        <p className={classes.welcomeMessage}>
-          Before you are confirmed for the event, there are a few things for you
-          to read and submit.{" "}
-          <strong>
-            If this form is not submitted, you will not be eligible to attend
-            HackNYU.
-          </strong>{" "}
-          Please read the following carefully:
-        </p>
-        <ul className={classes.notice}>
-          <li className={classes.statement}>
-            At this time, participation at either the Abu Dhabi or Shanghai
-            location is <strong>only</strong> available for NYU students who are
-            currently enrolled at those campuses.
-          </li>
+      <h1 className={classes.header}>Welcome! RSVP to HackNYU.</h1>
+      <Underline />
+      <p className={classes.welcomeMessage}>
+        Before you are confirmed for the event, there are a few things for you
+        to read and submit.{" "}
+        <strong>
+          If this form is not submitted, you will not be eligible to attend
+          HackNYU.
+        </strong>{" "}
+        Please read the following carefully:
+      </p>
+      <ul className={classes.notice}>
+        <li className={classes.statement}>
+          At this time, participation at either the Abu Dhabi or Shanghai
+          location is <strong>only</strong> available for NYU students who are
+          currently enrolled at those campuses.
+        </li>
 
-          <li className={classes.statement}>
-            Any student who is or has been enrolled within the last 12 months at
-            a high school or university can participate at the event at our
-            Brooklyn, NY location.
-          </li>
-          <li className={classes.statement}>
-            If you are under 18 years of age at the time of the event, you must
-            have your parent(s) or legal guardian(s) print and sign the Minors
-            Release Form, which you can access{" "}
-            <a
-              className={classes.link}
-              href="/pdf/minors-waiver.pdf"
-              target="_blank"
-            >
-              here.
-            </a>{" "}
-            Please be sure to bring a physical copy of this waiver with you when
-            you arrive at HackNYU, otherwise we will not be able to let you
-            participate!
-          </li>
-          <li className={classes.statement}>
-            Finally, HackNYU aims to be a safe and welcoming space for
-            participants. All participants (hackers, volunteers, mentors,
-            organizers, etc) must abide by the{" "}
-            <a
-              className={classes.link}
-              href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
-            >
-              MLH Code of Conduct.
-            </a>
-          </li>
-        </ul>
-        <h2>Confirm your attendance for HackNYU 2019.</h2>
+        <li className={classes.statement}>
+          Any student who is or has been enrolled within the last 12 months at a
+          high school or university can participate at the event at our
+          Brooklyn, NY location.
+        </li>
+        <li className={classes.statement}>
+          If you are under 18 years of age at the time of the event, you must
+          have your parent(s) or legal guardian(s) print and sign the Minors
+          Release Form, which you can access{" "}
+          <a
+            className={classes.link}
+            href="/pdf/minors-waiver.pdf"
+            target="_blank"
+          >
+            here.
+          </a>{" "}
+          Please be sure to bring a physical copy of this waiver with you when
+          you arrive at HackNYU, otherwise we will not be able to let you
+          participate!
+        </li>
+        <li className={classes.statement}>
+          Finally, HackNYU aims to be a safe and welcoming space for
+          participants. All participants (hackers, volunteers, mentors,
+          organizers, etc) must abide by the{" "}
+          <a
+            className={classes.link}
+            href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+          >
+            MLH Code of Conduct.
+          </a>
+        </li>
+      </ul>
+      <h2 className={classes.header}>
+        Confirm your attendance for HackNYU 2019.
+      </h2>
 
-        <Form
-          onSubmit={handleSubmit}
-          validate={validateForm}
-          initialValues={userData}
-          render={({ handleSubmit, pristine, invalid }) => (
-            <div className={classes.form}>
-              <form onSubmit={handleSubmit}>
-                <div className={classes.inputs}>
-                  <label>
-                    <div className={classes.formItem}>
-                      Please select the location where you will be
-                      participating:
-                    </div>
-                    <Radio name="location" value="new-york">
-                      New York
-                    </Radio>
-                    <Radio name="location" value="abu-dhabi">
-                      Abu Dhabi
-                    </Radio>
-                    <Radio name="location" value="shanghai">
-                      Shanghai
-                    </Radio>
-                    <Radio name="location" value="cannot-attend">
-                      I won't be able to attend HackNYU 2019.
-                    </Radio>
-                  </label>
-
-                  <div className={classes.resumeUpload}>
-                    Please upload your latest resume as a PDF, so we can share
-                    it with our awesome sponsors who are interested in hiring
-                    you!
-                    <UploadResumeButton uid={user.uid} />
+      <Form
+        onSubmit={handleSubmit}
+        validate={validateForm}
+        initialValues={userData}
+        render={({ handleSubmit, pristine, invalid }) => (
+          <div className={classes.form}>
+            <form onSubmit={handleSubmit}>
+              <div className={classes.inputs}>
+                <label>
+                  <div className={classes.notice}>
+                    Please select the location where you will be participating:
                   </div>
-
+                  <Radio name="location" value="new-york">
+                    New York
+                  </Radio>
+                  <Radio name="location" value="abu-dhabi">
+                    Abu Dhabi
+                  </Radio>
+                  <Radio name="location" value="shanghai">
+                    Shanghai
+                  </Radio>
+                  <Radio name="location" value="cannot-attend">
+                    I won't be able to attend HackNYU 2019.
+                  </Radio>
+                </label>
+                <Underline />
+                <div className={classes.notice}>
+                  Please upload your latest resume as a PDF, so we can share it
+                  with our awesome sponsors who are interested in hiring you!
+                  <UploadResumeButton uid={user.uid} />
+                </div>
+                <div className={classes.inputs}>
                   <Checkbox name="nyuMediaRights">
                     By checking this box, I hereby acknowledge that I have read
                     and agree to comply with HackNYU's Media Release Policy
@@ -249,24 +261,21 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
                       here.{" "}
                     </a>
                   </Checkbox>
-
-                  <Button
-                    className={classes.submit}
-                    type="submit"
-                    disabled={pristine || invalid || isSubmitting}
-                  >
-                    SUBMIT
-                  </Button>
-
-                  {invalid && (
-                    <p>Please complete the fields above to submit.</p>
-                  )}
                 </div>
-              </form>
-            </div>
-          )}
-        />
-      </div>
+                <Button
+                  className={classes.submit}
+                  type="submit"
+                  disabled={pristine || invalid || isSubmitting}
+                >
+                  SUBMIT
+                </Button>
+
+                {invalid && <p>Please complete the fields above to submit.</p>}
+              </div>
+            </form>
+          </div>
+        )}
+      />
     </div>
   );
 };

@@ -8,7 +8,7 @@ type Props = WithStyles<typeof styles>;
 const styles = (theme: Theme) => ({
   admissionStatusContainer: {
     display: "flex",
-    width: "90%",
+    width: "90vw",
     maxWidth: theme.containerMaxWidth,
     flexDirection: "column",
     alignItems: "center",
@@ -24,6 +24,21 @@ const styles = (theme: Theme) => ({
   },
   statusMessage: {
     maxWidth: theme.containerMaxWidth
+  },
+  [`@media(max-width: ${theme.largeBreakpoint})`]: {
+    admissionStatusContainer: {
+      width: theme.containerLargeWidth
+    }
+  },
+  [`@media(max-width: ${theme.mediumBreakpoint})`]: {
+    admissionStatusContainer: {
+      width: theme.containerMediumWidth
+    }
+  },
+  [`@media(max-width: ${theme.smallBreakpoint})`]: {
+    admissionStatusContainer: {
+      width: theme.containerMobileWidth
+    }
   }
 });
 
