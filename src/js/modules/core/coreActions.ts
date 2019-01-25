@@ -7,6 +7,7 @@ import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { Action } from "redux";
 import { User } from "firebase";
 import { ApplyFormData, ConfirmationFormData, IncompleteField } from "../types";
+import DocumentData = firebase.firestore.DocumentData;
 
 type ThunkResult<R> = ThunkAction<R, ReduxState, undefined, Action>;
 
@@ -74,11 +75,22 @@ export const refreshWindowDimensions = () => ({
 const getUserData = (user: User): ThunkResult<void> => (
   dispatch: ThunkDispatch<ReduxState, undefined, any>
 ) => {
+  let data: any;
   db.collection("users")
     .doc(user.uid)
     .get()
     .then(doc => {
-      dispatch({ type: GET_FORM_DATA_FULFILLED, payload: doc.data() });
+      data = doc.data();
+      return db
+        .collection("admitted")
+        .doc(user.uid)
+        .get();
+    })
+    .then(doc => {
+      data.isAdmitted = doc.exists;
+      console.log("DATA");
+      console.log(data);
+      dispatch({ type: GET_FORM_DATA_FULFILLED, payload: data });
       dispatch({ type: LOADING_FULFILLED });
     })
     .catch(err => {

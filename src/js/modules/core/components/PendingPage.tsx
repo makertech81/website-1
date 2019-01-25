@@ -26,8 +26,7 @@ const styles = (theme: Theme) => ({
     padding: "10px"
   },
   statusMessage: {
-    width: "90vw",
-    maxWidth: theme.containerMaxWidth
+    maxWidth: "650px"
   },
   [`@media(max-width: ${theme.largeBreakpoint})`]: {
     AdmissionStatus: {
@@ -52,7 +51,7 @@ const styles = (theme: Theme) => ({
   }
 });
 
-const AdmissionStatus: React.FunctionComponent<Props> = ({ classes }) => {
+const PendingPage: React.FunctionComponent<Props> = ({ classes }) => {
   return (
     <div className={classes.AdmissionStatus}>
       <h1 className={classes.header}>APPLICATION STATUS: PENDING</h1>
@@ -69,4 +68,4 @@ const AdmissionStatus: React.FunctionComponent<Props> = ({ classes }) => {
   );
 };
 
-export default injectSheet(styles)(AdmissionStatus);
+export default injectSheet(styles)(PendingPage);

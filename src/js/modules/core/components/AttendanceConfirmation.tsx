@@ -16,9 +16,8 @@ interface Props extends WithStyles<typeof styles> {
 const styles = (theme: Theme) => ({
   AttendanceConfirmation: {
     display: "flex",
-    width: "90vw",
     maxWidth: theme.containerMaxWidth,
-    flexDirection: "column" as "column",
+    flexDirection: "column",
     alignItems: "center",
     backgroundColor: theme.formBackground,
     color: theme.secondFont,
@@ -34,7 +33,6 @@ const styles = (theme: Theme) => ({
     padding: "10px"
   },
   locationMessage: {
-    width: "90vw",
     lineHeight: "1.1em",
     maxWidth: theme.containerMaxWidth
   },
@@ -53,11 +51,8 @@ const styles = (theme: Theme) => ({
   },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
     AttendanceConfirmation: {
-      width: theme.containerMobileWidth
+      width: theme.containerSmallWidth
     },
-    header: {
-      maxWidth: "7em"
-    }
   }
 });
 

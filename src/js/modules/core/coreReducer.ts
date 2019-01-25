@@ -52,6 +52,7 @@ export type Notifications = { [s: string]: string };
 export interface CoreState {
   viewportWidth: number;
   viewportHeight: number;
+  isAccepted: boolean;
   user: User;
   errors: Errors;
   notifications: Notifications;
@@ -112,7 +113,7 @@ const initialState = {
   user: undefined as User,
   notifications: {},
   applyForm: { isSubmitting: false, formData: {} },
-  confirmForm: { isSubmitting: false, formData: {} },
+  confirmForm: { isSubmitting: false, formData: {}, isAccepted: false },
   loginForm: { isSubmitting: false },
   registerForm: { isSubmitting: false },
   resumeForm: { isSubmitting: false },
@@ -322,6 +323,7 @@ const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
         const {
           resumeTimestamp,
           submitTimestamp,
+          isAdmitted,
           ...formData
         } = action.payload;
         let confirmForm;
@@ -339,6 +341,7 @@ const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
         }
         return {
           ...state,
+          isAdmitted,
           confirmForm,
           applyForm: {
             ...state.applyForm,

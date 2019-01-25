@@ -12,7 +12,13 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const styles = (theme: Theme) => ({
-  ConfirmationPage: {
+  AcceptedPage: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: theme.backgroundColor
+  },
+  confirmationInfo: {
     display: "flex",
     maxWidth: theme.containerMaxWidth,
     flexDirection: "column",
@@ -30,21 +36,24 @@ const styles = (theme: Theme) => ({
     marginBottom: theme.bodyFontSize
   },
   header: {
-    padding: "10px"
+    padding: "15px"
   },
   text: {
-    maxWidth: "750px"
+    maxWidth: "750px",
   },
   link: {
     textDecoration: "underline"
   },
   [`@media(max-width: ${theme.largeBreakpoint})`]: {
-    ConfirmationPage: {
+    confirmationInfo: {
       width: theme.containerLargeWidth
+    },
+    header: {
+      whiteSpace: "nowrap"
     }
   },
   [`@media(max-width: ${theme.mediumBreakpoint})`]: {
-    ConfirmationPage: {
+    confirmationInfo: {
       width: theme.containerMediumWidth
     },
     inputs: {
@@ -55,24 +64,20 @@ const styles = (theme: Theme) => ({
     }
   },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
-    ConfirmationPage: {
-      width: theme.containerSmallWidth
-    }
-  },
-  [`@media(max-width: ${theme.mobileBreakpoint})`]: {
-    ConfirmationPage: {
+    confirmationInfo: {
       width: theme.containerMobileWidth
     }
-  }
+  },
 });
 
-const ConfirmationPage: React.FunctionComponent<Props> = ({
+const AcceptedPage: React.FunctionComponent<Props> = ({
   classes,
   confirmTimestamp
 }) => {
   return (
-    <div className={classes.ConfirmationPage}>
+    <div className={classes.AcceptedPage}>
       {confirmTimestamp && <AttendanceConfirmation />}
+      <div className={classes.confirmationInfo}>
       <h1 className={classes.header}>🎉🎉 You're In! 🎉🎉</h1>
       <Underline />
       <div className={classes.text}>
@@ -135,6 +140,7 @@ const ConfirmationPage: React.FunctionComponent<Props> = ({
       </div>
       <ConfirmationForm />
     </div>
+    </div>
   );
 };
 
@@ -142,4 +148,4 @@ const mapStateToProps = (state: ReduxState) => ({
   confirmTimestamp: state.core.confirmForm.confirmTimestamp
 });
 
-export default injectSheet(styles)(connect(mapStateToProps)(ConfirmationPage));
+export default injectSheet(styles)(connect(mapStateToProps)(AcceptedPage));

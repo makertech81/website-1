@@ -25,6 +25,12 @@ const styles = (theme: Theme) => ({
       width: "200px"
     }
   },
+  [`@media(max-width: ${theme.smallBreakpoint})`]: {
+    description: {
+      width: "300px",
+      padding: "20px"
+    }
+  },
 })
 
 const Checkbox: React.SFC<Props> = props => {

@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import Underline from "./Underline";
 import { bindActionCreators } from "redux";
 import { submitConfirmation } from "../coreActions";
+import { Theme } from "../../ThemeInjector";
 
 const requiredFields = {
   nyuCodeOfConduct: "NYU Code of Conduct",
@@ -21,18 +22,29 @@ const requiredFields = {
   location: "Participation Location"
 };
 
-const styles = {
+const styles = (theme: Theme) => ({
+  ConfirmationForm: {
+    display: "flex",
+    flexDirection: "column",
+    maxWidth: "750px",
+  },
+  header: {
+    padding: "20px"
+  },
+  label: {
+    padding: "30px"
+  },
   form: {
     display: "flex",
-    flexDirection: "column" as "column",
+    flexDirection: "column",
     alignItems: "center",
     lineHeight: "1.2em",
-    fontSize: "1.3rem",
+    fontSize: "1.2rem",
     padding: "0 0 40px 0"
   },
   inputs: {
     display: "flex",
-    lineHeight: "2rem",
+    lineHeight: "1.8rem",
     flexDirection: "column"
   },
   alert: {
@@ -47,8 +59,13 @@ const styles = {
     fontSize: "1.3rem",
     border: "none",
     maxWidth: "250px"
+  },
+  [`@media(max-width: ${theme.largeBreakpoint})`]: {
+    ConfirmationForm: {
+      alignItems: "center"
+    }
   }
-};
+});
 
 interface Props extends WithStyles<typeof styles> {
   isSubmitting: boolean;
@@ -70,10 +87,8 @@ const ConfirmationForm: React.FunctionComponent<Props> = ({
     }
   };
   return (
-    <div>
-      <h2>
-        Confirm your attendance for HackNYU 2019.
-      </h2>
+    <div className={classes.ConfirmationForm}>
+      <h2 className={classes.header}>Confirm your attendance for HackNYU 2019.</h2>
       <Form
         onSubmit={submitConfirmation}
         validate={validateForm}
@@ -82,7 +97,7 @@ const ConfirmationForm: React.FunctionComponent<Props> = ({
             <form onSubmit={handleSubmit}>
               <div className={classes.inputs}>
                 <label>
-                  <div>
+                  <div className={classes.label}>
                     Please select the location where you will be participating:
                   </div>
                   <Radio name="location" value="new-york">
@@ -156,7 +171,11 @@ const ConfirmationForm: React.FunctionComponent<Props> = ({
                   SUBMIT
                 </Button>
 
-                {invalid && <p className={classes.alert}>Please complete the fields above to submit.</p>}
+                {invalid && (
+                  <p className={classes.alert}>
+                    Please complete the fields above to confirm your attendance.
+                  </p>
+                )}
               </div>
             </form>
           </div>
