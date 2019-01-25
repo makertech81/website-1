@@ -120,7 +120,8 @@ const initialState = {
   resetPasswordForm: { isSubmitting: false },
   updatePasswordForm: { isSubmitting: false },
   passwordEmailSent: false,
-  loadingState: LoadingStates.Loading
+  loadingState: LoadingStates.Loading,
+  isAccepted: false
 };
 
 const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
