@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { ReduxState } from "../../../reducers";
 
 interface Props extends WithStyles<typeof styles> {
-  confirmTimestamp: string
+  confirmTimestamp: string;
 }
 
 const styles = (theme: Theme) => ({
@@ -31,6 +31,9 @@ const styles = (theme: Theme) => ({
   },
   header: {
     padding: "10px"
+  },
+  text: {
+    maxWidth: "750px"
   },
   link: {
     textDecoration: "underline"
@@ -65,64 +68,71 @@ const styles = (theme: Theme) => ({
 
 const ConfirmationPage: React.FunctionComponent<Props> = ({
   classes,
-  confirmTimestamp,
+  confirmTimestamp
 }) => {
   return (
     <div className={classes.ConfirmationPage}>
       {confirmTimestamp && <AttendanceConfirmation />}
-      <h1 className={classes.header}>Welcome! RSVP to HackNYU.</h1>
+      <h1 className={classes.header}>🎉🎉 You're In! 🎉🎉</h1>
       <Underline />
-      <p>
-        Before you are confirmed for the event, there are a few things for you
-        to read and submit.{" "}
-        <strong>
-          If this form is not submitted, you will not be eligible to attend
-          HackNYU.
-        </strong>
-        Please read the following carefully:
-      </p>
-      <ul>
-        <li className={classes.statement}>
-          At this time, participation at either the Abu Dhabi or Shanghai
-          location is <strong>only</strong> available for NYU students who are
-          currently enrolled at those campuses.
-        </li>
+      <div className={classes.text}>
+        <p>
+          Congratulations! You've been accepted to HackNYU 2019! We look forward
+          to seeing you at the event. Please confirm that you are still going
+          with the form below.{" "}
+          <strong>
+            If this form is not submitted, you will not be eligible to attend
+            HackNYU.
+          </strong>
+        </p>
+        <p>
+          Before you can confirm your attendance, there are a few things for you
+          to read. Please read the following carefully:
+        </p>
+        <ul>
+          <li className={classes.statement}>
+            At this time, participation at either the Abu Dhabi or Shanghai
+            location is <strong>only</strong> available for NYU students who are
+            currently enrolled at those campuses.
+          </li>
 
-        <li className={classes.statement}>
-          Any student who is or has been enrolled within the last 12 months at a
-          high school or university can participate at the event at our
-          Brooklyn, NY location.
-        </li>
-        <li className={classes.statement}>
-          If you are under 18 years of age at the time of the event, you must
-          have your parent(s) or legal guardian(s) print and sign the Minors
-          Release Form, which you can access{" "}
-          <a
-            className={classes.link}
-            href="/pdf/minors-waiver.pdf"
-            target="_blank"
-          >
-            here.
-          </a>{" "}
-          Please be sure to bring a physical copy of this waiver with you when
-          you arrive at HackNYU, otherwise we will not be able to let you
-          participate!
-        </li>
-        <li className={classes.statement}>
-          Finally, HackNYU aims to be a safe and welcoming space for
-          participants. All participants (hackers, volunteers, mentors,
-          organizers, etc) must abide by the{" "}
-          <a
-            className={classes.link}
-            href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
-          >
-            MLH Code of Conduct.
-          </a>
-        </li>
-      </ul>
-      <h2 className={classes.header}>
-        Confirm your attendance for HackNYU 2019.
-      </h2>
+          <li className={classes.statement}>
+            Any student who is or has been enrolled within the last 12 months at
+            a high school or university can participate at the event at our
+            Brooklyn, NY location.
+          </li>
+          <li className={classes.statement}>
+            If you are under 18 years of age at the time of the event, you must
+            have your parent(s) or legal guardian(s) print and sign the Minors
+            Release Form, which you can access{" "}
+            <a
+              className={classes.link}
+              href="/pdf/minors-waiver.pdf"
+              target="_blank"
+            >
+              here.
+            </a>{" "}
+            Please be sure to bring a physical copy of this waiver with you when
+            you arrive at HackNYU, otherwise we will not be able to let you
+            participate!
+          </li>
+          <li className={classes.statement}>
+            Finally, HackNYU aims to be a safe and welcoming space for
+            participants. All participants (hackers, volunteers, mentors,
+            organizers, etc) must abide by the{" "}
+            <a
+              className={classes.link}
+              href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+            >
+              MLH Code of Conduct.
+            </a>
+          </li>
+        </ul>
+        <p>
+          With that in mind, please fill out the form to confirm that you are
+          attending HackNYU 2019.
+        </p>
+      </div>
       <ConfirmationForm />
     </div>
   );

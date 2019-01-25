@@ -99,7 +99,7 @@ const AttendanceConfirmation: React.FunctionComponent<Props> = ({
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user,
-  userData: state.core.applyForm.formData
+  userData: state.core.confirmForm.formData
 });
 export default compose(
   injectSheet(styles),

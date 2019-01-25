@@ -16,9 +16,8 @@ const styles = (theme: Theme) => ({
     maxWidth: "500px"
   },
   input: {
-    width: "20px",
-    height: "20px",
-    margin: "8px"
+    height: "30px",
+    margin: "15px"
   },
   description: {},
   [`@media(max-width: ${theme.mediumBreakpoint})`]: {

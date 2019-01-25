@@ -309,7 +309,7 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                   type="tel"
                   placeholder="1-800-867-5309"
                 />
-                <UploadResumeButton uid={user.uid} />
+                <UploadResumeButton uid={user.uid} label="Upload Resume as PDF:" />
                 <Field
                   name="school"
                   render={props => (
