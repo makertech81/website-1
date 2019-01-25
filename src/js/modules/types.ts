@@ -47,4 +47,3 @@ export interface IncompleteField {
   field: string;
   name: string;
 }
-

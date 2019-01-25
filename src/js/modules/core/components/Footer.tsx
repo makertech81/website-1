@@ -1,7 +1,8 @@
 import * as React from "react";
 import injectSheet, { WithStyles } from "react-jss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons/faFacebook"
+import { faTwitter } from "@fortawesome/free-brands-svg-icons/faTwitter";
 import { Theme } from "../../ThemeInjector";
 
 const styles = (theme: Theme) => ({
@@ -50,7 +51,7 @@ type Props = WithStyles<typeof styles>;
 const Footer: React.FunctionComponent<Props> = ({ classes }) => {
   return (
     <div className={classes.Footer}>
-      <p className={classes.copyText}>Copyright © 2018 HackNYU. </p>
+      <p className={classes.copyText}>Copyright © 2019 HackNYU. </p>
       <p className={classes.copyText}>Contact us at: support.hack@nyu.edu</p>
       <p className={classes.copyText}>
         Find us on social media:
