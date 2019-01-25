@@ -13,7 +13,7 @@ const styles = {
     flexDirection: "column",
     fontSize: "1.2em",
     alignItems: "center"
-  },
+  }
 };
 
 type Props = WithStyles<typeof styles>;
@@ -22,14 +22,15 @@ const NotFoundPage: React.FunctionComponent<Props> = ({ classes }) => {
   return (
     <div className={classes.NotFoundPage}>
       <div className={classes.text}>
-      <h1> Not Found</h1>
-      <p>
-        We're sorry, but this route is invalid. Please take another train!
-      </p>
+        <h1> Not Found</h1>
+        <p>
+          We're sorry, but this train is out of service. Please take another
+          route! We apologize for the inconvience.
+        </p>
       </div>
-      <AnimatedSubwayLines/>
+      <AnimatedSubwayLines />
     </div>
   );
 };
 
-export default withStyles(styles)(NotFoundPage)
+export default withStyles(styles)(NotFoundPage);
