@@ -68,10 +68,7 @@ interface FormData {
   emergencyContactNumber: string;
   emergencyContactName: string;
   emergencyContactRelation: string;
-}
-
-
-
+};
 
 const requiredFields = {
   firstName: "First Name",
@@ -176,7 +173,8 @@ const styles = (theme: Theme) => ({
       width: theme.containerMobileWidth
     },
     multipleCheckboxes: {
-      width: "10em"
+      minInlineSize: "unset",
+      width: "50vw"
     },
     inputs: {
       alignItems: "center"
