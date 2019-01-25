@@ -3,7 +3,7 @@ import AcceptedPage from "./AcceptedPage";
 import PendingPage from "./PendingPage";
 import { connect } from "react-redux";
 
-import { CoreState } from "../coreReducer";
+import { ReduxState } from "../../../reducers";
 
 interface Props {
   isAccepted: boolean;
@@ -18,8 +18,8 @@ const AdmissionResultPage: React.FunctionComponent<Props> = ({
   return <PendingPage />;
 };
 
-const mapStateToProps = (state: CoreState) => ({
-  isAccepted: state.isAccepted
+const mapStateToProps = (state: ReduxState) => ({
+  isAccepted: state.core.isAccepted
 });
 
 export default connect(mapStateToProps)(AdmissionResultPage);
