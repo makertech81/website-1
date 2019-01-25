@@ -12,7 +12,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const styles = (theme: Theme) => ({
-  AcceptedPage: {
+  AdmittedPage: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -70,12 +70,12 @@ const styles = (theme: Theme) => ({
   },
 });
 
-const AcceptedPage: React.FunctionComponent<Props> = ({
+const AdmittedPage: React.FunctionComponent<Props> = ({
   classes,
   confirmTimestamp
 }) => {
   return (
-    <div className={classes.AcceptedPage}>
+    <div className={classes.AdmittedPage}>
       {confirmTimestamp && <AttendanceConfirmation />}
       <div className={classes.confirmationInfo}>
       <h1 className={classes.header}>🎉🎉 You're In! 🎉🎉</h1>
@@ -148,4 +148,4 @@ const mapStateToProps = (state: ReduxState) => ({
   confirmTimestamp: state.core.confirmForm.confirmTimestamp
 });
 
-export default injectSheet(styles)(connect(mapStateToProps)(AcceptedPage));
+export default injectSheet(styles)(connect(mapStateToProps)(AdmittedPage));

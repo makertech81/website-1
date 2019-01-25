@@ -52,7 +52,7 @@ export type Notifications = { [s: string]: string };
 export interface CoreState {
   viewportWidth: number;
   viewportHeight: number;
-  isAccepted: boolean;
+  isAdmitted: boolean;
   user: User;
   errors: Errors;
   notifications: Notifications;
@@ -121,7 +121,7 @@ const initialState = {
   updatePasswordForm: { isSubmitting: false },
   passwordEmailSent: false,
   loadingState: LoadingStates.Loading,
-  isAccepted: false
+  isAdmitted: false
 };
 
 const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {

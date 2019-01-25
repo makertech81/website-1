@@ -13,7 +13,7 @@ import RegisterPage from "./core/components/RegisterPage";
 import ResetPasswordPage from "./core/components/ResetPasswordPage";
 import ProfilePage from "./core/components/ProfilePage";
 import appHistory from "../appHistory";
-import AdmissionResultPage from "./core/components/AdmissionResultPage";
+import AdmissionResultPage from "./core/components/ApplicationStatusPage";
 import NotFoundPage from "./NotFoundPage";
 
 class RoutingApp extends React.Component {
