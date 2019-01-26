@@ -93,9 +93,9 @@ const requiredFields = {
 const styles = (theme: Theme) => ({
   ApplyPage: {
     display: "flex",
-    width: "100%",
+    width: "90vw",
     maxWidth: theme.containerMaxWidth,
-    flexDirection: "column" as "column",
+    flexDirection: "column",
     alignItems: "center",
     backgroundColor: theme.formBackground,
     color: theme.secondFont,
@@ -160,18 +160,15 @@ const styles = (theme: Theme) => ({
   },
   [`@media(max-width: ${theme.largeBreakpoint})`]: {
     ApplyPage: {
-      width: theme.containerLargeWidth
+      maxWidth: theme.containerLargeWidth
     }
   },
   [`@media(max-width: ${theme.mediumBreakpoint})`]: {
     ApplyPage: {
-      width: theme.containerMediumWidth
+      maxWidth: theme.containerMediumWidth
     }
   },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
-    ApplyPage: {
-      width: theme.containerMobileWidth
-    },
     multipleCheckboxes: {
       minInlineSize: "unset",
       width: "50vw"
