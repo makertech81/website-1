@@ -61,7 +61,7 @@ const Hero: React.SFC<Props> = ({ user, classes }) => {
       <Link to={user ? "/apply" : "/register"} className={classes.button}>
         {user ? "APPLY" : "REGISTER"}
       </Link>
-      {user && <Link to="/status" className={`${classes.button} ${classes.buttonSecondary}`}>STATUS</Link>}
+      {user && <Link to="/status" className={`${classes.button} ${classes.buttonSecondary}`}>ADMISSION STATUS</Link>}
     </div>
   )
 };

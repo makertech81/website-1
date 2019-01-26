@@ -51,10 +51,15 @@ const AttendanceConfirmation: React.FunctionComponent<Props> = ({
   userData
 }) => {
   const locationToReadable = (location: string): string => {
+    if (location == "cannot-attend") {
+      return "Can't Attend 😔"
+    }
+
     return location
       .split("-")
       .map(word => word.toUpperCase())
-      .join(" ");
+      .join(" ")
+      + " 😎";
   };
 
   let isAttending, locationMessage, postMessage;
@@ -65,7 +70,7 @@ const AttendanceConfirmation: React.FunctionComponent<Props> = ({
     postMessage =
       "See you at the event! If you can no longer attend the event, please update your response below.";
   } else {
-    locationMessage = "Your status: Can't Attend 😔";
+    locationMessage = "Your status: ";
     postMessage =
       "We're sorry to see you can't attend. Hope to see at our event next year!";
   }
@@ -75,7 +80,7 @@ const AttendanceConfirmation: React.FunctionComponent<Props> = ({
       <h1 className={classes.header}> Thanks for responding to us! </h1>
       <Underline />
       <p className={classes.locationMessage}>
-        {locationMessage} {locationToReadable(userData.location)} 😎
+        {locationMessage} {locationToReadable(userData.location)}
       </p>
       <p>{postMessage}</p>
     </div>

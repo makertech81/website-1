@@ -36,7 +36,6 @@ class RoutingApp extends React.Component {
                   component={ResetPasswordPage}
                 />
                 <Route exact path="/apply" component={ApplyPage} />
-                <Route exact path="/test" component={PendingPage} />
                 <Route exact path="/my_profile" component={ProfilePage} />
                 <Route path="/" component={NotFoundPage} />
               </Switch>
