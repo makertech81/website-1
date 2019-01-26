@@ -1,8 +1,12 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as sgMail from "@sendgrid/mail";
+<<<<<<< HEAD
 import * as express from "express";
 import render from "./AdmittedEmail";
+=======
+import render from "./AcceptanceEmail";
+>>>>>>> e26a87be3d9f19981b732b8c60975c9f246c6dfd
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -51,7 +55,6 @@ export const sendAcceptanceEmail = functions.firestore
         const apiKey = functions.config().sendgrid.key;
         sgMail.setApiKey(apiKey);
         const html = render(user.displayName);
-        console.log(html);
         const msg = {
           to: "nick@nicholasyang.com",
           from: "confirm@hacknyu.org",
