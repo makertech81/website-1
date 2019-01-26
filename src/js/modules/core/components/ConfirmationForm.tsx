@@ -40,12 +40,15 @@ const styles = (theme: Theme) => ({
     alignItems: "center",
     lineHeight: "1.2em",
     fontSize: "1.2rem",
-    padding: "0 0 40px 0"
+    padding: "0 0 40px 0",
+    width: "500px"
   },
   inputs: {
     display: "flex",
     lineHeight: "1.8rem",
-    flexDirection: "column"
+    flexDirection: "column",
+    // max parent width
+    width: "100%"
   },
   alert: {
     color: "red"
@@ -63,6 +66,11 @@ const styles = (theme: Theme) => ({
   [`@media(max-width: ${theme.largeBreakpoint})`]: {
     ConfirmationForm: {
       alignItems: "center"
+    }
+  },
+  [`@media(max-width: ${theme.smallBreakpoint})`]: {
+    form: {
+      width: "260px"
     }
   }
 });
@@ -93,8 +101,8 @@ const ConfirmationForm: React.FunctionComponent<Props> = ({
         onSubmit={submitConfirmation}
         validate={validateForm}
         render={({ handleSubmit, pristine, invalid }) => (
-          <div className={classes.form}>
-            <form onSubmit={handleSubmit}>
+          <div>
+            <form className={classes.form} onSubmit={handleSubmit}>
               <div className={classes.inputs}>
                 <label>
                   <div className={classes.label}>
