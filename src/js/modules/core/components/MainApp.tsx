@@ -124,7 +124,7 @@ class MainApp extends React.Component<Props> {
           <Header />
           <UserInfo user={user}/>
           {children}
-          {/*<Footer />*/}
+          <Footer />
         </div>
       );
     }
