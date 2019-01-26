@@ -16,9 +16,14 @@ const styles = (theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: theme.backgroundColor
+    backgroundColor: theme.backgroundColor,
+    maxWidth: theme.containerLargeWidth,
+    width: "80vw"
   },
   confirmationInfo: {
+    // fill container
+    width: "100%",
+    boxSizing: "border-box",
     display: "flex",
     maxWidth: theme.containerMaxWidth,
     flexDirection: "column",
@@ -45,16 +50,13 @@ const styles = (theme: Theme) => ({
     textDecoration: "underline"
   },
   [`@media(max-width: ${theme.largeBreakpoint})`]: {
-    confirmationInfo: {
-      width: theme.containerLargeWidth
-    },
     header: {
       whiteSpace: "nowrap"
     }
   },
   [`@media(max-width: ${theme.mediumBreakpoint})`]: {
-    confirmationInfo: {
-      width: theme.containerMediumWidth
+    AdmittedPage: {
+      maxWidth: theme.containerMediumWidth
     },
     inputs: {
       alignItems: "center"
@@ -62,12 +64,7 @@ const styles = (theme: Theme) => ({
     header: {
       maxWidth: "7.5em"
     }
-  },
-  [`@media(max-width: ${theme.smallBreakpoint})`]: {
-    confirmationInfo: {
-      width: theme.containerMobileWidth
-    }
-  },
+  }
 });
 
 const AdmittedPage: React.FunctionComponent<Props> = ({
@@ -78,7 +75,7 @@ const AdmittedPage: React.FunctionComponent<Props> = ({
     <div className={classes.AdmittedPage}>
       {confirmTimestamp && <AttendanceConfirmation />}
       <div className={classes.confirmationInfo}>
-      <h1 className={classes.header}>🎉🎉 You're In! 🎉🎉</h1>
+      <h1 className={classes.header}>🎉 You're In! 🎉</h1>
       <Underline />
       <div className={classes.text}>
         <p>

@@ -27,7 +27,10 @@ const styles = (theme: Theme) => ({
     paddingBottom: "2rem",
     lineHeight: theme.bodyLineHeight,
     fontSize: theme.bodyFontSize,
-    marginBottom: "2rem"
+    marginBottom: "2rem",
+    // fill container
+    width: "100%",
+    boxSizing: "border-box"
   },
   header: {
     padding: "10px"
@@ -36,24 +39,11 @@ const styles = (theme: Theme) => ({
     lineHeight: "1.1em",
     maxWidth: theme.containerMaxWidth
   },
-  [`@media(max-width: ${theme.largeBreakpoint})`]: {
-    AttendanceConfirmation: {
-      width: theme.containerLargeWidth
-    }
-  },
   [`@media(max-width: ${theme.mediumBreakpoint})`]: {
-    AttendanceConfirmation: {
-      width: theme.containerMediumWidth
-    },
     header: {
       maxWidth: "7em"
     }
   },
-  [`@media(max-width: ${theme.smallBreakpoint})`]: {
-    AttendanceConfirmation: {
-      width: theme.containerSmallWidth
-    },
-  }
 });
 
 const AttendanceConfirmation: React.FunctionComponent<Props> = ({
