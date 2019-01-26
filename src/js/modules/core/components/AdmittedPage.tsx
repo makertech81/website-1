@@ -22,7 +22,7 @@ const styles = (theme: Theme) => ({
   },
   confirmationInfo: {
     // fill container
-    width: "100vw",
+    width: "90vw",
     boxSizing: "border-box",
     display: "flex",
     maxWidth: theme.containerMaxWidth,
