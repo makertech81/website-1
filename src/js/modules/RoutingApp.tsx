@@ -12,7 +12,6 @@ import AboutPage from './core/components/AboutPage'
 import RegisterPage from './core/components/RegisterPage'
 import ResetPasswordPage from "./core/components/ResetPasswordPage";
 import ProfilePage from "./core/components/ProfilePage";
-import createBrowserHistory from "history/createBrowserHistory";
 import appHistory from "../appHistory";
 
 class RoutingApp extends React.Component {
