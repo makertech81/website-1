@@ -1,7 +1,8 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as sgMail from "@sendgrid/mail";
-import render from "./AcceptanceEmail";
+import * as express from "express";
+import render from "./AdmittedEmail";
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -49,12 +50,14 @@ export const sendAcceptanceEmail = functions.firestore
       .then(user => {
         const apiKey = functions.config().sendgrid.key;
         sgMail.setApiKey(apiKey);
+        const html = render(user.displayName);
+        console.log(html);
         const msg = {
           to: "nick@nicholasyang.com",
           from: "confirm@hacknyu.org",
           subject: "[ACTION REQUIRED] You're in! Welcome to HackNYU 2019",
           text: "You've been accepted to HackNYU 2019!",
-          html: render(user.displayName)
+          html
         };
         return sgMail.send(msg);
       })
