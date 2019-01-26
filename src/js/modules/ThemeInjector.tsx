@@ -52,6 +52,7 @@ export interface Theme {
   bodyFontSize: string;
   titleFontSize: string;
   formElementMaxWidth: string;
+  pageBorderRadius: string;
 }
 
 const theme: Theme = {
@@ -89,6 +90,7 @@ const theme: Theme = {
   titleFontSize: "2em",
   bodyLineHeight: "1.2",
   formElementMaxWidth: "500px",
+  pageBorderRadius: "8px",
   ...trackColors
 };
 

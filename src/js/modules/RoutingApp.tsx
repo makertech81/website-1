@@ -12,6 +12,8 @@ import AboutPage from "./core/components/AboutPage";
 import RegisterPage from "./core/components/RegisterPage";
 import ResetPasswordPage from "./core/components/ResetPasswordPage";
 import ProfilePage from "./core/components/ProfilePage";
+import CheckInPage from './core/components/CheckInPage';
+import createBrowserHistory from "history/createBrowserHistory";
 import appHistory from "../appHistory";
 import AdmissionResultPage from "./core/components/AdmissionResultPage";
 import NotFoundPage from "./NotFoundPage";
@@ -37,6 +39,7 @@ class RoutingApp extends React.Component {
                 <Route exact path="/apply" component={ApplyPage} />
                 <Route exact path="/my_profile" component={ProfilePage} />
                 <Route exact path="/404" component={NotFoundPage} />
+                <Route exact path="/checkin" component={CheckInPage} />
                 <Redirect to="/404"/>
               </Switch>
             </MainApp>
