@@ -75,9 +75,9 @@ const AttendanceConfirmation: React.FunctionComponent<Props> = ({
       <h1 className={classes.header}> Thanks for responding to us! </h1>
       <Underline />
       <p className={classes.locationMessage}>
-        {locationMessage} {locationToReadable(userData.location)} 😎 <br />{" "}
-        {postMessage}
+        {locationMessage} {locationToReadable(userData.location)} 😎
       </p>
+      <p>{postMessage}</p>
     </div>
   );
 };

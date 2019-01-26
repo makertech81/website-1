@@ -14,6 +14,7 @@ import ResetPasswordPage from "./core/components/ResetPasswordPage";
 import ProfilePage from "./core/components/ProfilePage";
 import appHistory from "../appHistory";
 import AdmissionResultPage from "./core/components/ApplicationStatusPage";
+import PendingPage from "./core/components/PendingPage";
 import NotFoundPage from "./NotFoundPage";
 
 class RoutingApp extends React.Component {
@@ -35,6 +36,7 @@ class RoutingApp extends React.Component {
                   component={ResetPasswordPage}
                 />
                 <Route exact path="/apply" component={ApplyPage} />
+                <Route exact path="/test" component={PendingPage} />
                 <Route exact path="/my_profile" component={ProfilePage} />
                 <Route path="/" component={NotFoundPage} />
               </Switch>

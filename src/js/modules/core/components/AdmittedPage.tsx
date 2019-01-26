@@ -99,12 +99,12 @@ const AdmittedPage: React.FunctionComponent<Props> = ({
           </li>
 
           <li className={classes.statement}>
-            Any student who is or has been enrolled within the last 12 months at
+            Any student who is or has been enrolled <strong>within the last 12 months</strong> at
             a high school or university can participate at the event at our
             Brooklyn, NY location.
           </li>
           <li className={classes.statement}>
-            If you are under 18 years of age at the time of the event, you must
+            If you are <strong>under 18 years of age</strong> at the time of the event, you must
             have your parent(s) or legal guardian(s) print and sign the Minors
             Release Form, which you can access{" "}
             <a
@@ -119,7 +119,7 @@ const AdmittedPage: React.FunctionComponent<Props> = ({
             participate!
           </li>
           <li className={classes.statement}>
-            Finally, HackNYU aims to be a safe and welcoming space for
+            Finally, HackNYU aims to be a <strong>safe and welcoming space</strong> for
             participants. All participants (hackers, volunteers, mentors,
             organizers, etc) must abide by the{" "}
             <a
@@ -131,7 +131,7 @@ const AdmittedPage: React.FunctionComponent<Props> = ({
           </li>
         </ul>
         <p>
-          With that in mind, please fill out the form to confirm that you are
+          With that in mind, please submit out the form to confirm that you are
           attending HackNYU 2019.
         </p>
       </div>

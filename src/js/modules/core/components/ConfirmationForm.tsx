@@ -29,17 +29,16 @@ const styles = (theme: Theme) => ({
     maxWidth: "750px",
   },
   header: {
-    padding: "20px"
+    padding: "0 20px"
   },
   label: {
-    padding: "30px"
+    textAlign: "center"
   },
   form: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     lineHeight: "1.2em",
-    fontSize: "1.2rem",
     padding: "0 0 40px 0",
     width: "500px"
   },
@@ -62,6 +61,10 @@ const styles = (theme: Theme) => ({
     fontSize: "1.3rem",
     border: "none",
     maxWidth: "250px"
+  },
+  resumeUpload: {
+    border: "2px solid #ccc",
+    margin: "10px"
   },
   [`@media(max-width: ${theme.largeBreakpoint})`]: {
     ConfirmationForm: {
@@ -96,7 +99,7 @@ const ConfirmationForm: React.FunctionComponent<Props> = ({
   };
   return (
     <div className={classes.ConfirmationForm}>
-      <h2 className={classes.header}>Confirm your attendance for HackNYU 2019.</h2>
+      <h2 className={classes.header}>Confirm your spot for HackNYU 2019.</h2>
       <Form
         onSubmit={submitConfirmation}
         validate={validateForm}
@@ -121,8 +124,7 @@ const ConfirmationForm: React.FunctionComponent<Props> = ({
                     I won't be able to attend HackNYU 2019.
                   </Radio>
                 </label>
-                <Underline />
-                <div>
+                <div className={classes.resumeUpload}>
                   <UploadResumeButton
                     uid={user.uid}
                     label="Please upload your resume as a PDF, so we can share it
