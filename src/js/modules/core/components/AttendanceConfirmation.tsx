@@ -29,7 +29,7 @@ const styles = (theme: Theme) => ({
     fontSize: theme.bodyFontSize,
     marginBottom: "2rem",
     // fill container
-    width: "100%",
+    width: "100vw",
     boxSizing: "border-box"
   },
   header: {
