@@ -10,7 +10,6 @@ import injectSheet, { WithStyles } from "react-jss";
 import { User } from "firebase";
 import { ReduxState } from "../../../reducers";
 import { connect } from "react-redux";
-import Underline from "./Underline";
 import { bindActionCreators } from "redux";
 import { submitConfirmation } from "../coreActions";
 import { Theme } from "../../ThemeInjector";

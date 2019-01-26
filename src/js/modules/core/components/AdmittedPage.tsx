@@ -22,7 +22,6 @@ const styles = (theme: Theme) => ({
   },
   confirmationInfo: {
     // fill container
-    width: "90vw",
     boxSizing: "border-box",
     display: "flex",
     maxWidth: theme.containerMaxWidth,
@@ -113,16 +112,8 @@ const AdmittedPage: React.FunctionComponent<Props> = ({
               target="_blank"
             >
               here.
-            </a>{" "} Additionally, they must also print and sign the Authorization for Treatment
-            of a Minor Form, which you can access{" "}
-            <a
-              className={classes.link}
-              href="/pdf/minors-authorization-treatment.pdf"
-              target="_blank"
-            >
-              here.
             </a>{" "}
-            Please be sure to bring a physical copy of <strong>both</strong> waivers with you when
+            Please be sure to bring a physical copy of the waiver with you when
             you arrive at HackNYU, otherwise we will not be able to let you
             participate!
           </li>
