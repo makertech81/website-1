@@ -38,7 +38,7 @@ const render = (name: string) => {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <h1 style={{ paddingLeft: "15px" }}> You're In! 🎉 </h1>
+                <h1 style={{ paddingLeft: "15px" }}> You're In! 🎉🎉🎉  </h1>
               </div>
             </div>
           </tr>
