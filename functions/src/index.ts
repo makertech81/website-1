@@ -1,7 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as sgMail from "@sendgrid/mail";
-import * as express from "express";
 import render from "./AcceptanceEmail";
 
 // // Start writing Firebase Functions
@@ -62,7 +61,3 @@ export const sendAcceptanceEmail = functions.firestore
       .then(() => console.log("SENT!"))
       .catch(err => console.error(err));
   });
-
-const app = express();
-app.get("/", (req, res) => res.send(render(undefined)));
-app.listen("3000", () => console.log(`Example app listening on port 3000!`));
