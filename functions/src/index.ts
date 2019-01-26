@@ -1,12 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as sgMail from "@sendgrid/mail";
-<<<<<<< HEAD
-import * as express from "express";
-import render from "./AdmittedEmail";
-=======
 import render from "./AcceptanceEmail";
->>>>>>> e26a87be3d9f19981b732b8c60975c9f246c6dfd
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
