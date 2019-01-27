@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import * as React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import MainApp from "./core/components/MainApp";
 import HomePage from "./core/components/HomePage";
 import { ConnectedRouter } from "connected-react-router";
@@ -14,7 +14,6 @@ import ResetPasswordPage from "./core/components/ResetPasswordPage";
 import ProfilePage from "./core/components/ProfilePage";
 import appHistory from "../appHistory";
 import AdmissionResultPage from "./core/components/ApplicationStatusPage";
-import PendingPage from "./core/components/PendingPage";
 import NotFoundPage from "./NotFoundPage";
 
 class RoutingApp extends React.Component {
@@ -37,7 +36,8 @@ class RoutingApp extends React.Component {
                 />
                 <Route exact path="/apply" component={ApplyPage} />
                 <Route exact path="/my_profile" component={ProfilePage} />
-                <Route path="/" component={NotFoundPage} />
+                <Route path="/404" component={NotFoundPage} />
+                <Redirect to="/404"/>
               </Switch>
             </MainApp>
           </ThemeInjector>
