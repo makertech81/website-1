@@ -51,7 +51,7 @@ export const sendAcceptanceEmail = functions.firestore
         sgMail.setApiKey(apiKey);
         const html = render(user.displayName);
         const msg = {
-          to: "nick@nicholasyang.com",
+          to: user.email,
           from: "confirm@hacknyu.org",
           subject: "[ACTION REQUIRED] You're in! Welcome to HackNYU 2019",
           text: "You've been accepted to HackNYU 2019!",
