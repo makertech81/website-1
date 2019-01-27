@@ -6,7 +6,7 @@ import Underline from "./Underline";
 type Props = WithStyles<typeof styles>;
 
 const styles = (theme: Theme) => ({
-  AdmissionStatus: {
+  PendingPage: {
     display: "flex",
     width: "80vw",
     maxWidth: theme.containerMaxWidth,
@@ -29,12 +29,12 @@ const styles = (theme: Theme) => ({
     maxWidth: "650px"
   },
   [`@media(max-width: ${theme.largeBreakpoint})`]: {
-    AdmissionStatus: {
+    PendingPage: {
       maxWidth: theme.containerLargeWidth
     }
   },
   [`@media(max-width: ${theme.mediumBreakpoint})`]: {
-    AdmissionStatus: {
+    PendingPage: {
       maxWidth: theme.containerMediumWidth
     },
     header: {
@@ -42,7 +42,7 @@ const styles = (theme: Theme) => ({
     }
   },
   [`@media(max-width: ${theme.smallBreakpoint})`]: {
-    AdmissionStatus: {
+    PendingPage: {
       maxWidth: theme.containerMobileWidth
     },
     header: {
@@ -53,7 +53,7 @@ const styles = (theme: Theme) => ({
 
 const PendingPage: React.FunctionComponent<Props> = ({ classes }) => {
   return (
-    <div className={classes.AdmissionStatus}>
+    <div className={classes.PendingPage}>
       <h1 className={classes.header}>APPLICATION STATUS: PENDING</h1>
       <Underline />
       <p className={classes.statusMessage}>
@@ -61,7 +61,7 @@ const PendingPage: React.FunctionComponent<Props> = ({ classes }) => {
         status is still pending. Don't worry, we'll update you on the same soon!
       </p>
       <p className={classes.statusMessage}>
-        "Patience is not simply the abiltiy to wait - it's how we behave while
+        "Patience is not simply the ability to wait - it's how we behave while
         we're waiting" - Joyce Meyer
       </p>
     </div>

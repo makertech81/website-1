@@ -88,7 +88,6 @@ const AttendanceConfirmation: React.FunctionComponent<Props> = ({
 const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user,
   confirmFormData: state.core.confirmForm.formData,
-  confirmForm: state.core.confirmForm
 });
 
 export default compose(

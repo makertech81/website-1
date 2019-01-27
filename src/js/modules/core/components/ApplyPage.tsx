@@ -17,58 +17,7 @@ import { Theme } from "../../ThemeInjector";
 import { ReduxState } from "../../../reducers";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
-
-
-interface Props {
-  classes: any;
-  user: User;
-  push: (route: string) => any;
-  formData: ApplyFormData;
-  submitTimestamp: string;
-  submitApp: (values: ApplyFormData, incompleteFields: IncompleteField[]) => any;
-}
-
-interface FormData {
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-  gender: string;
-  // race / ethnicity
-  isAmericanNative: boolean;
-  isAsianPacificIslander: boolean;
-  isBlackAfricanAmerican: boolean;
-  isHispanic: boolean;
-  isWhiteCaucasian: boolean;
-  isOther: boolean;
-  phoneNumber: string;
-  school: string;
-  nyuSchool?: string;
-  nyuSchoolOther?: string;
-  yearOfStudy: string;
-  major: string;
-  gradYear: string;
-  isFirstTime: string;
-  hearAbout: string;
-  timesParticipated: string;
-  track: string;
-  tshirtSize: string;
-
-  isVeggie: boolean;
-  isVegan: boolean;
-  isKosher: boolean;
-  isHalal: boolean;
-  isGlutenFree: boolean;
-
-  otherDietaryRestrictions: string;
-  allergies: string;
-  codeOfConduct: boolean;
-  privacyPolicy: boolean;
-  resumeTimestamp: string; // timestamp
-
-  emergencyContactNumber: string;
-  emergencyContactName: string;
-  emergencyContactRelation: string;
-};
+import { Link } from "react-router-dom";
 
 const requiredFields = {
   firstName: "First Name",
@@ -91,6 +40,17 @@ const requiredFields = {
 };
 
 const styles = (theme: Theme) => ({
+  admittedAlert: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    maxWidth: "90vw",
+    color: theme.secondFont,
+    backgroundColor: theme.formBackground,
+    borderRadius: "0.5em",
+    fontSize: "1.2rem",
+    padding: "2em"
+  },
   ApplyPage: {
     display: "flex",
     width: "90vw",
@@ -180,6 +140,7 @@ const styles = (theme: Theme) => ({
 });
 
 interface Props extends WithStyles<typeof styles> {
+  isAdmitted: boolean;
   user: User;
   push: (route: string) => any;
   isSubmitting: boolean;
@@ -191,14 +152,22 @@ interface Props extends WithStyles<typeof styles> {
   ) => any;
 }
 
-
 const ApplyPage: React.FunctionComponent<Props> = ({
   classes,
+  isAdmitted,
   isSubmitting,
   user,
   formData,
   submitTimestamp
 }) => {
+  if (isAdmitted) {
+    return (
+      <div className={classes.admittedAlert}>
+        You've already been accepted! Please{" "}
+        <Link to="/status"> confirm your attendance! </Link>
+      </div>
+    );
+  }
   // Checks if values are all filled and puts an empty string if they aren't
   // (so firebase doesn't complain)
   const getIncompleteFields = (values: any): IncompleteField[] => {
@@ -304,7 +273,10 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                   type="tel"
                   placeholder="1-800-867-5309"
                 />
-                <UploadResumeButton uid={user.uid} label="Upload Resume as PDF:" />
+                <UploadResumeButton
+                  uid={user.uid}
+                  label="Upload Resume as PDF:"
+                />
                 <Field
                   name="school"
                   render={props => (
@@ -534,7 +506,7 @@ const ApplyPage: React.FunctionComponent<Props> = ({
                 </label>
                 <FormSpy
                   render={({ form }) => {
-                    const fields = form.getState().values as FormData;
+                    const fields = form.getState().values as ApplyFormData;
                     const incompleteFields = getIncompleteFields(fields);
                     if (!submitTimestamp && incompleteFields.length !== 0) {
                       return (
@@ -572,6 +544,7 @@ const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user,
   formData: state.core.applyForm.formData,
   submitTimestamp: state.core.applyForm.submitTimestamp,
+  isAdmitted: state.core.isAdmitted,
   isSubmitting: state.core.applyForm.isSubmitting
 });
 
