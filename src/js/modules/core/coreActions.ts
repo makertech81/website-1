@@ -80,7 +80,9 @@ const getUserData = (user: User): ThunkResult<void> => (
     .doc(user.uid)
     .get()
     .then(doc => {
-      data = doc.data();
+      // If the user is new, there won't be any data,
+      // so we need a default of empty object
+      data = doc.data() || {};
       return db
         .collection("admitted")
         .doc(user.uid)
