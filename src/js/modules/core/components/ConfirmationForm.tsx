@@ -81,13 +81,15 @@ interface Props extends WithStyles<typeof styles> {
   isSubmitting: boolean;
   submitConfirmation: (values: ConfirmationFormData) => any;
   user: User;
+  confirmForm: ConfirmationFormData | {};
 }
 
 const ConfirmationForm: React.FunctionComponent<Props> = ({
   classes,
   submitConfirmation,
   user,
-  isSubmitting
+  isSubmitting,
+  confirmForm
 }) => {
   const validateForm = (values: ConfirmationFormData): Array<object> => {
     if (values.location !== "cannot-attend") {
@@ -101,6 +103,7 @@ const ConfirmationForm: React.FunctionComponent<Props> = ({
       <h2 className={classes.header}>Confirm your spot for HackNYU 2019.</h2>
       <Form
         onSubmit={submitConfirmation}
+        initialValues={confirmForm}
         validate={validateForm}
         render={({ handleSubmit, pristine, invalid }) => (
           <div>
@@ -196,7 +199,8 @@ const ConfirmationForm: React.FunctionComponent<Props> = ({
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user,
-  isSubmitting: state.core.confirmForm.isSubmitting
+  isSubmitting: state.core.confirmForm.isSubmitting,
+  confirmForm: state.core.confirmForm.formData
 });
 
 const mapDispatchToProps = (dispatch: any) =>

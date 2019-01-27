@@ -88,8 +88,6 @@ const getUserData = (user: User): ThunkResult<void> => (
     })
     .then(doc => {
       data.isAdmitted = doc.exists;
-      console.log("DATA");
-      console.log(data);
       dispatch({ type: GET_FORM_DATA_FULFILLED, payload: data });
       dispatch({ type: LOADING_FULFILLED });
     })
@@ -247,7 +245,7 @@ export const submitConfirmation = (formValues: ConfirmationFormData) => (
         type: SUBMIT_CONFIRM_FULFILLED,
         payload: {
           message: "Confirmation submitted. See you at the hackathon!",
-          data: { confirmData: formValues, confirmTimestamp }
+          data: { formData: formValues, confirmTimestamp }
         }
       });
       window.scroll({ top: 0, left: 0, behavior: "smooth" });

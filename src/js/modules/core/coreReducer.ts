@@ -75,7 +75,7 @@ interface ApplyForm extends Form {
   formData: ApplyFormData | {};
 }
 
-interface ConfirmForm extends Form {
+export interface ConfirmForm extends Form {
   confirmTimestamp?: string;
   formData: ConfirmationFormData | {};
 }
@@ -160,7 +160,7 @@ const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
     case SUBMIT_CONFIRM_PENDING:
       return {
         ...state,
-        confirm: { isSubmitting: true }
+        confirmForm: { ...state.confirmForm, isSubmitting: true }
       };
     case SUBMIT_CONFIRM_FULFILLED: {
       const { message, data } = action.payload;
@@ -168,6 +168,7 @@ const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
       return {
         ...state,
         confirmForm: {
+          ...state.confirmForm,
           ...data
         },
         notifications: {
@@ -179,7 +180,7 @@ const reducer: Reducer<CoreState> = (state = { ...initialState }, action) => {
     case SUBMIT_CONFIRM_REJECTED:
       return {
         ...state,
-        confirm: { isSubmitting: false },
+        confirmForm: { ...state.confirmForm, isSubmitting: false },
         errors: { ...state.errors, confirm: action.payload.message }
       };
     case SUBMIT_APP_PENDING:

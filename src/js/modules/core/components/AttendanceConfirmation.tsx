@@ -10,7 +10,7 @@ import { ReduxState } from "../../../reducers";
 
 interface Props extends WithStyles<typeof styles> {
   user: User;
-  userData: ConfirmationFormData;
+  confirmFormData: ConfirmationFormData
 }
 
 const styles = (theme: Theme) => ({
@@ -47,7 +47,7 @@ const styles = (theme: Theme) => ({
 
 const AttendanceConfirmation: React.FunctionComponent<Props> = ({
   classes,
-  userData
+  confirmFormData
 }) => {
   const locationToReadable = (location: string): string => {
     if (location == "cannot-attend") {
@@ -60,10 +60,9 @@ const AttendanceConfirmation: React.FunctionComponent<Props> = ({
       .join(" ")
       + " 😎";
   };
-
   let isAttending, locationMessage, postMessage;
 
-  isAttending = userData.location !== "cannot-attend";
+  isAttending = confirmFormData.location !== "cannot-attend";
   if (isAttending) {
     locationMessage = "You are confirmed for: ";
     postMessage =
@@ -79,7 +78,7 @@ const AttendanceConfirmation: React.FunctionComponent<Props> = ({
       <h1 className={classes.header}> Thanks for responding to us! </h1>
       <Underline />
       <p className={classes.locationMessage}>
-        {locationMessage} {locationToReadable(userData.location)}
+        {locationMessage} {locationToReadable(confirmFormData.location)}
       </p>
       <p>{postMessage}</p>
     </div>
@@ -88,8 +87,10 @@ const AttendanceConfirmation: React.FunctionComponent<Props> = ({
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.core.user,
-  userData: state.core.confirmForm.formData
+  confirmFormData: state.core.confirmForm.formData,
+  confirmForm: state.core.confirmForm
 });
+
 export default compose(
   injectSheet(styles),
   connect(mapStateToProps)
