@@ -79,7 +79,7 @@ export const getApplicationStats = functions.https.onCall(() => {
         const data = doc.data();
         if (data.school === "New York University") {
           nyuCount = nyuCount + 1;
-          if (data.nyuSchool !== "") {
+          if (data.nyuSchool && data.nyuSchool !== "") {
             // If the map doesn't have the school
             if (data.nyuSchool in nyuSchoolsCount) {
               const count = nyuSchoolsCount[data.nyuSchool];
