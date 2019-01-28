@@ -56,6 +56,9 @@ const render = (name: string) => {
                 Abu Dhabi over 48 hours. It is completely free, thanks to our
                 wonderful sponsors and volunteers.
               </p>
+              <p>
+                We hope to see you there!
+              </p>
             </div>
           </tr>
           <tr>

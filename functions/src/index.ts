@@ -62,3 +62,59 @@ export const sendAcceptanceEmail = functions.firestore
       .then(() => console.log("SENT!"))
       .catch(err => console.error(err));
   });
+
+export const getApplicationStats = functions.https.onCall(() => {
+  const db = admin.firestore();
+  let nyuCount = 0;
+  let totalCount = 0;
+  let submittedCount = 0;
+  let postGradCount = 0;
+  let under18Count = 0;
+  let nyuSchoolsCount = {};
+  return db
+    .collection("users")
+    .get()
+    .then(snapshot => {
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        if (data.school === "New York University") {
+          nyuCount = nyuCount + 1;
+          if (data.nyuSchool !== "") {
+            // If the map doesn't have the school
+            if (data.nyuSchool in nyuSchoolsCount) {
+              const count = nyuSchoolsCount[data.nyuSchool];
+              nyuSchoolsCount[data.nyuSchool] = count + 1;
+            } else {
+              nyuSchoolsCount[data.nyuSchool] = 1;
+            }
+          }
+        }
+        const age = getAge(data.birthDate);
+        if (age < 18) {
+          under18Count = under18Count + 1;
+        }
+        if (data.yearOfStudy === "post-grad") {
+          postGradCount = postGradCount + 1;
+        }
+        totalCount = totalCount + 1;
+        if (data.submitTimestamp) {
+          submittedCount = submittedCount + 1;
+        }
+      });
+      return {
+        nyuCount,
+        totalCount,
+        submittedCount,
+        nyuSchoolsCount,
+        postGradCount,
+        under18Count
+      };
+    });
+});
+
+const getAge = birthDate => {
+  const birthDateTime = new Date(birthDate).getTime();
+  const ageDiffMs = Date.now() - birthDateTime;
+  const ageDate = new Date(ageDiffMs);
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+};
