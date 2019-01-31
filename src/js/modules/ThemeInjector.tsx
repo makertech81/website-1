@@ -55,7 +55,7 @@ export interface Theme {
   pageBorderRadius: string;
 }
 
-const theme: Theme = {
+export const theme: Theme = {
   backgroundColor: "#57068c",
   secondBackground: "#f5f5f5",
   secondBackgroundHighlight: "#fcfcfc",

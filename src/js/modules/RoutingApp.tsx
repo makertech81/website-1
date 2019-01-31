@@ -12,7 +12,8 @@ import AboutPage from "./core/components/AboutPage";
 import RegisterPage from "./core/components/RegisterPage";
 import ResetPasswordPage from "./core/components/ResetPasswordPage";
 import ProfilePage from "./core/components/ProfilePage";
-import CheckInPage from './core/components/CheckInPage';
+import CheckInCodePage from './core/components/CheckInCodePage';
+import UserCheckInPage from './core/components/UserCheckInPage';
 import createBrowserHistory from "history/createBrowserHistory";
 import appHistory from "../appHistory";
 import AdmissionResultPage from "./core/components/AdmissionResultPage";
@@ -39,7 +40,8 @@ class RoutingApp extends React.Component {
                 <Route exact path="/apply" component={ApplyPage} />
                 <Route exact path="/my_profile" component={ProfilePage} />
                 <Route exact path="/404" component={NotFoundPage} />
-                <Route exact path="/checkin" component={CheckInPage} />
+                <Route exact path="/user-check-in/:uid" component={UserCheckInPage} />
+                <Route exact path="/check-in-code" component={CheckInCodePage} />
                 <Redirect to="/404"/>
               </Switch>
             </MainApp>
