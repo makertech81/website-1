@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
+    // "noImplicitAny": true,
     "sourceMap": true,
     "allowJs": true,
     "target": "es5",
