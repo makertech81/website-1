@@ -1,10 +1,10 @@
 import * as React from "react";
 import injectSheet, { WithStyles } from "react-jss";
-import Underline from "./Underline";
-import { Theme, theme } from "../../ThemeInjector";
+import Underline from "../Underline";
+import { Theme, theme } from "../../../ThemeInjector";
 import { User } from "firebase";
 import * as QRCode from "qrcode.react";
-import { ReduxState } from "../../../reducers";
+import { ReduxState } from "../../../../reducers";
 import { connect } from "react-redux";
 import { compose } from "redux";
 
