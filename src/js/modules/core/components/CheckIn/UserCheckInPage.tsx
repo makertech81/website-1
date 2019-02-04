@@ -88,7 +88,7 @@ class UserCheckInPage extends React.Component<Props> {
         <h1 className={classes.title}> UID: {this.uid} </h1>
         {userData ? 
           <div>
-            <h2>Indentification</h2>
+            <h2>Identification</h2>
             <Info label="First name" value={userData.firstName} />
             <Info label="Last name" value={userData.lastName} />
             <Info label="Birthday" value={userData.birthDate} />
